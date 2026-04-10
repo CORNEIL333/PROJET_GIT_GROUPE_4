@@ -21,6 +21,8 @@ for repo in "$REPOS_DIR"/*.git; do
     echo "  ✅ $name sauvegardé"
 done
 echo "🎉 Sauvegarde terminée dans $BACKUP_DIR/$DATE"
+SIZE=$(du -sh "$BACKUP_DIR/$DATE" | cut -f1)
+echo "📊 Taille totale : $SIZE"
 
 # Rétention : supprimer les sauvegardes de plus de 7 jours
 echo "🧹 Nettoyage des anciennes sauvegardes (7j+)..."
