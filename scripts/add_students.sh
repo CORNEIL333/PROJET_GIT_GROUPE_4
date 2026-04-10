@@ -8,6 +8,11 @@ if [ -z "$COURSE_CODE" ] || [ ! -f "$STUDENT_FILE" ]; then
     exit 1
 fi
 
+if [[ ! "$COURSE_CODE" =~ ^[A-Z0-9]+$ ]]; then
+    echo "❌ Erreur : Le code cours doit être alphanumérique (ex: L3INFO)."
+    exit 1
+fi
+
 echo "👥 Ajout des étudiants au cours $COURSE_CODE..."
 while IFS= read -r student; do
     [ -z "$student" ] && continue
