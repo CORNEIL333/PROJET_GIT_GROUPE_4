@@ -12,8 +12,12 @@ echo "💾 Sauvegarde en cours ($DATE)..."
 mkdir -p "$BACKUP_DIR/$DATE"
 
 for repo in "$REPOS_DIR"/*.git; do
+    [ -d "$repo" ] || continue
     name=$(basename "$repo")
+    echo "  📦 Clonage de $name..."
     git clone --mirror "$repo" "$BACKUP_DIR/$DATE/$name"
-    echo "  ✅ $name"
+    tar -czf "$BACKUP_DIR/$DATE/$name.tar.gz" -C "$BACKUP_DIR/$DATE" "$name"
+    rm -rf "$BACKUP_DIR/$DATE/$name"
+    echo "  ✅ $name sauvegardé"
 done
 echo "🎉 Sauvegarde terminée dans $BACKUP_DIR/$DATE"
