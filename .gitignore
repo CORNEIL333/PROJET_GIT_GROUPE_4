@@ -1,7 +1,4 @@
-*.log
-*.tmp
-*.bak
-.DS_Store
 node_modules/
-__pycache__/
 .env
+*.log
+.DS_Store
