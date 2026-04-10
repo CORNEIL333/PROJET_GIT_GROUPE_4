@@ -7,6 +7,10 @@ Ce projet permet aux étudiants et enseignants de gérer leurs projets académiq
 - Gestion des dépôts par étudiant / groupe
 - Interface d'administration pour les enseignants
 - Scripts d'automatisation (création de comptes, dépôts, backups)
+  - `install.sh` : Configure l'environnement serveur
+  - `backup.sh` : Sauvegarde périodique des dépôts
+  - `add_students.sh` : Importation massive d'étudiants
+  - `create_course_repo.sh` : Création rapide de dépôts de cours
 - Documentation complète
 
 ## 📁 Structure du projet
