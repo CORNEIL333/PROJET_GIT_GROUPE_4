@@ -25,5 +25,11 @@ if ! command -v git &> /dev/null; then
 fi
 
 mkdir -p /home/git/repos /home/git/backups /home/git/logs
+
+echo -e "${GREEN}📂 Structure de dossiers créée :${NC}"
+echo "  - /home/git/repos (Dépôts)"
+echo "  - /home/git/backups (Sauvegardes)"
+echo "  - /home/git/logs (Logs)"
+
 echo -e "${GREEN}✅ Installation terminée !${NC}"
 echo "👉 Consultez docs/installation_serveur.md pour la suite."
