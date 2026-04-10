@@ -12,7 +12,12 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+LOG_FILE="/var/log/uni-git-install.log"
+touch $LOG_FILE
+exec > >(tee -a "$LOG_FILE") 2>&1
+
 echo -e "${BLUE}🎓 Installation de la plateforme Git Universitaire...${NC}"
+echo "📅 Date : $(date)"
 
 if ! command -v git &> /dev/null; then
     echo -e "${BLUE}📦 Installation de Git...${NC}"
