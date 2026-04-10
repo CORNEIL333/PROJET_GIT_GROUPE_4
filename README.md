@@ -40,10 +40,11 @@ cd PROJET_GIT_GROUPE_4
 bash scripts/install.sh
 ```
 
-## 👥 Équipe
-- Administrateurs : gérer les utilisateurs et les dépôts
-- Enseignants : créer des dépôts de cours, corriger les travaux
-- Étudiants : soumettre leurs projets via Git
+## 👥 Équipe (Groupe 4)
+- **Chef de projet** : Coordination et architecture
+- **Développeurs Backend** : Scripts Bash et configuration serveur
+- **Développeur Frontend** : Interface web et UX
+- **Responsable Documentation** : Guides et manuels d'utilisation
 
 ## 🤝 Contribution
 Les contributions sont les bienvenues !
