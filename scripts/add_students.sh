@@ -17,13 +17,15 @@ fi
 
 if $DRY_RUN; then echo "🧪 MODE SIMULATION (aucune modification réelle)"; fi
 
+COUNT=0
 echo "👥 Ajout des étudiants au cours $COURSE_CODE..."
 while IFS= read -r student; do
     [ -z "$student" ] && continue
+    ((COUNT++))
     if $DRY_RUN; then
-        echo "  [SIMUL] ➕ $student"
+        echo "  [$COUNT] [SIMUL] ➕ $student"
     else
-        echo "  ➕ $student"
+        echo "  [$COUNT] ➕ $student"
     fi
 done < "$STUDENT_FILE"
-echo "✅ Étudiants ajoutés."
+echo "✅ $COUNT étudiants traités."
