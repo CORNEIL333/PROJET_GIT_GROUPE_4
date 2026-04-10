@@ -19,6 +19,13 @@ uni-git-project/
 └── frontend/       → Interface web simple (HTML/CSS/JS)
 ```
 
+## 📋 Prérequis
+Avant de commencer, assurez-vous d'avoir :
+- Un serveur Linux (Ubuntu 22.04+ recommandé)
+- Accès `sudo` ou utilisateur `root`
+- Git installé (si absent, le script d'installation le fera)
+- Bash 4.0+
+
 ## ⚙️ Installation rapide
 ```bash
 # Cloner le projet
