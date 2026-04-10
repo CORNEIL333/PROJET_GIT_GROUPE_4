@@ -45,5 +45,13 @@ bash scripts/install.sh
 - Enseignants : créer des dépôts de cours, corriger les travaux
 - Étudiants : soumettre leurs projets via Git
 
+## 🤝 Contribution
+Les contributions sont les bienvenues !
+1. Forkez le projet
+2. Créez votre branche (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Pushez sur la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
 ## 📄 Licence
 Usage interne universitaire uniquement.
