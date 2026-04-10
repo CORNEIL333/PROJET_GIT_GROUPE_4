@@ -21,3 +21,8 @@ for repo in "$REPOS_DIR"/*.git; do
     echo "  ✅ $name sauvegardé"
 done
 echo "🎉 Sauvegarde terminée dans $BACKUP_DIR/$DATE"
+
+# Rétention : supprimer les sauvegardes de plus de 7 jours
+echo "🧹 Nettoyage des anciennes sauvegardes (7j+)..."
+find "$BACKUP_DIR" -type d -mtime +7 -exec rm -rf {} +
+echo "✅ Nettoyage terminé."
