@@ -19,5 +19,14 @@ fi
 echo "📁 Création du dépôt : $COURSE_NAME ($COURSE_CODE)"
 sudo -u git git init --bare "$REPO_PATH"
 echo "$COURSE_NAME" | sudo tee "$REPO_PATH/description" > /dev/null
+
+# Installation du hook par défaut
+HOOK_SRC="config/hooks_post-receive.sh"
+if [ -f "$HOOK_SRC" ]; then
+    sudo cp "$HOOK_SRC" "$REPO_PATH/hooks/post-receive"
+    sudo chmod +x "$REPO_PATH/hooks/post-receive"
+    echo "  ⚓ Hook post-receive installé."
+fi
+
 echo "✅ Dépôt créé : $REPO_PATH"
 echo "👉 Cloner avec : git clone git@serveur:$COURSE_CODE.git"
