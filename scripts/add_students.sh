@@ -10,6 +10,11 @@ if [ -z "$COURSE_CODE" ] || [ ! -f "$STUDENT_FILE" ]; then
     exit 1
 fi
 
+if [ ! -s "$STUDENT_FILE" ]; then
+    echo "⚠️ Le fichier $STUDENT_FILE est vide."
+    exit 0
+fi
+
 if [[ ! "$COURSE_CODE" =~ ^[A-Z0-9]+$ ]]; then
     echo "❌ Erreur : Le code cours doit être alphanumérique (ex: L3INFO)."
     exit 1
