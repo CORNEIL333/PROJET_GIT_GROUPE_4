@@ -22,8 +22,8 @@ uni-git-project/
 ## ⚙️ Installation rapide
 ```bash
 # Cloner le projet
-git clone https://github.com/votre-universite/uni-git-project.git
-cd uni-git-project
+git clone https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4.git
+cd PROJET_GIT_GROUPE_4
 
 # Lancer le script d'installation
 bash scripts/install.sh
