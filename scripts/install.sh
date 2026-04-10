@@ -7,6 +7,11 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+if [[ $EUID -ne 0 ]]; then
+   echo -e "${RED}❌ Ce script doit être exécuté en tant que root (ou via sudo)${NC}" 
+   exit 1
+fi
+
 echo -e "${BLUE}🎓 Installation de la plateforme Git Universitaire...${NC}"
 
 if ! command -v git &> /dev/null; then
