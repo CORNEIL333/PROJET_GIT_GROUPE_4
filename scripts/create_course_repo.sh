@@ -10,6 +10,12 @@ if [ -z "$COURSE_CODE" ] || [ -z "$COURSE_NAME" ]; then
 fi
 
 REPO_PATH="$REPO_DIR/$COURSE_CODE.git"
+
+if [ -d "$REPO_PATH" ]; then
+    echo "❌ Erreur : Le dépôt $COURSE_CODE existe déjà."
+    exit 1
+fi
+
 echo "📁 Création du dépôt : $COURSE_NAME ($COURSE_CODE)"
 sudo -u git git init --bare "$REPO_PATH"
 echo "$COURSE_NAME" | sudo tee "$REPO_PATH/description" > /dev/null
