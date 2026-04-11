@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Git Universitaire — Espace collaboratif étudiant</title>
-  <!-- Google Fonts & Font Awesome -->
+  <title>Git Universitaire — Portail Central</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: linear-gradient(145deg, #fef9f0 0%, #fff7eb 100%); color: #1e2a3e; line-height: 1.5; scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
     
-    /* Dark mode variables and overrides */
     body.dark-theme { background: linear-gradient(145deg, #121826 0%, #1a2235 100%); color: #e2e8f0; }
     body.dark-theme .navbar { background: rgba(18, 24, 38, 0.85); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-    body.dark-theme .nav-links a { color: #cbd5e1; }
+    body.dark-theme .nav-links a, body.dark-theme .role-indicator { color: #cbd5e1; }
     body.dark-theme .nav-links a:hover { color: #e67e22; }
     body.dark-theme .hero-text h2 { background: linear-gradient(130deg, #e2e8f0, #e67e22); -webkit-background-clip: text; color: transparent; }
     body.dark-theme .hero-text p { color: #94a3b8; }
@@ -29,6 +27,8 @@
     body.dark-theme .btn-secondary { background: rgba(230, 126, 34, 0.1); color: #e67e22; border-color: #e67e22; }
     body.dark-theme .btn-secondary:hover { background: rgba(230, 126, 34, 0.2); }
     body.dark-theme .hero-illustration { background: rgba(30, 41, 59, 0.6); }
+    body.dark-theme .modal-content { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); }
+    body.dark-theme .student-row { border-bottom: 1px solid rgba(255,255,255,0.1); }
 
     .bg-blob { position: fixed; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,215,150,0.25) 0%, rgba(255,225,180,0.1) 70%, transparent 100%); border-radius: 70% 30% 60% 40% / 40% 50% 50% 60%; z-index: -2; pointer-events: none; filter: blur(70px); }
     .bg-blob-2 { position: fixed; bottom: -15%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(145, 186, 255, 0.2), rgba(100, 145, 240, 0.05)); border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; filter: blur(80px); z-index: -2; pointer-events: none; }
@@ -60,12 +60,12 @@
     .section-title:before, .section-title:after { content: "⚡"; font-size: 1.5rem; opacity: 0.6; }
     
     .cards-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1.5rem 2rem 3rem; }
-    .card { background: rgba(255, 253, 248, 0.9); backdrop-filter: blur(2px); border-radius: 2rem; padding: 1.8rem 1.5rem; width: 270px; transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); border: 1px solid rgba(235, 200, 150, 0.6); box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08); }
+    .card { background: rgba(255, 253, 248, 0.9); backdrop-filter: blur(2px); border-radius: 2rem; padding: 1.8rem 1.5rem; width: 270px; transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); border: 1px solid rgba(235, 200, 150, 0.6); box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08); cursor: pointer; }
+    .card:hover { transform: translateY(-8px); border-color: #e67e22; }
     .card-icon { font-size: 2.6rem; margin-bottom: 1rem; display: inline-block; background: #fff0e0; padding: 0.6rem; border-radius: 1.2rem; color: #e67e22; }
     .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.7rem; letter-spacing: -0.2px; }
     .card p { color: #4a5b4e; font-size: 0.9rem; margin-bottom: 1.3rem; }
     .card-link { font-weight: 600; text-decoration: none; color: #e67e22; display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; }
-    .card-link:hover i { transform: translateX(5px); }
     
     .activity-preview { background: #fffaf2; border-radius: 3rem; margin: 1rem 2rem 2rem 2rem; padding: 2rem 2rem; border: 1px solid #ffe1bf; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.05); }
     .activity-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.5rem; }
@@ -85,14 +85,22 @@
     .social-icons { display: flex; gap: 1rem; margin-top: 0.5rem; }
     .social-icons a { background: #3e3329; padding: 0.5rem; border-radius: 50%; display: inline-flex; transition: 0.2s; }
     .copyright { text-align: center; margin-top: 2rem; padding-top: 1rem; font-size: 0.75rem; border-top: 1px solid #4e3e30; }
+
+    /* Modales and Role Views */
+    .role-indicator { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #2c3e2f; background: rgba(230, 126, 34, 0.15); padding: 5px 15px; border-radius: 30px; }
+    .logout-btn { color: #c0392b; cursor: pointer; text-decoration: underline; font-size: 0.85rem; }
     
-    @media (max-width: 780px) {
-      .navbar { flex-direction: column; gap: 1rem; }
-      .hero-text h2 { font-size: 2.2rem; }
-      .hero-illustration i { font-size: 5rem; }
-      .btn-group .btn { padding: 0.6rem 1.2rem; }
-      .section-title { font-size: 1.6rem; }
-    }
+    #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 75vh; text-align: center; }
+    #login-screen h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #d35400;}
+    #login-screen p { color: #666; margin-bottom: 2rem; max-width: 500px;}
+    
+    /* Attendance Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+    .modal-content { background: white; padding: 2rem; border-radius: 20px; width: 90%; max-width: 500px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+    .student-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .absent-btn { background: #e74c3c; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    .absent-btn:hover { background: #c0392b; }
+    .present-btn { background: #27ae60; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.2s; }
   </style>
 </head>
 <body>
@@ -105,83 +113,97 @@
     <i class="fas fa-code-branch"></i>
     <span>GitUniversitaire</span>
   </div>
-  <div class="nav-links">
-    <a href="#"><i class="fas fa-home"></i> Accueil</a>
-    <a href="#"><i class="fas fa-folder-open"></i> Dépôts</a>
-    <a href="#"><i class="fas fa-chalkboard-user"></i> Cours</a>
-    <a href="#"><i class="fas fa-users"></i> Groupes</a>
-    <a href="#"><i class="fas fa-shield-alt"></i> Admin</a>
+  
+  <div class="nav-links" id="nav-actions" style="display:none;">
+    <a href="#" class="no-action"><i class="fas fa-home"></i> Accueil</a>
+    <a href="#" class="no-action"><i class="fas fa-folder-open"></i> Dépôts</a>
+    <div class="role-indicator" id="roleBadge"></div>
+    <span class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Quitter</span>
     <button id="themeToggle" class="theme-toggle" title="Changer le thème"><i class="fas fa-moon"></i></button>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-text">
-    <div class="badge">
-      <i class="fas fa-graduation-cap"></i> Université numérique — rentrée 2025
+<!-- ECRAN DE CONNEXION -->
+<div id="login-screen">
+  <h1>Bienvenue sur Git Universitaire</h1>
+  <p>Accédez à vos dépôts de code et au suivi pédagogique (Présences/Absences). Quelle est votre fonction ?</p>
+  
+  <div class="cards-grid">
+    <div class="card" onclick="login('etudiant')">
+      <div class="card-icon" style="color:#2980b9; background:rgba(41, 128, 185, 0.1);"><i class="fas fa-user-graduate"></i></div>
+      <h3>Je suis Étudiant</h3>
+      <p>Consultation de mes dépôts, rendus de TP et suivi de mes propres absences.</p>
     </div>
-    <h2>Git pensé pour les<br>étudiants & profs</h2>
-    <p>Versionnez vos TPs, partagez vos rapports, collaborez sans perdre le fil. Une plateforme vivante, libre et faite pour vous.</p>
-    <div class="btn-group">
-      <button class="btn" id="loginBtn"><i class="fas fa-rocket"></i> Se connecter</button>
-      <button class="btn btn-secondary" id="guideBtn"><i class="fas fa-compass"></i> Guide étudiant (Backup)</button>
+    
+    <div class="card" onclick="login('professeur')">
+      <div class="card-icon" style="color:#27ae60; background:rgba(39, 174, 96, 0.1);"><i class="fas fa-chalkboard-teacher"></i></div>
+      <h3>Je suis Enseignant</h3>
+      <p>Création de cours, révision des TPs et appel de présence de la classe.</p>
     </div>
-  </div>
-  <div class="hero-illustration">
-    <i class="fas fa-diagram-project"></i>
-    <!-- petit clin d'oeil graphique -->
-    <div style="margin-top: 10px; font-size: 0.75rem; color:#bc6f2c;">✨ collaboration fluide</div>
-  </div>
-</section>
-
-<div class="section-title">
-  <span>Services clés</span>
-</div>
-
-<div class="cards-grid">
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-database"></i></div>
-    <h3>Mes Dépôts</h3>
-    <p>TP notés, projets perso, archives — tout votre code et documents centralisés.</p>
-    <a href="#" class="card-link">Explorer <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-book-open"></i></div>
-    <h3>Cours interactifs</h3>
-    <p>Ressources partagées par les enseignants, supports et exercices corrigés.</p>
-    <a href="#" class="card-link">Accéder <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-people-arrows"></i></div>
-    <h3>Groupes Projets</h3>
-    <p>Collaborez en équipe, revues de code, branches dédiées et merge requests.</p>
-    <a href="#" class="card-link">Rejoindre <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-user-cog"></i></div>
-    <h3>Supervision</h3>
-    <p>Espace admin : gestion des permissions, statistiques et dépôts institutionnels.</p>
-    <a href="#" class="card-link">Gérer <i class="fas fa-arrow-right"></i></a>
+    
+    <div class="card" onclick="login('parent')">
+      <div class="card-icon" style="color:#8e44ad; background:rgba(142, 68, 173, 0.1);"><i class="fas fa-user-friends"></i></div>
+      <h3>Je suis Parent</h3>
+      <p>Suivi exclusif des performances et du compteur d'absences de mon enfant.</p>
+    </div>
   </div>
 </div>
 
-<div class="activity-preview">
-  <div class="activity-header">
-    <h3><i class="fas fa-waveform"></i> Derniers remous collaboratifs</h3>
-    <a href="#" class="mock-link">Voir le flux <i class="fas fa-chevron-right"></i></a>
-  </div>
-  <div class="repo-list">
-    <!-- Données chargées par l'API backend -->
-    <div class="repo-item" style="opacity: 0.5;">
-      <i class="fas fa-spinner fa-spin"></i>
-      <div class="repo-info">
-        <strong>Chargement...</strong>
-        <span>Connexion à l'API en cours</span>
+<!-- LE TABLEAU DE BORD PRINCIPAL -->
+<div id="dashboard" style="display:none;">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="badge" id="hero-badge">
+        <i class="fas fa-graduation-cap"></i> Université numérique — rentrée 2025
+      </div>
+      <h2 id="hero-title">Espace Collaboratif</h2>
+      <p id="hero-desc">Versionnez vos TPs, partagez vos rapports, collaborez sans perdre le fil.</p>
+      <div class="btn-group" id="hero-buttons">
+        <button class="btn" class="no-action"><i class="fas fa-compass"></i> Accéder au Guide</button>
       </div>
     </div>
+    <div class="hero-illustration">
+      <i class="fas fa-diagram-project" id="hero-icon"></i>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <span>Services & Suivi</span>
   </div>
-  <div style="margin-top: 1rem; text-align: right; font-size:0.8rem;">
-    <i class="fas fa-code-pull-request"></i> +12 pull requests ouvertes cette semaine
+
+  <div class="cards-grid" id="dashboard-widgets">
+    <!-- Visible par tous -->
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-database"></i></div>
+      <h3>Dépôts Git</h3>
+      <p>Code source, rapports et archives centralisés.</p>
+      <a href="#" class="card-link no-action">Explorer <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <!-- Visible: Etudiant et Parent -->
+    <div class="card student-parent-only" id="absences-card">
+      <div class="card-icon" style="color:#c0392b; background:rgba(231, 76, 60, 0.1);"><i class="fas fa-user-clock"></i></div>
+      <h3 id="absences-title">Mes Absences</h3>
+      <p>Total: <strong id="absence-counter" style="color:#c0392b; font-size:1.2rem;">0</strong> absences non justifiées cette année.</p>
+      <a href="#" class="card-link no-action">Justificatifs <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <!-- Visible: Enseignant -->
+    <div class="card teacher-only">
+      <div class="card-icon" style="color:#27ae60; background:rgba(39, 174, 96, 0.1);"><i class="fas fa-clipboard-list"></i></div>
+      <h3>Faire l'Appel</h3>
+      <p>Saisissez les présences et absences de vos étudiants en direct.</p>
+      <a href="#" class="card-link" onclick="openAttendanceModal()"><i class="fas fa-check-double"></i> Ouvrir le Registre</a>
+    </div>
+  </div>
+
+  <div class="activity-preview">
+    <div class="activity-header">
+      <h3><i class="fas fa-waveform"></i> Dernières Activités Git</h3>
+    </div>
+    <div class="repo-list" id="repo-list">
+      <!-- Données chargées dynamiquement -->
+    </div>
   </div>
 </div>
 
@@ -189,145 +211,183 @@
   <div class="footer-content">
     <div class="footer-col">
       <h4><i class="fas fa-graduation-cap"></i> Git Universitaire</h4>
-      <p>Initiative portée par les étudiants de l'Université<br>Libre accès, code ouvert, collaboration éthique.</p>
+      <p>Initiative portée par la communauté universitaire 🇨🇲</p>
     </div>
     <div class="footer-col">
       <h4>Ressources</h4>
-      <p><a href="#"><i class="fas fa-question-circle"></i> Aide & FAQ</a></p>
-      <p><a href="#"><i class="fab fa-markdown"></i> Tutoriel Git</a></p>
-      <p><a href="#"><i class="fas fa-shield"></i> Charte étudiante</a></p>
+      <p><a href="#" class="no-action">Aide & FAQ</a></p>
+      <p><a href="#" class="no-action">Mentions légales</a></p>
     </div>
-    <div class="footer-col">
-      <h4>Communauté</h4>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-discord"></i></a>
-        <a href="#"><i class="fab fa-mastodon"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      <p style="margin-top:12px;">📢 <a href="#">Événements & ateliers Git</a></p>
-    </div>
-  </div>
-  <div class="copyright">
-    <span>🎓 Développé avec <i class="fas fa-heart" style="color:#e67e22;"></i> par la communauté universitaire 🇨🇲 · 2025</span>
   </div>
 </footer>
 
+<!-- Modale Faire l'Appel (Enseignant uniquement) -->
+<div class="modal-overlay" id="attendanceModal">
+  <div class="modal-content">
+    <h2 style="margin-bottom: 20px;"><i class="fas fa-clipboard-user"></i> Appel de la Classe</h2>
+    <div id="student-list-modal">
+      <!-- Rempli en JS -->
+    </div>
+    <button class="btn btn-secondary" onclick="closeAttendanceModal()" style="margin-top: 20px; width: 100%;">Terminer l'appel</button>
+  </div>
+</div>
+
 <script>
+  let absencesDatabase = parseInt(localStorage.getItem('absences_student_1')) || 0;
+
+  // Fake database for the teacher view
+  const classList = [
+    { id: 1, name: 'Jean Dupont' },
+    { id: 2, name: 'Marie Martin' },
+    { id: 3, name: 'Ali Kaba' }
+  ];
+
+  function login(role) {
+      localStorage.setItem('userRole', role);
+      location.reload();
+  }
+
+  function logout() {
+      localStorage.removeItem('userRole');
+      location.reload();
+  }
+
+  function openAttendanceModal() {
+      const modal = document.getElementById('attendanceModal');
+      const list = document.getElementById('student-list-modal');
+      list.innerHTML = '';
+      
+      // on force le rafraichissement du chiffre de l'étudiant 1
+      absencesDatabase = parseInt(localStorage.getItem('absences_student_1')) || 0;
+
+      classList.forEach(student => {
+          // On lie le premier étudiant à notre compteur
+          let absences = student.id === 1 ? absencesDatabase : 0;
+          
+          list.innerHTML += `
+            <div class="student-row">
+              <div>
+                <strong>${student.name}</strong><br>
+                <small style="color:gray;">${absences} absence(s)</small>
+              </div>
+              <div>
+                <button class="absent-btn" onclick="markAbsent(${student.id})">Absent</button>
+              </div>
+            </div>
+          `;
+      });
+      modal.style.display = 'flex';
+  }
+
+  function closeAttendanceModal() {
+      document.getElementById('attendanceModal').style.display = 'none';
+      location.reload(); // Pour rafraichir si on passe sur un autre écran
+  }
+
+  function markAbsent(id) {
+      if (id === 1) { // Simulation sur l'étudiant maitre
+          absencesDatabase++;
+          localStorage.setItem('absences_student_1', absencesDatabase);
+      }
+      showFriendlyMessage('🔴 Absence enregistrée pour l\'étudiant.', 'success');
+      openAttendanceModal(); // refresh modale
+  }
+
+  function showFriendlyMessage(msg, type = "success") {
+      const toast = document.createElement('div');
+      toast.innerText = msg;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '25px';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.backgroundColor = '#2c2b26';
+      toast.style.color = '#ffefcf';
+      toast.style.padding = '12px 24px';
+      toast.style.borderRadius = '60px';
+      toast.style.fontSize = '0.9rem';
+      toast.style.fontWeight = '500';
+      toast.style.zIndex = '999';
+      toast.style.borderLeft = type === "warning" ? '4px solid #f39c12' : '4px solid #e67e22';
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 3000);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    // 🌙 Dark Mode logic
-    const themeToggleBtn = document.getElementById('themeToggle');
-    if (themeToggleBtn) {
-        // Obtenir le thème stocké ou le thème système par défaut
-        const currentTheme = localStorage.getItem('theme') || 
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-        }
+      // Configuration Thème
+      const themeToggleBtn = document.getElementById('themeToggle');
+      if (themeToggleBtn) {
+          if (localStorage.getItem('theme') === 'dark') {
+              document.body.classList.add('dark-theme');
+              themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+          }
+          themeToggleBtn.addEventListener('click', () => {
+              document.body.classList.toggle('dark-theme');
+              localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+              themeToggleBtn.innerHTML = document.body.classList.contains('dark-theme') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+          });
+      }
 
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            let theme = 'light';
-            if (document.body.classList.contains('dark-theme')) {
-                theme = 'dark';
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-            localStorage.setItem('theme', theme);
-        });
-    }
+      const role = localStorage.getItem('userRole');
 
-    // Fonctionnalités UI Existantes
-    const loginBtn = document.getElementById('loginBtn');
-    const guideBtn = document.getElementById('guideBtn');
-    
-    function showFriendlyMessage(msg) {
-        const toast = document.createElement('div');
-        toast.innerText = msg;
-        toast.style.position = 'fixed';
-        toast.style.bottom = '25px';
-        toast.style.left = '50%';
-        toast.style.transform = 'translateX(-50%)';
-        toast.style.backgroundColor = '#2c2b26';
-        toast.style.color = '#ffefcf';
-        toast.style.padding = '12px 24px';
-        toast.style.borderRadius = '60px';
-        toast.style.fontSize = '0.9rem';
-        toast.style.fontWeight = '500';
-        toast.style.backdropFilter = 'blur(8px)';
-        toast.style.zIndex = '999';
-        toast.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
-        toast.style.borderLeft = '4px solid #e67e22';
-        toast.style.transition = 'opacity 0.4s';
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 400);
-        }, 2800);
-    }
+      // Affichage Conditionnel du Rôle
+      if (!role) {
+          document.getElementById('login-screen').style.display = 'flex';
+          document.getElementById('dashboard').style.display = 'none';
+          document.getElementById('nav-actions').style.display = 'none';
+      } else {
+          document.getElementById('login-screen').style.display = 'none';
+          document.getElementById('dashboard').style.display = 'block';
+          document.getElementById('nav-actions').style.display = 'flex';
+          document.getElementById('absence-counter').innerText = absencesDatabase;
 
-    if (loginBtn) {
-        loginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            showFriendlyMessage('🔐 Redirection vers le portail de connexion...');
-        });
-    }
+          const roleBadge = document.getElementById('roleBadge');
+          const heroTitle = document.getElementById('hero-title');
+          const heroIcon = document.getElementById('hero-icon');
+          
+          document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.student-parent-only').forEach(el => el.style.display = 'none');
 
-    if (guideBtn) {
-        guideBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            fetch('/api/run-backup', { method: 'POST' })
-                .then(res => res.json())
-                .then(data => {
-                    showFriendlyMessage('💾 Sauvegarde déclenchée (API): ' + (data.message || 'Succès'));
-                })
-                .catch(err => showFriendlyMessage('📘 Mode hors-ligne: Guide étudiant chargé.'));
-        });
-    }
+          if (role === 'etudiant') {
+              roleBadge.innerHTML = '<i class="fas fa-user-graduate"></i> Étudiant';
+              heroTitle.innerHTML = 'Espace Étudiant';
+              heroIcon.className = 'fas fa-laptop-code';
+              document.querySelectorAll('.student-parent-only').forEach(el => el.style.display = 'block');
 
-    // Charger les dépôts dynamiquement
-    async function loadRepos() {
-        try {
-            const response = await fetch('/api/repos');
-            if (!response.ok) throw new Error('API injoignable');
-            const repos = await response.json();
-            
-            const listDiv = document.querySelector('.repo-list');
-            if(listDiv) {
-                listDiv.innerHTML = ''; 
-                repos.forEach(repo => {
-                listDiv.innerHTML += `
-                    <div class="repo-item" style="cursor: pointer;">
-                        <i class="fas fa-${repo.icon}" style="color:${repo.color}"></i>
-                        <div class="repo-info">
-                            <strong>${repo.name}</strong>
-                            <span>${repo.status}</span>
-                        </div>
-                    </div>`;
-                });
-            }
-            
-            document.querySelectorAll('.repo-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    showFriendlyMessage('📁 Aperçu du dépôt Git ouvert.');
-                });
-            });
-        } catch (err) {
-            console.warn('API non disponible, affichage local par défaut.');
-            document.querySelectorAll('.repo-item').forEach(item => {
-                item.style.cursor = 'pointer';
-                item.addEventListener('click', () => showFriendlyMessage('📁 Aperçu du dépôt (Hors Ligne).'));
-            });
-        }
-    }
+          } else if (role === 'professeur') {
+              roleBadge.innerHTML = '<i class="fas fa-chalkboard-teacher"></i> Enseignant';
+              heroTitle.innerHTML = 'Espace Professeur';
+              heroIcon.className = 'fas fa-chalkboard';
+              document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'block');
 
-    setTimeout(() => {
-        console.log('🎓 API Sync en cours...');
-        loadRepos();
-    }, 400);
+          } else if (role === 'parent') {
+              roleBadge.innerHTML = '<i class="fas fa-user-friends"></i> Parent';
+              heroTitle.innerHTML = 'Suivi d\'Élève';
+              heroIcon.className = 'fas fa-baby-carriage';
+              document.querySelectorAll('.student-parent-only').forEach(el => el.style.display = 'block');
+              document.getElementById('absences-title').innerText = "Absences de l'enfant";
+          }
+
+          // Remplir repositories mock
+          const listDiv = document.getElementById('repo-list');
+          const repos = [
+              { icon: 'git-alt', color: '#d35400', name: 'projet-fin-annee/groupe-A', status: '✅ Modification il y a 2h' },
+              { icon: 'chalkboard', color: '#16a085', name: 'TP-Algorithmique', status: '📚 Corrigés publiés' }
+          ];
+          repos.forEach(repo => {
+              listDiv.innerHTML += `
+                  <div class="repo-item" style="cursor: pointer;" onclick="showFriendlyMessage('📁 Dossier inaccessible en mode démo.')">
+                      <i class="fas fa-${repo.icon}" style="color:${repo.color}"></i>
+                      <div class="repo-info"><strong>${repo.name}</strong><span>${repo.status}</span></div>
+                  </div>`;
+          });
+      }
+
+      document.querySelectorAll('.no-action').forEach(link => {
+          link.addEventListener('click', (e) => {
+              e.preventDefault();
+              showFriendlyMessage('🚀 Fonctionnalité en développement...');
+          });
+      });
   });
 </script>
 </body>
