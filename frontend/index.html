@@ -1,11 +1,9 @@
-Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Git, avec des animations fluides et un suivi visuel des actions. Il s'intègre parfaitement à votre projet GitUniversitaire.
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Git Universitaire — Gestion de Branches</title>
+  <title>Git Universitaire — Gestion de Branches Professionnelle</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -60,14 +58,12 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       min-height: 100vh;
     }
 
-    /* Glass panel & container */
     .glass-container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem 2rem 3rem;
     }
 
-    /* header / nav */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -95,6 +91,7 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       background-clip: text;
       color: transparent;
     }
+
     .theme-toggle {
       background: var(--surface-solid);
       border: 1px solid var(--border);
@@ -105,9 +102,7 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       transition: 0.2s;
       color: var(--text-primary);
     }
-    .theme-toggle i { margin-right: 6px; }
 
-    /* Titres */
     .page-header {
       margin-bottom: 2rem;
     }
@@ -120,12 +115,39 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       background-clip: text;
       color: transparent;
     }
-    .page-header p {
+
+    .stats-bar {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .stat-card i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-label {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 0.3rem;
+    }
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
     }
 
-    /* simulateur git */
     .git-simulator {
       display: flex;
       flex-direction: column;
@@ -185,10 +207,15 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       cursor: pointer;
       transition: 0.2s;
     }
-    .input-group button:hover {
+    .input-group button:hover:not(:disabled) {
       background: var(--accent-hover);
       transform: scale(0.97);
     }
+    .input-group button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .btn-outline {
       background: transparent;
       border: 1px solid var(--border);
@@ -199,21 +226,31 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       cursor: pointer;
       transition: all 0.2s;
     }
-    .btn-outline i { margin-right: 6px; }
-    .btn-outline:hover {
+    .btn-outline:hover:not(:disabled) {
       border-color: var(--accent);
       color: var(--accent);
       background: var(--accent-glow);
     }
-    .btn-danger {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.1);
+    .btn-outline:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
-    /* visualisation graphique */
+    .btn-push {
+      background: var(--info);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-push:hover:not(:disabled) {
+      filter: brightness(0.9);
+      transform: translateY(-1px);
+    }
+
     .branch-visual {
       background: var(--surface-solid);
       border-radius: 1.2rem;
@@ -221,12 +258,14 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       margin-top: 1rem;
       overflow-x: auto;
     }
+
     .git-graph {
       display: flex;
       flex-direction: column;
       gap: 1rem;
       min-width: 500px;
     }
+
     .branch-row {
       display: flex;
       align-items: center;
@@ -234,19 +273,39 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       flex-wrap: wrap;
       border-bottom: 1px dashed var(--border);
       padding: 0.6rem 0;
+      transition: background 0.2s;
     }
+    .branch-row:hover {
+      background: var(--accent-glow);
+      border-radius: 0.5rem;
+    }
+
     .branch-name {
       font-weight: 700;
       font-family: monospace;
       width: 150px;
       font-size: 1rem;
     }
-    .branch-commits {
+
+    .branch-actions {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
     }
+    .branch-action-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.4rem;
+      transition: 0.2s;
+      color: var(--text-muted);
+    }
+    .branch-action-btn:hover {
+      background: var(--danger);
+      color: white;
+    }
+
     .commit-node {
       background: var(--surface);
       border-radius: 40px;
@@ -258,11 +317,14 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       align-items: center;
       gap: 6px;
       transition: 0.1s;
+      cursor: pointer;
     }
-    .commit-node i {
-      font-size: 0.7rem;
-      color: var(--accent);
+    .commit-node:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
     }
+
     .current-badge {
       background: var(--accent);
       color: white;
@@ -271,11 +333,6 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       padding: 0.2rem 0.7rem;
       margin-left: 10px;
       font-weight: 600;
-    }
-    .commit-hash {
-      font-family: monospace;
-      font-size: 0.7rem;
-      color: var(--text-muted);
     }
 
     .history-log {
@@ -286,6 +343,7 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       max-height: 220px;
       overflow-y: auto;
     }
+
     .log-entry {
       font-family: monospace;
       font-size: 0.8rem;
@@ -293,13 +351,25 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       border-bottom: 1px solid var(--border);
       display: flex;
       gap: 10px;
+      animation: slideIn 0.3s ease;
     }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
     .log-time {
       color: var(--text-muted);
       min-width: 65px;
     }
 
-    /* notification */
     .toast-notify {
       position: fixed;
       bottom: 20px;
@@ -321,17 +391,30 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     .toast-notify.show {
       transform: translateX(0);
     }
-    .btn-push {
-      background: var(--info);
-      color: white;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
     }
-    .btn-push:hover {
-      filter: brightness(0.9);
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--surface-solid);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      max-width: 400px;
+      text-align: center;
+      border: 1px solid var(--border);
     }
 
     @media (max-width: 700px) {
@@ -354,10 +437,25 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
   <div class="page-header">
     <h1><i class="fas fa-git-alt"></i> Gestion de branches · simulateur Git</h1>
     <p>Créez, basculez, poussez vos branches localement comme sur GitHub. Expérience interactive éducative.</p>
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card">
+        <i class="fas fa-code-branch"></i>
+        <div class="stat-info">
+          <span class="stat-label">Branches</span>
+          <span class="stat-value" id="branchCount">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-code-commit"></i>
+        <div class="stat-info">
+          <span class="stat-label">Commits totaux</span>
+          <span class="stat-value" id="totalCommits">0</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="git-simulator">
-    <!-- panel commandes -->
     <div class="card-panel">
       <div class="flex-row">
         <h3><i class="fas fa-terminal"></i> Commandes Git simplifiées</h3>
@@ -372,8 +470,9 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
             <input type="text" id="switchBranchName" placeholder="nom branche existante">
             <button id="switchBranchBtn">Basculer</button>
           </div>
-          <button id="commitBtn" class="btn-outline"><i class="fas fa-save"></i> Commit (touch)</button>
-          <button id="pushBtn" class="btn-push"><i class="fab fa-github"></i> Push sur GitHub (simulation)</button>
+          <button id="commitBtn" class="btn-outline"><i class="fas fa-save"></i> Commit</button>
+          <button id="pushBtn" class="btn-push"><i class="fab fa-github"></i> Push sur GitHub</button>
+          <button id="resetBtn" class="btn-outline"><i class="fas fa-trash-alt"></i> Reset</button>
         </div>
       </div>
       <div class="branch-visual">
@@ -381,13 +480,10 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
           <strong><i class="fas fa-diagram-project"></i> Arborescence des branches</strong>
           <span class="commit-hash" id="activeBranchIndicator"></span>
         </div>
-        <div id="gitGraphContainer" class="git-graph">
-          <!-- dynamique JS -->
-        </div>
+        <div id="gitGraphContainer" class="git-graph"></div>
       </div>
     </div>
 
-    <!-- historique actions -->
     <div class="card-panel">
       <h3><i class="fas fa-history"></i> Historique des actions</h3>
       <div id="historyLog" class="history-log">
@@ -395,56 +491,77 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       </div>
     </div>
 
-    <!-- documentation rapide -->
     <div class="card-panel" style="background: var(--surface-solid);">
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between;">
-        <div><i class="fas fa-info-circle" style="color: var(--accent);"></i> <strong>Simulation Git locale</strong> — toutes les branches sont virtuelles. Le "push" simule l'envoi vers un dépôt distant (GitHub) avec affichage de l'état.</div>
-        <div><i class="fas fa-lightbulb"></i> Astuce : créez une branche, commitez plusieurs fois, puis "Push" pour voir le tracking upstream.</div>
+        <div><i class="fas fa-info-circle" style="color: var(--accent);"></i> <strong>Simulation Git locale</strong> — toutes les branches sont virtuelles.</div>
+        <div><i class="fas fa-lightbulb"></i> Astuce : Double-cliquez sur une branche pour la supprimer</div>
       </div>
     </div>
   </div>
 </div>
 
 <div id="toastMsg" class="toast-notify">
-  <i class="fas fa-check-circle" style="color: var(--success);"></i>
+  <i class="fas fa-check-circle"></i>
   <span id="toastText">Action réussie</span>
 </div>
 
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;"></i>
+    <h3>Confirmation</h3>
+    <p id="modalMessage">Êtes-vous sûr de vouloir supprimer cette branche ?</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+      <button id="modalConfirmBtn" class="btn-push" style="background: var(--danger);">Confirmer</button>
+      <button id="modalCancelBtn" class="btn-outline">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  // ----- Modèle de données simulé Git -----
-  let branches = {
-    'main': {
-      commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], // quelques hashs initiaux
-      current: true
-    }
-  };
+  // Configuration avancée
+  const STORAGE_KEY = 'git_simulator_data';
+  let branches = {};
   let currentBranch = 'main';
-  let commitCounter = 100;
-  
-  // Fonction pour générer un hash aléatoire
+  let actionLogs = [];
+  let pendingDeleteBranch = null;
+  let toastTimeout = null;
+  let modalCallback = null;
+
+  // Utilitaires
   function generateHash() {
     return Math.random().toString(36).substring(2, 9);
   }
 
-  // initialiser avec quelques commits fictifs
-  if(branches['main'].commits.length === 0) {
-    branches['main'].commits = ['abc1234', 'def5678'];
+  function saveToLocalStorage() {
+    const data = { branches, currentBranch, actionLogs };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
-  // historique des logs
-  let actionLogs = [
-    { time: new Date().toLocaleTimeString(), text: '📁 Dépôt initialisé avec branche "main" et commits existants.' }
-  ];
+  function loadFromLocalStorage() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        branches = data.branches;
+        currentBranch = data.currentBranch;
+        actionLogs = data.actionLogs || [];
+        return true;
+      } catch(e) {}
+    }
+    return false;
+  }
 
   function addLog(text) {
     const time = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
     actionLogs.unshift({ time, text });
-    if(actionLogs.length > 12) actionLogs.pop();
+    if(actionLogs.length > 20) actionLogs.pop();
     renderHistory();
+    saveToLocalStorage();
   }
 
   function renderHistory() {
     const container = document.getElementById('historyLog');
+    if (!container) return;
     container.innerHTML = actionLogs.map(log => `
       <div class="log-entry">
         <span class="log-time">${log.time}</span>
@@ -453,34 +570,64 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     `).join('');
   }
 
-  // Mise à jour de la visualisation graphique
+  function updateStats() {
+    const branchCount = Object.keys(branches).length;
+    let totalCommits = 0;
+    for (const branch of Object.values(branches)) {
+      totalCommits += branch.commits.length;
+    }
+    document.getElementById('branchCount').textContent = branchCount;
+    document.getElementById('totalCommits').textContent = totalCommits;
+  }
+
   function renderGraph() {
     const container = document.getElementById('gitGraphContainer');
     if(!container) return;
+    
     let html = '';
     for(const [branchName, branchData] of Object.entries(branches)) {
       const isCurrent = (branchName === currentBranch);
       const commitsList = branchData.commits || [];
+      
       html += `
-        <div class="branch-row">
+        <div class="branch-row" data-branch="${branchName}">
           <div class="branch-name">
             <i class="fas fa-code-branch"></i> ${branchName}
             ${isCurrent ? '<span class="current-badge">HEAD</span>' : ''}
           </div>
           <div class="branch-commits">
-            ${commitsList.map(hash => `<div class="commit-node"><i class="fas fa-code-commit"></i> ${hash.substring(0,7)}</div>`).join('')}
+            ${commitsList.map(hash => `<div class="commit-node" data-commit="${hash}"><i class="fas fa-code-commit"></i> ${hash.substring(0,7)}</div>`).join('')}
             ${commitsList.length === 0 ? '<span class="commit-hash" style="font-style:italic;">aucun commit</span>' : ''}
+          </div>
+          <div class="branch-actions">
+            ${!isCurrent && branchName !== 'main' ? `<button class="branch-action-btn" data-action="delete" data-branch="${branchName}" title="Supprimer"><i class="fas fa-trash"></i></button>` : ''}
           </div>
         </div>
       `;
     }
-    // Information upstream simulée
+    
     const upstreamInfo = localStorage.getItem('upstream_sim') || 'Aucune liaison distante';
     document.getElementById('activeBranchIndicator').innerHTML = `🔗 branche active : <strong>${currentBranch}</strong> &nbsp;|&nbsp; 📡 upstream: ${upstreamInfo === 'Aucune liaison distante' ? '❌ pas de remote upstream' : '✓ origin/'+upstreamInfo}`;
     container.innerHTML = html;
+    updateStats();
+    
+    // Attacher les événements aux boutons de suppression
+    document.querySelectorAll('.branch-action-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const branchToDelete = btn.getAttribute('data-branch');
+        confirmDeleteBranch(branchToDelete);
+      });
+    });
+    
+    // Attacher les événements aux commits
+    document.querySelectorAll('.commit-node').forEach(commit => {
+      commit.addEventListener('click', () => {
+        showToast(`Commit ${commit.getAttribute('data-commit')} sélectionné`, "info");
+      });
+    });
   }
 
-  // Rafraîchir l'état upstream simulé
   function refreshUpstreamDisplay() {
     const upstream = localStorage.getItem(`upstream_${currentBranch}`) || null;
     if(upstream) {
@@ -491,7 +638,6 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     renderGraph();
   }
 
-  // Créer une branche
   function createBranch(branchName) {
     if(!branchName || branchName.trim() === '') {
       showToast("⚠️ Nom de branche invalide", "warning");
@@ -502,7 +648,11 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       showToast(`❌ La branche "${branchName}" existe déjà !`, "error");
       return false;
     }
-    // copie des commits de la branche courante
+    if(branchName.length > 50) {
+      showToast("Nom de branche trop long (max 50 caractères)", "warning");
+      return false;
+    }
+    
     const currentCommits = [...(branches[currentBranch]?.commits || [])];
     branches[branchName] = {
       commits: currentCommits,
@@ -511,10 +661,10 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     addLog(`🌱 Création de la branche "${branchName}" depuis "${currentBranch}" (${currentCommits.length} commits hérités)`);
     showToast(`Branche "${branchName}" créée avec succès`, "success");
     renderGraph();
+    saveToLocalStorage();
     return true;
   }
 
-  // basculer
   function switchBranch(branchName) {
     if(!branchName || branchName.trim() === '') {
       showToast("Indiquez un nom de branche valide", "warning");
@@ -529,7 +679,7 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
       showToast(`Vous êtes déjà sur la branche "${branchName}"`, "info");
       return true;
     }
-    // mise à jour current flags
+    
     branches[currentBranch].current = false;
     currentBranch = branchName;
     branches[currentBranch].current = true;
@@ -537,82 +687,122 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     showToast(`HEAD est maintenant sur "${currentBranch}"`, "success");
     refreshUpstreamDisplay();
     renderGraph();
+    saveToLocalStorage();
     return true;
   }
 
-  // faire un commit
+  function deleteBranch(branchName) {
+    if(branchName === 'main') {
+      showToast("Impossible de supprimer la branche principale 'main'", "error");
+      return false;
+    }
+    if(branchName === currentBranch) {
+      showToast("Impossible de supprimer la branche courante. Basculez d'abord vers une autre branche.", "error");
+      return false;
+    }
+    if(!branches[branchName]) {
+      showToast(`La branche "${branchName}" n'existe pas`, "error");
+      return false;
+    }
+    
+    delete branches[branchName];
+    addLog(`🗑️ Suppression de la branche "${branchName}"`);
+    showToast(`Branche "${branchName}" supprimée avec succès`, "success");
+    renderGraph();
+    saveToLocalStorage();
+    return true;
+  }
+
+  function confirmDeleteBranch(branchName) {
+    pendingDeleteBranch = branchName;
+    document.getElementById('modalMessage').textContent = `Êtes-vous sûr de vouloir supprimer la branche "${branchName}" ? Cette action est irréversible.`;
+    document.getElementById('confirmModal').classList.add('active');
+  }
+
   function performCommit() {
     const newHash = generateHash();
     const currentBranchData = branches[currentBranch];
     if(!currentBranchData) return;
-    // ajout du commit
+    
     currentBranchData.commits.push(newHash);
-    addLog(`📝 Commit "${newHash.substring(0,7)}" sur la branche "${currentBranch}" (fichier: interface améliorée)`);
+    addLog(`📝 Commit "${newHash.substring(0,7)}" sur la branche "${currentBranch}"`);
     showToast(`Commit ${newHash.substring(0,7)} créé sur ${currentBranch}`, "success");
     renderGraph();
+    saveToLocalStorage();
   }
 
-  // simulation du push avec upstream tracking
   function simulatePush() {
-    // Vérifier si la branche courante a un upstream configuré (simulation)
     let upstreamBranch = localStorage.getItem(`upstream_${currentBranch}`);
     if(!upstreamBranch) {
-      // premier push: on simule le --set-upstream origin BRANCH
       upstreamBranch = currentBranch;
       localStorage.setItem(`upstream_${currentBranch}`, upstreamBranch);
       localStorage.setItem('upstream_sim', upstreamBranch);
-      addLog(`🚀 git push --set-upstream origin ${currentBranch} → liaison établie avec remote. Branche publiée sur GitHub (simulation).`);
-      showToast(`✅ Upstream configuré : origin/${currentBranch} , push effectué !`, "success");
+      addLog(`🚀 git push --set-upstream origin ${currentBranch} → liaison établie avec remote. Branche publiée sur GitHub.`);
+      showToast(`✅ Upstream configuré : origin/${currentBranch}, push effectué !`, "success");
     } else {
-      addLog(`⬆️ git push origin ${currentBranch} → ${branches[currentBranch].commits.length} commits synchronisés avec le dépôt distant (GitHub simulé).`);
+      addLog(`⬆️ git push origin ${currentBranch} → ${branches[currentBranch].commits.length} commits synchronisés avec le dépôt distant.`);
       showToast(`Push réussi ! La branche ${currentBranch} est à jour sur GitHub.`, "success");
     }
     refreshUpstreamDisplay();
     renderGraph();
   }
 
-  // notification
-  let toastTimeout = null;
+  function resetAll() {
+    if(confirm('⚠️ Réinitialiser toutes les données ? Toutes les branches et commits seront perdus.')) {
+      branches = {
+        'main': {
+          commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'],
+          current: true
+        }
+      };
+      currentBranch = 'main';
+      actionLogs = [{ time: new Date().toLocaleTimeString(), text: '🔄 Réinitialisation complète du simulateur' }];
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('upstream_sim');
+      for(let key in localStorage) {
+        if(key.startsWith('upstream_')) localStorage.removeItem(key);
+      }
+      showToast("Simulateur réinitialisé", "success");
+      renderGraph();
+      renderHistory();
+      saveToLocalStorage();
+    }
+  }
+
   function showToast(message, type = "info") {
     const toast = document.getElementById('toastMsg');
     const textSpan = document.getElementById('toastText');
     const icon = toast.querySelector('i');
-    if(type === "success") {
-      icon.className = "fas fa-check-circle";
-      icon.style.color = "var(--success)";
-    } else if(type === "error") {
-      icon.className = "fas fa-exclamation-triangle";
-      icon.style.color = "var(--danger)";
-    } else if(type === "warning") {
-      icon.className = "fas fa-exclamation-circle";
-      icon.style.color = "var(--warning)";
-    } else {
-      icon.className = "fas fa-info-circle";
-      icon.style.color = "var(--info)";
-    }
+    
+    const icons = {
+      success: "fas fa-check-circle", error: "fas fa-exclamation-triangle",
+      warning: "fas fa-exclamation-circle", info: "fas fa-info-circle"
+    };
+    const colors = {
+      success: "var(--success)", error: "var(--danger)",
+      warning: "var(--warning)", info: "var(--info)"
+    };
+    
+    icon.className = icons[type] || icons.info;
+    icon.style.color = colors[type] || colors.info;
     textSpan.innerText = message;
     toast.classList.add('show');
+    
     if(toastTimeout) clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2800);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2800);
   }
 
-  // thème global (persistant)
   function initTheme() {
     const stored = localStorage.getItem('git_theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = stored === 'dark' || (!stored && prefersDark);
-    if(isDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
+    if(isDark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    
     const btn = document.getElementById('globalThemeToggle');
-    if(btn) {
-      btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> Clair' : '<i class="fas fa-moon"></i> Sombre';
-    }
+    if(btn) btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> Clair' : '<i class="fas fa-moon"></i> Sombre';
   }
+
   function toggleTheme() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     if(isDark) {
@@ -626,9 +816,21 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     showToast(isDark ? "Mode clair activé" : "Mode sombre activé", "info");
   }
 
-  // initialisation des événements et chargement des données mockées supplémentaires
   function bootstrap() {
+    if(!loadFromLocalStorage()) {
+      branches = {
+        'main': { commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], current: true },
+        'HUGO': { commits: [...branches['main']?.commits || ['c1d9a3f', 'e2b8c4d', 'a7f3e92']], current: false }
+      };
+      currentBranch = 'main';
+      branches['main'].current = true;
+      actionLogs = [{ time: new Date().toLocaleTimeString(), text: '📁 Dépôt initialisé avec branches "main" et "HUGO"' }];
+    }
+    
     initTheme();
+    renderGraph();
+    renderHistory();
+    
     document.getElementById('globalThemeToggle').addEventListener('click', toggleTheme);
     document.getElementById('createBranchBtn').addEventListener('click', () => {
       const input = document.getElementById('newBranchName');
@@ -642,28 +844,20 @@ Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Gi
     });
     document.getElementById('commitBtn').addEventListener('click', () => performCommit());
     document.getElementById('pushBtn').addEventListener('click', () => simulatePush());
-
-    // Petite démo: on ajoute une branche "HUGO" exemple pour correspondre au contexte du user
-    if(!branches['HUGO']) {
-      // hérite des commits de main
-      branches['HUGO'] = {
-        commits: [...branches['main'].commits],
-        current: false
-      };
-      addLog(`🌿 Branche exemple "HUGO" préchargée (collaborateur).`);
-    }
-    // s'assurer que main est bien marquée current uniquement si c'est le cas
-    branches['main'].current = (currentBranch === 'main');
-    branches['HUGO'].current = false;
-    if(currentBranch !== 'main') branches[currentBranch].current = true;
-    renderGraph();
-    refreshUpstreamDisplay();
-    renderHistory();
+    document.getElementById('resetBtn').addEventListener('click', () => resetAll());
+    
+    document.getElementById('modalConfirmBtn').addEventListener('click', () => {
+      if(pendingDeleteBranch) deleteBranch(pendingDeleteBranch);
+      document.getElementById('confirmModal').classList.remove('active');
+      pendingDeleteBranch = null;
+    });
+    document.getElementById('modalCancelBtn').addEventListener('click', () => {
+      document.getElementById('confirmModal').classList.remove('active');
+      pendingDeleteBranch = null;
+    });
   }
 
-  // surcharge pour que les logs initiaux restent propres
   bootstrap();
 </script>
 </body>
 </html>
-```
