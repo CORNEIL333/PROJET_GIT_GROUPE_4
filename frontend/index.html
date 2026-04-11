@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Git Universitaire — Gestion de Branches Professionnelle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>Git Universitaire — Gestion de Branches</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,36 +16,36 @@
     }
 
     :root {
-      --bg-gradient: radial-gradient(circle at 10% 20%, rgba(230, 126, 34, 0.03) 0%, rgba(37, 99, 235, 0.02) 90%);
-      --bg-color: #fbfdfc;
-      --surface: rgba(255, 255, 255, 0.75);
+      --bg-gradient: radial-gradient(circle at 10% 20%, rgba(230, 126, 34, 0.05) 0%, rgba(37, 99, 235, 0.03) 90%);
+      --bg-color: #f8fafc;
+      --surface: rgba(255, 255, 255, 0.8);
       --surface-solid: #ffffff;
-      --border: #e9eef3;
-      --text-primary: #0a1c2f;
-      --text-secondary: #2c3e50;
-      --text-muted: #5e7a93;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
       --accent: #e67e22;
-      --accent-glow: rgba(230, 126, 34, 0.2);
+      --accent-glow: rgba(230, 126, 34, 0.15);
       --accent-hover: #cf711f;
       --success: #10b981;
       --danger: #ef4444;
       --warning: #f59e0b;
       --info: #3b82f6;
-      --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-      --blur-amount: 14px;
+      --card-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+      --blur-amount: 16px;
     }
 
     [data-theme="dark"] {
-      --bg-color: #0b1120;
-      --surface: rgba(18, 25, 45, 0.7);
-      --surface-solid: #0f172a;
-      --border: #1e293b;
+      --bg-color: #0f172a;
+      --surface: rgba(30, 41, 59, 0.75);
+      --surface-solid: #1e293b;
+      --border: #334155;
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
-      --text-muted: #7c8ba0;
+      --text-muted: #94a3b8;
       --accent: #f97316;
-      --accent-glow: rgba(249, 115, 22, 0.25);
-      --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      --accent-glow: rgba(249, 115, 22, 0.2);
+      --card-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
     }
 
     body {
@@ -54,38 +54,46 @@
       background-image: var(--bg-gradient);
       color: var(--text-primary);
       line-height: 1.5;
-      transition: background 0.3s ease, color 0.2s ease;
+      transition: all 0.3s ease;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* Container responsive */
     .glass-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem 2rem 3rem;
+      padding: clamp(1rem, 5vw, 2rem);
+      width: 100%;
     }
 
+    /* Navbar responsive */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
+      padding: clamp(0.8rem, 3vw, 1rem) clamp(1rem, 4vw, 2rem);
       background: var(--surface);
       backdrop-filter: blur(var(--blur-amount));
-      border-radius: 2rem;
+      border-radius: clamp(1rem, 4vw, 2rem);
       border: 1px solid var(--border);
-      margin-bottom: 2.5rem;
+      margin-bottom: clamp(1.5rem, 5vw, 2.5rem);
       box-shadow: var(--card-shadow);
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-weight: 800;
-      font-size: 1.6rem;
+      font-size: clamp(1.3rem, 5vw, 1.6rem);
       font-family: 'Outfit', sans-serif;
     }
+
     .logo i {
+      font-size: clamp(1.5rem, 5vw, 1.8rem);
       background: linear-gradient(135deg, var(--accent), #f4a261);
       -webkit-background-clip: text;
       background-clip: text;
@@ -99,162 +107,112 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
       font-weight: 500;
-      transition: 0.2s;
+      transition: all 0.2s;
       color: var(--text-primary);
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
     }
 
-    .page-header {
-      margin-bottom: 2rem;
-    }
+    /* Page header responsive */
     .page-header h1 {
-      font-size: 2.2rem;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
       font-weight: 700;
       font-family: 'Outfit', sans-serif;
-      background: linear-gradient(to right, var(--accent), var(--info));
+      background: linear-gradient(135deg, var(--accent), var(--info));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      margin-bottom: 0.5rem;
     }
 
+    .page-header p {
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      color: var(--text-muted);
+    }
+
+    /* Stats bar responsive */
     .stats-bar {
       display: flex;
-      gap: 1.5rem;
+      gap: clamp(0.8rem, 3vw, 1.5rem);
       margin-top: 1rem;
       flex-wrap: wrap;
     }
+
     .stat-card {
       background: var(--surface);
       border-radius: 1rem;
-      padding: 0.8rem 1.2rem;
+      padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.2rem);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 0.8rem;
+      flex: 1;
+      min-width: 120px;
     }
+
     .stat-card i {
-      font-size: 1.5rem;
-      color: var(--accent);
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
     }
-    .stat-info {
-      display: flex;
-      flex-direction: column;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
+
     .stat-value {
-      font-size: 1.3rem;
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
       font-weight: 700;
     }
 
-    .git-simulator {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .card-panel {
-      background: var(--surface);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 1.5rem;
-      padding: 1.6rem 2rem;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .flex-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    /* Commandes responsive */
     .branch-controls {
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
-      margin-top: 1rem;
+      width: 100%;
     }
 
     .input-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: var(--surface-solid);
       border-radius: 60px;
       padding: 0.2rem 0.2rem 0.2rem 1rem;
       border: 1px solid var(--border);
+      flex: 1;
+      min-width: 200px;
     }
+
     .input-group input {
       background: transparent;
       border: none;
       padding: 0.6rem 0;
-      font-size: 0.9rem;
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
       outline: none;
       color: var(--text-primary);
-      min-width: 180px;
+      width: 100%;
+      min-width: 0;
     }
+
     .input-group button {
       background: var(--accent);
       border: none;
       border-radius: 40px;
-      padding: 0.5rem 1.2rem;
+      padding: 0.5rem clamp(0.8rem, 3vw, 1.2rem);
       font-weight: 600;
       color: white;
       cursor: pointer;
       transition: 0.2s;
-    }
-    .input-group button:hover:not(:disabled) {
-      background: var(--accent-hover);
-      transform: scale(0.97);
-    }
-    .input-group button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      white-space: nowrap;
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 40px;
-      padding: 0.6rem 1.4rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-outline:hover:not(:disabled) {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-glow);
-    }
-    .btn-outline:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .btn-outline, .btn-push {
+      padding: 0.5rem clamp(0.8rem, 3vw, 1.2rem);
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+      white-space: nowrap;
     }
 
-    .btn-push {
-      background: var(--info);
-      color: white;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-push:hover:not(:disabled) {
-      filter: brightness(0.9);
-      transform: translateY(-1px);
-    }
-
+    /* Visualisation graphique responsive */
     .branch-visual {
       background: var(--surface-solid);
       border-radius: 1.2rem;
-      padding: 1.5rem;
+      padding: clamp(1rem, 3vw, 1.5rem);
       margin-top: 1rem;
       overflow-x: auto;
     }
@@ -262,29 +220,50 @@
     .git-graph {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      min-width: 500px;
+      gap: 0.8rem;
+      min-width: 100%;
     }
 
     .branch-row {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
       border-bottom: 1px dashed var(--border);
-      padding: 0.6rem 0;
-      transition: background 0.2s;
-    }
-    .branch-row:hover {
-      background: var(--accent-glow);
-      border-radius: 0.5rem;
+      padding: 0.8rem 0;
     }
 
     .branch-name {
       font-weight: 700;
       font-family: monospace;
-      width: 150px;
-      font-size: 1rem;
+      min-width: 120px;
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .branch-commits {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex: 1;
+    }
+
+    .commit-node {
+      background: var(--surface);
+      border-radius: 40px;
+      padding: 0.2rem 0.7rem;
+      font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+      font-family: monospace;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
     .branch-actions {
@@ -292,135 +271,177 @@
       gap: 0.5rem;
       margin-left: auto;
     }
-    .branch-action-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.4rem;
-      transition: 0.2s;
-      color: var(--text-muted);
-    }
-    .branch-action-btn:hover {
-      background: var(--danger);
-      color: white;
-    }
-
-    .commit-node {
-      background: var(--surface);
-      border-radius: 40px;
-      padding: 0.25rem 0.9rem;
-      font-size: 0.75rem;
-      font-family: monospace;
-      border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: 0.1s;
-      cursor: pointer;
-    }
-    .commit-node:hover {
-      background: var(--accent);
-      color: white;
-      transform: translateY(-2px);
-    }
 
     .current-badge {
       background: var(--accent);
       color: white;
       border-radius: 30px;
-      font-size: 0.7rem;
-      padding: 0.2rem 0.7rem;
-      margin-left: 10px;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.6rem;
       font-weight: 600;
+      white-space: nowrap;
     }
 
+    /* History log responsive */
     .history-log {
-      background: var(--surface-solid);
-      border-radius: 1rem;
-      padding: 0.8rem;
-      margin-top: 1rem;
-      max-height: 220px;
+      max-height: 250px;
       overflow-y: auto;
     }
 
     .log-entry {
-      font-family: monospace;
-      font-size: 0.8rem;
+      font-size: clamp(0.7rem, 2.5vw, 0.8rem);
       padding: 0.4rem 0.6rem;
-      border-bottom: 1px solid var(--border);
       display: flex;
       gap: 10px;
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      flex-wrap: wrap;
     }
 
     .log-time {
-      color: var(--text-muted);
-      min-width: 65px;
+      min-width: 70px;
+      font-size: clamp(0.65rem, 2vw, 0.75rem);
     }
 
+    /* Toast responsive */
     .toast-notify {
-      position: fixed;
       bottom: 20px;
       right: 20px;
-      background: var(--surface-solid);
-      backdrop-filter: blur(12px);
-      border-left: 4px solid var(--accent);
-      padding: 0.9rem 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 1000;
-      transform: translateX(120%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      color: var(--text-primary);
-    }
-    .toast-notify.show {
-      transform: translateX(0);
+      left: auto;
+      padding: 0.8rem 1.2rem;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal.active {
-      display: flex;
-    }
+    /* Modal responsive */
     .modal-content {
-      background: var(--surface-solid);
-      border-radius: 1.5rem;
-      padding: 2rem;
+      margin: 1rem;
+      padding: 1.5rem;
+      width: calc(100% - 2rem);
       max-width: 400px;
-      text-align: center;
-      border: 1px solid var(--border);
     }
 
-    @media (max-width: 700px) {
-      .glass-container { padding: 1rem; }
-      .branch-name { width: 120px; }
-      .flex-row { flex-direction: column; align-items: flex-start; }
+    /* Responsive Design complet */
+    @media (max-width: 1024px) {
+      .branch-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .branch-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+      }
+      
+      .branch-name {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .branch-controls {
+        flex-direction: column;
+      }
+      
+      .input-group {
+        width: 100%;
+      }
+      
+      .stats-bar {
+        flex-direction: column;
+      }
+      
+      .stat-card {
+        width: 100%;
+      }
+      
+      .flex-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .branch-controls {
+        width: 100%;
+      }
+      
+      .btn-outline, .btn-push, .input-group button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .toast-notify {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-container {
+        padding: 0.8rem;
+      }
+      
+      .card-panel {
+        padding: 1rem;
+      }
+      
+      .branch-name {
+        min-width: 100%;
+      }
+      
+      .commit-node {
+        font-size: 0.7rem;
+      }
+      
+      .log-entry {
+        flex-direction: column;
+        gap: 4px;
+      }
+      
+      .log-time {
+        min-width: auto;
+      }
+    }
+
+    /* Animations et effets */
+    .card-panel {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card-panel:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+    
+    button {
+      transition: all 0.2s ease;
+    }
+    
+    button:active {
+      transform: scale(0.96);
+    }
+    
+    /* Scrollbar personnalisée */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-hover);
     }
   </style>
 </head>
@@ -452,6 +473,13 @@
           <span class="stat-value" id="totalCommits">0</span>
         </div>
       </div>
+      <div class="stat-card">
+        <i class="fas fa-users"></i>
+        <div class="stat-info">
+          <span class="stat-label">Collaborateurs</span>
+          <span class="stat-value" id="collabCount">4</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -463,7 +491,7 @@
           <div class="input-group">
             <i class="fas fa-plus-circle" style="color: var(--accent);"></i>
             <input type="text" id="newBranchName" placeholder="nom-branche" value="feature-interface">
-            <button id="createBranchBtn">Créer branche</button>
+            <button id="createBranchBtn">Créer</button>
           </div>
           <div class="input-group">
             <i class="fas fa-code-branch"></i>
@@ -471,12 +499,12 @@
             <button id="switchBranchBtn">Basculer</button>
           </div>
           <button id="commitBtn" class="btn-outline"><i class="fas fa-save"></i> Commit</button>
-          <button id="pushBtn" class="btn-push"><i class="fab fa-github"></i> Push sur GitHub</button>
+          <button id="pushBtn" class="btn-push"><i class="fab fa-github"></i> Push</button>
           <button id="resetBtn" class="btn-outline"><i class="fas fa-trash-alt"></i> Reset</button>
         </div>
       </div>
       <div class="branch-visual">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <strong><i class="fas fa-diagram-project"></i> Arborescence des branches</strong>
           <span class="commit-hash" id="activeBranchIndicator"></span>
         </div>
@@ -494,7 +522,8 @@
     <div class="card-panel" style="background: var(--surface-solid);">
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between;">
         <div><i class="fas fa-info-circle" style="color: var(--accent);"></i> <strong>Simulation Git locale</strong> — toutes les branches sont virtuelles.</div>
-        <div><i class="fas fa-lightbulb"></i> Astuce : Double-cliquez sur une branche pour la supprimer</div>
+        <div><i class="fas fa-lightbulb"></i> Astuce : Cliquez sur une branche pour la supprimer</div>
+        <div><i class="fas fa-mobile-alt"></i> Interface responsive — fonctionne sur mobile, tablette et desktop</div>
       </div>
     </div>
   </div>
@@ -510,7 +539,7 @@
     <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;"></i>
     <h3>Confirmation</h3>
     <p id="modalMessage">Êtes-vous sûr de vouloir supprimer cette branche ?</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
       <button id="modalConfirmBtn" class="btn-push" style="background: var(--danger);">Confirmer</button>
       <button id="modalCancelBtn" class="btn-outline">Annuler</button>
     </div>
@@ -525,9 +554,7 @@
   let actionLogs = [];
   let pendingDeleteBranch = null;
   let toastTimeout = null;
-  let modalCallback = null;
 
-  // Utilitaires
   function generateHash() {
     return Math.random().toString(36).substring(2, 9);
   }
@@ -600,18 +627,17 @@
             ${commitsList.length === 0 ? '<span class="commit-hash" style="font-style:italic;">aucun commit</span>' : ''}
           </div>
           <div class="branch-actions">
-            ${!isCurrent && branchName !== 'main' ? `<button class="branch-action-btn" data-action="delete" data-branch="${branchName}" title="Supprimer"><i class="fas fa-trash"></i></button>` : ''}
+            ${!isCurrent && branchName !== 'main' ? `<button class="branch-action-btn" data-action="delete" data-branch="${branchName}" title="Supprimer la branche"><i class="fas fa-trash"></i> Suppr.</button>` : ''}
           </div>
         </div>
       `;
     }
     
     const upstreamInfo = localStorage.getItem('upstream_sim') || 'Aucune liaison distante';
-    document.getElementById('activeBranchIndicator').innerHTML = `🔗 branche active : <strong>${currentBranch}</strong> &nbsp;|&nbsp; 📡 upstream: ${upstreamInfo === 'Aucune liaison distante' ? '❌ pas de remote upstream' : '✓ origin/'+upstreamInfo}`;
+    document.getElementById('activeBranchIndicator').innerHTML = `🔗 active : <strong>${currentBranch}</strong> | 📡 ${upstreamInfo === 'Aucune liaison distante' ? '❌ pas d\'upstream' : '✓ origin/'+upstreamInfo}`;
     container.innerHTML = html;
     updateStats();
     
-    // Attacher les événements aux boutons de suppression
     document.querySelectorAll('.branch-action-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -620,7 +646,6 @@
       });
     });
     
-    // Attacher les événements aux commits
     document.querySelectorAll('.commit-node').forEach(commit => {
       commit.addEventListener('click', () => {
         showToast(`Commit ${commit.getAttribute('data-commit')} sélectionné`, "info");
@@ -737,11 +762,11 @@
       upstreamBranch = currentBranch;
       localStorage.setItem(`upstream_${currentBranch}`, upstreamBranch);
       localStorage.setItem('upstream_sim', upstreamBranch);
-      addLog(`🚀 git push --set-upstream origin ${currentBranch} → liaison établie avec remote. Branche publiée sur GitHub.`);
-      showToast(`✅ Upstream configuré : origin/${currentBranch}, push effectué !`, "success");
+      addLog(`🚀 git push --set-upstream origin ${currentBranch} → liaison établie avec remote.`);
+      showToast(`✅ Upstream configuré : origin/${currentBranch}`, "success");
     } else {
-      addLog(`⬆️ git push origin ${currentBranch} → ${branches[currentBranch].commits.length} commits synchronisés avec le dépôt distant.`);
-      showToast(`Push réussi ! La branche ${currentBranch} est à jour sur GitHub.`, "success");
+      addLog(`⬆️ git push origin ${currentBranch} → ${branches[currentBranch].commits.length} commits synchronisés.`);
+      showToast(`Push réussi ! La branche ${currentBranch} est à jour.`, "success");
     }
     refreshUpstreamDisplay();
     renderGraph();
@@ -750,10 +775,7 @@
   function resetAll() {
     if(confirm('⚠️ Réinitialiser toutes les données ? Toutes les branches et commits seront perdus.')) {
       branches = {
-        'main': {
-          commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'],
-          current: true
-        }
+        'main': { commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], current: true }
       };
       currentBranch = 'main';
       actionLogs = [{ time: new Date().toLocaleTimeString(), text: '🔄 Réinitialisation complète du simulateur' }];
@@ -820,11 +842,12 @@
     if(!loadFromLocalStorage()) {
       branches = {
         'main': { commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], current: true },
-        'HUGO': { commits: [...branches['main']?.commits || ['c1d9a3f', 'e2b8c4d', 'a7f3e92']], current: false }
+        'HUGO': { commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], current: false },
+        'feature-auth': { commits: ['c1d9a3f', 'e2b8c4d'], current: false }
       };
       currentBranch = 'main';
       branches['main'].current = true;
-      actionLogs = [{ time: new Date().toLocaleTimeString(), text: '📁 Dépôt initialisé avec branches "main" et "HUGO"' }];
+      actionLogs = [{ time: new Date().toLocaleTimeString(), text: '📁 Dépôt initialisé avec branches "main", "HUGO" et "feature-auth"' }];
     }
     
     initTheme();
