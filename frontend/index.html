@@ -1,15 +1,15 @@
-Voici une version améliorée de votre page, avec un design plus vivant, des animations subtiles et une personnalité moins générique.
-
+Voici le code HTML/CSS/JS d'une interface moderne pour la gestion de branches Git, avec des animations fluides et un suivi visuel des actions. Il s'intègre parfaitement à votre projet GitUniversitaire.
 ```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Git Universitaire — Espace collaboratif étudiant</title>
-  <!-- Google Fonts & Font Awesome (librairie d'icônes expressive) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Git Universitaire — Gestion de Branches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -17,54 +17,68 @@ Voici une version améliorée de votre page, avec un design plus vivant, des ani
       box-sizing: border-box;
     }
 
+    :root {
+      --bg-gradient: radial-gradient(circle at 10% 20%, rgba(230, 126, 34, 0.03) 0%, rgba(37, 99, 235, 0.02) 90%);
+      --bg-color: #fbfdfc;
+      --surface: rgba(255, 255, 255, 0.75);
+      --surface-solid: #ffffff;
+      --border: #e9eef3;
+      --text-primary: #0a1c2f;
+      --text-secondary: #2c3e50;
+      --text-muted: #5e7a93;
+      --accent: #e67e22;
+      --accent-glow: rgba(230, 126, 34, 0.2);
+      --accent-hover: #cf711f;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+      --blur-amount: 14px;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0b1120;
+      --surface: rgba(18, 25, 45, 0.7);
+      --surface-solid: #0f172a;
+      --border: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #7c8ba0;
+      --accent: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.25);
+      --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #fef9f0 0%, #fff7eb 100%);
-      color: #1e2a3e;
+      background: var(--bg-color);
+      background-image: var(--bg-gradient);
+      color: var(--text-primary);
       line-height: 1.5;
-      scroll-behavior: smooth;
+      transition: background 0.3s ease, color 0.2s ease;
+      min-height: 100vh;
     }
 
-    /* motifs organiques / blobs subtils */
-    .bg-blob {
-      position: fixed;
-      top: -20%;
-      right: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(255,215,150,0.25) 0%, rgba(255,225,180,0.1) 70%, transparent 100%);
-      border-radius: 70% 30% 60% 40% / 40% 50% 50% 60%;
-      z-index: -2;
-      pointer-events: none;
-      filter: blur(70px);
+    /* Glass panel & container */
+    .glass-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
     }
 
-    .bg-blob-2 {
-      position: fixed;
-      bottom: -15%;
-      left: -5%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(145, 186, 255, 0.2), rgba(100, 145, 240, 0.05));
-      border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
-      filter: blur(80px);
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    /* header plus dynamique */
+    /* header / nav */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      padding: 1.2rem 2.5rem;
-      background: rgba(255, 252, 245, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(230, 210, 180, 0.5);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      padding: 1rem 2rem;
+      background: var(--surface);
+      backdrop-filter: blur(var(--blur-amount));
+      border-radius: 2rem;
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
     }
 
     .logo {
@@ -73,572 +87,582 @@ Voici une version améliorée de votre page, avec un design plus vivant, des ani
       gap: 12px;
       font-weight: 800;
       font-size: 1.6rem;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #c4450c, #f09b42);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      font-family: 'Outfit', sans-serif;
     }
-
     .logo i {
-      background: none;
-      color: #e67e22;
-      font-size: 2rem;
-      background-clip: unset;
-      -webkit-background-clip: unset;
-      color: #e67e22;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 500;
-      color: #2c3e2f;
-      transition: 0.2s;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: #e67e22;
-      transform: translateY(-2px);
-    }
-
-    /* hero vivant */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 3rem 2.5rem 2rem 2.5rem;
-      gap: 2rem;
-    }
-
-    .hero-text {
-      flex: 1.2;
-      min-width: 260px;
-    }
-
-    .hero-text .badge {
-      background: #fee2d6;
-      color: #bc4e1a;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 1rem;
-      letter-spacing: 0.3px;
-    }
-
-    .hero-text h2 {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1.2;
-      background: linear-gradient(130deg, #2c3e2f, #d35400);
-      background-clip: text;
+      background: linear-gradient(135deg, var(--accent), #f4a261);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
-      margin-bottom: 1.2rem;
     }
+    .theme-toggle {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: 3rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+      color: var(--text-primary);
+    }
+    .theme-toggle i { margin-right: 6px; }
 
-    .hero-text p {
-      font-size: 1.1rem;
-      color: #3e5a4b;
-      max-width: 550px;
+    /* Titres */
+    .page-header {
       margin-bottom: 2rem;
     }
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(to right, var(--accent), var(--info));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .page-header p {
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
 
-    .btn-group {
+    /* simulateur git */
+    .git-simulator {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card-panel {
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 1.6rem 2rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .branch-controls {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      margin-top: 1rem;
     }
 
-    .btn {
-      display: inline-flex;
+    .input-group {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      background: #e67e22;
-      color: white;
-      padding: 0.8rem 1.6rem;
-      border-radius: 48px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s ease;
+      gap: 10px;
+      background: var(--surface-solid);
+      border-radius: 60px;
+      padding: 0.2rem 0.2rem 0.2rem 1rem;
+      border: 1px solid var(--border);
+    }
+    .input-group input {
+      background: transparent;
       border: none;
-      font-size: 0.95rem;
-      cursor: pointer;
-      box-shadow: 0 6px 14px rgba(230, 126, 34, 0.2);
-    }
-
-    .btn i {
-      font-size: 1rem;
-    }
-
-    .btn-secondary {
-      background: #fff1e6;
-      color: #c25d1a;
-      box-shadow: none;
-      border: 1px solid #ffcf9a;
-    }
-
-    .btn-secondary:hover {
-      background: #ffe0cf;
-      transform: translateY(-3px);
-    }
-
-    .btn:hover {
-      background: #cf711f;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 20px rgba(230, 126, 34, 0.3);
-    }
-
-    .hero-illustration {
-      flex: 0.9;
-      text-align: center;
-      background: rgba(255, 241, 220, 0.6);
-      border-radius: 58% 42% 70% 30% / 42% 46% 54% 58%;
-      padding: 1rem;
-      backdrop-filter: blur(2px);
-    }
-
-    .hero-illustration i {
-      font-size: 9rem;
-      color: #e67e22;
-      filter: drop-shadow(8px 12px 18px rgba(0,0,0,0.08));
-    }
-
-    /* section cartes originales */
-    .section-title {
-      text-align: center;
-      margin: 3rem 0 1.5rem 0;
-      font-size: 2rem;
-      font-weight: 700;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .section-title:before, .section-title:after {
-      content: "⚡";
-      font-size: 1.5rem;
-      opacity: 0.6;
-    }
-    .section-title:after {
-      content: "⚡";
-    }
-
-    .cards-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 1.5rem 2rem 3rem;
-    }
-
-    .card {
-      background: rgba(255, 253, 248, 0.9);
-      backdrop-filter: blur(2px);
-      border-radius: 2rem;
-      padding: 1.8rem 1.5rem;
-      width: 270px;
-      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      border: 1px solid rgba(235, 200, 150, 0.6);
-      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
-    }
-
-    .card:hover {
-      transform: translateY(-12px) scale(1.01);
-      border-color: #f7bc6b;
-      background: white;
-      box-shadow: 0 25px 35px -12px rgba(230, 126, 34, 0.2);
-    }
-
-    .card-icon {
-      font-size: 2.6rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-      background: #fff0e0;
-      padding: 0.6rem;
-      border-radius: 1.2rem;
-      color: #e67e22;
-    }
-
-    .card h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.7rem;
-      letter-spacing: -0.2px;
-    }
-
-    .card p {
-      color: #4a5b4e;
+      padding: 0.6rem 0;
       font-size: 0.9rem;
-      margin-bottom: 1.3rem;
+      outline: none;
+      color: var(--text-primary);
+      min-width: 180px;
     }
-
-    .card-link {
+    .input-group button {
+      background: var(--accent);
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
       font-weight: 600;
-      text-decoration: none;
-      color: #e67e22;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      color: white;
+      cursor: pointer;
       transition: 0.2s;
     }
-
-    .card-link i {
-      transition: transform 0.2s;
+    .input-group button:hover {
+      background: var(--accent-hover);
+      transform: scale(0.97);
     }
-
-    .card-link:hover i {
-      transform: translateX(5px);
-    }
-
-    /* section activités / tendances originales (moins "IA") */
-    .activity-preview {
-      background: #fffaf2;
-      border-radius: 3rem;
-      margin: 1rem 2rem 2rem 2rem;
-      padding: 2rem 2rem;
-      border: 1px solid #ffe1bf;
-      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.05);
-    }
-
-    .activity-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-
-    .activity-header h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .mock-link {
-      color: #e67e22;
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 0.6rem 1.4rem;
       font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-outline i { margin-right: 6px; }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .btn-danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.1);
     }
 
-    .repo-list {
+    /* visualisation graphique */
+    .branch-visual {
+      background: var(--surface-solid);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    .git-graph {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      min-width: 500px;
     }
-
-    .repo-item {
+    .branch-row {
       display: flex;
       align-items: center;
       gap: 1rem;
-      background: white;
-      padding: 0.8rem 1rem;
-      border-radius: 1.5rem;
-      transition: all 0.2s;
-      border-left: 5px solid #f7bc6b;
-    }
-
-    .repo-item i {
-      font-size: 1.6rem;
-      color: #d35400;
-    }
-
-    .repo-info strong {
-      font-weight: 700;
-      display: block;
-    }
-
-    .repo-info span {
-      font-size: 0.8rem;
-      color: #6f7c6f;
-    }
-
-    /* footer chaleureux */
-    footer {
-      margin-top: 4rem;
-      background: #2a241e;
-      color: #e7cfb5;
-      padding: 2rem 2rem 1.5rem;
-      border-radius: 2rem 2rem 0 0;
-    }
-
-    .footer-content {
-      display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      border-bottom: 1px dashed var(--border);
+      padding: 0.6rem 0;
     }
-
-    .footer-col p {
-      margin: 0.5rem 0;
-      font-size: 0.85rem;
+    .branch-name {
+      font-weight: 700;
+      font-family: monospace;
+      width: 150px;
+      font-size: 1rem;
     }
-
-    .footer-col a {
-      color: #f6bc7c;
-      text-decoration: none;
-    }
-
-    .social-icons {
+    .branch-commits {
       display: flex;
-      gap: 1rem;
-      margin-top: 0.5rem;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
     }
-
-    .social-icons a {
-      background: #3e3329;
-      padding: 0.5rem;
-      border-radius: 50%;
-      display: inline-flex;
-      transition: 0.2s;
-    }
-
-    .copyright {
-      text-align: center;
-      margin-top: 2rem;
-      padding-top: 1rem;
+    .commit-node {
+      background: var(--surface);
+      border-radius: 40px;
+      padding: 0.25rem 0.9rem;
       font-size: 0.75rem;
-      border-top: 1px solid #4e3e30;
+      font-family: monospace;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.1s;
+    }
+    .commit-node i {
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+    .current-badge {
+      background: var(--accent);
+      color: white;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      margin-left: 10px;
+      font-weight: 600;
+    }
+    .commit-hash {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
     }
 
-    @media (max-width: 780px) {
-      .navbar {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .hero-text h2 {
-        font-size: 2.2rem;
-      }
-      .hero-illustration i {
-        font-size: 5rem;
-      }
-      .btn-group .btn {
-        padding: 0.6rem 1.2rem;
-      }
-      .section-title {
-        font-size: 1.6rem;
-      }
+    .history-log {
+      background: var(--surface-solid);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      font-family: monospace;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+    }
+    .log-time {
+      color: var(--text-muted);
+      min-width: 65px;
+    }
+
+    /* notification */
+    .toast-notify {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface-solid);
+      backdrop-filter: blur(12px);
+      border-left: 4px solid var(--accent);
+      padding: 0.9rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      color: var(--text-primary);
+    }
+    .toast-notify.show {
+      transform: translateX(0);
+    }
+    .btn-push {
+      background: var(--info);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-push:hover {
+      filter: brightness(0.9);
+    }
+
+    @media (max-width: 700px) {
+      .glass-container { padding: 1rem; }
+      .branch-name { width: 120px; }
+      .flex-row { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-
-<div class="bg-blob"></div>
-<div class="bg-blob-2"></div>
-
-<nav class="navbar">
-  <div class="logo">
-    <i class="fas fa-code-branch"></i>
-    <span>GitUniversitaire</span>
-  </div>
-  <div class="nav-links">
-    <a href="#"><i class="fas fa-home"></i> Accueil</a>
-    <a href="#"><i class="fas fa-folder-open"></i> Dépôts</a>
-    <a href="#"><i class="fas fa-chalkboard-user"></i> Cours</a>
-    <a href="#"><i class="fas fa-users"></i> Groupes</a>
-    <a href="#"><i class="fas fa-shield-alt"></i> Admin</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="hero-text">
-    <div class="badge">
-      <i class="fas fa-graduation-cap"></i> Université numérique — rentrée 2025
+<div class="glass-container">
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-code-branch"></i>
+      <span>GitUniversitaire</span>
     </div>
-    <h2>Git pensé pour les<br>étudiants & profs</h2>
-    <p>Versionnez vos TPs, partagez vos rapports, collaborez sans perdre le fil. Une plateforme vivante, libre et faite pour vous.</p>
-    <div class="btn-group">
-      <button class="btn" id="loginBtn"><i class="fas fa-rocket"></i> Se connecter</button>
-      <button class="btn btn-secondary" id="guideBtn"><i class="fas fa-compass"></i> Guide étudiant</button>
+    <button class="theme-toggle" id="globalThemeToggle"><i class="fas fa-moon"></i> Thème</button>
+  </nav>
+
+  <div class="page-header">
+    <h1><i class="fas fa-git-alt"></i> Gestion de branches · simulateur Git</h1>
+    <p>Créez, basculez, poussez vos branches localement comme sur GitHub. Expérience interactive éducative.</p>
+  </div>
+
+  <div class="git-simulator">
+    <!-- panel commandes -->
+    <div class="card-panel">
+      <div class="flex-row">
+        <h3><i class="fas fa-terminal"></i> Commandes Git simplifiées</h3>
+        <div class="branch-controls">
+          <div class="input-group">
+            <i class="fas fa-plus-circle" style="color: var(--accent);"></i>
+            <input type="text" id="newBranchName" placeholder="nom-branche" value="feature-interface">
+            <button id="createBranchBtn">Créer branche</button>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-code-branch"></i>
+            <input type="text" id="switchBranchName" placeholder="nom branche existante">
+            <button id="switchBranchBtn">Basculer</button>
+          </div>
+          <button id="commitBtn" class="btn-outline"><i class="fas fa-save"></i> Commit (touch)</button>
+          <button id="pushBtn" class="btn-push"><i class="fab fa-github"></i> Push sur GitHub (simulation)</button>
+        </div>
+      </div>
+      <div class="branch-visual">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <strong><i class="fas fa-diagram-project"></i> Arborescence des branches</strong>
+          <span class="commit-hash" id="activeBranchIndicator"></span>
+        </div>
+        <div id="gitGraphContainer" class="git-graph">
+          <!-- dynamique JS -->
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="hero-illustration">
-    <i class="fas fa-diagram-project"></i>
-    <!-- petit clin d'oeil graphique -->
-    <div style="margin-top: 10px; font-size: 0.75rem; color:#bc6f2c;">✨ collaboration fluide</div>
-  </div>
-</section>
 
-<div class="section-title">
-  <span>Services clés</span>
-</div>
+    <!-- historique actions -->
+    <div class="card-panel">
+      <h3><i class="fas fa-history"></i> Historique des actions</h3>
+      <div id="historyLog" class="history-log">
+        <div class="log-entry"><span class="log-time">● initial</span> Dépôt initialisé, branche par défaut 'main'</div>
+      </div>
+    </div>
 
-<div class="cards-grid">
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-database"></i></div>
-    <h3>Mes Dépôts</h3>
-    <p>TP notés, projets perso, archives — tout votre code et documents centralisés.</p>
-    <a href="#" class="card-link">Explorer <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-book-open"></i></div>
-    <h3>Cours interactifs</h3>
-    <p>Ressources partagées par les enseignants, supports et exercices corrigés.</p>
-    <a href="#" class="card-link">Accéder <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-people-arrows"></i></div>
-    <h3>Groupes Projets</h3>
-    <p>Collaborez en équipe, revues de code, branches dédiées et merge requests.</p>
-    <a href="#" class="card-link">Rejoindre <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="card">
-    <div class="card-icon"><i class="fas fa-user-cog"></i></div>
-    <h3>Supervision</h3>
-    <p>Espace admin : gestion des permissions, statistiques et dépôts institutionnels.</p>
-    <a href="#" class="card-link">Gérer <i class="fas fa-arrow-right"></i></a>
+    <!-- documentation rapide -->
+    <div class="card-panel" style="background: var(--surface-solid);">
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between;">
+        <div><i class="fas fa-info-circle" style="color: var(--accent);"></i> <strong>Simulation Git locale</strong> — toutes les branches sont virtuelles. Le "push" simule l'envoi vers un dépôt distant (GitHub) avec affichage de l'état.</div>
+        <div><i class="fas fa-lightbulb"></i> Astuce : créez une branche, commitez plusieurs fois, puis "Push" pour voir le tracking upstream.</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Section "activité récente" donne vie et authenticité -->
-<div class="activity-preview">
-  <div class="activity-header">
-    <h3><i class="fas fa-waveform"></i> Derniers remous collaboratifs</h3>
-    <a href="#" class="mock-link">Voir le flux <i class="fas fa-chevron-right"></i></a>
-  </div>
-  <div class="repo-list">
-    <div class="repo-item">
-      <i class="fab fa-git-alt"></i>
-      <div class="repo-info">
-        <strong>groupe-L3-info/projet-S8</strong>
-        <span>✅ 3 commits · fusion de la branche 'interface' il y a 2h</span>
-      </div>
-    </div>
-    <div class="repo-item">
-      <i class="fas fa-chalkboard"></i>
-      <div class="repo-info">
-        <strong>crypto-M1/TP2-RSA</strong>
-        <span>📚 Enseignant a ajouté des ressources · 12 étoiles ⭐</span>
-      </div>
-    </div>
-    <div class="repo-item">
-      <i class="fas fa-users"></i>
-      <div class="repo-info">
-        <strong>club-robotique/ros2_ws</strong>
-        <span>🤖 5 contributeurs actifs · dernier push: "fix lidar driver"</span>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top: 1rem; text-align: right; font-size:0.8rem;">
-    <i class="fas fa-code-pull-request"></i> +12 pull requests ouvertes cette semaine
-  </div>
+<div id="toastMsg" class="toast-notify">
+  <i class="fas fa-check-circle" style="color: var(--success);"></i>
+  <span id="toastText">Action réussie</span>
 </div>
 
-<footer>
-  <div class="footer-content">
-    <div class="footer-col">
-      <h4><i class="fas fa-graduation-cap"></i> Git Universitaire</h4>
-      <p>Initiative portée par les étudiants de l'Université<br>Libre accès, code ouvert, collaboration éthique.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Ressources</h4>
-      <p><a href="#"><i class="fas fa-question-circle"></i> Aide & FAQ</a></p>
-      <p><a href="#"><i class="fab fa-markdown"></i> Tutoriel Git</a></p>
-      <p><a href="#"><i class="fas fa-shield"></i> Charte étudiante</a></p>
-    </div>
-    <div class="footer-col">
-      <h4>Communauté</h4>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-discord"></i></a>
-        <a href="#"><i class="fab fa-mastodon"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      <p style="margin-top:12px;">📢 <a href="#">Événements & ateliers Git</a></p>
-    </div>
-  </div>
-  <div class="copyright">
-    <span>🎓 Développé avec <i class="fas fa-heart" style="color:#e67e22;"></i> par la communauté universitaire 🇨🇲 · 2025 — version "Collaborative Pulse"</span>
-  </div>
-</footer>
-
-<!-- petite interaction pour éviter le côté figé -->
 <script>
-  (function() {
-    // Personnalisation des boutons avec feedback plus humain, moins "IA générique"
-    const loginBtn = document.getElementById('loginBtn');
-    const guideBtn = document.getElementById('guideBtn');
-    const cardsLinks = document.querySelectorAll('.card-link');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    function showFriendlyMessage(msg) {
-      // Création d'un toast discret mais vivant
-      const toast = document.createElement('div');
-      toast.innerText = msg;
-      toast.style.position = 'fixed';
-      toast.style.bottom = '25px';
-      toast.style.left = '50%';
-      toast.style.transform = 'translateX(-50%)';
-      toast.style.backgroundColor = '#2c2b26';
-      toast.style.color = '#ffefcf';
-      toast.style.padding = '12px 24px';
-      toast.style.borderRadius = '60px';
-      toast.style.fontSize = '0.9rem';
-      toast.style.fontWeight = '500';
-      toast.style.backdropFilter = 'blur(8px)';
-      toast.style.zIndex = '999';
-      toast.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
-      toast.style.borderLeft = '4px solid #e67e22';
-      toast.style.fontFamily = "'Inter', sans-serif";
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 400);
-      }, 2800);
+  // ----- Modèle de données simulé Git -----
+  let branches = {
+    'main': {
+      commits: ['c1d9a3f', 'e2b8c4d', 'a7f3e92'], // quelques hashs initiaux
+      current: true
     }
+  };
+  let currentBranch = 'main';
+  let commitCounter = 100;
+  
+  // Fonction pour générer un hash aléatoire
+  function generateHash() {
+    return Math.random().toString(36).substring(2, 9);
+  }
 
-    if (loginBtn) {
-      loginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        showFriendlyMessage('🔐 Redirection vers le portail universitaire — connexion CAS (simulation)');
-      });
-    }
-    if (guideBtn) {
-      guideBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        showFriendlyMessage('📘 Téléchargement du “Kit Git étudiant” — guide visuel et cheat-sheet');
-      });
-    }
+  // initialiser avec quelques commits fictifs
+  if(branches['main'].commits.length === 0) {
+    branches['main'].commits = ['abc1234', 'def5678'];
+  }
 
-    // pour tous les liens cartes et navigation, message "en développement actif" mais avec personnalité
-    const allDemoLinks = [...cardsLinks, ...navLinks, ...document.querySelectorAll('.mock-link, .footer-col a, .repo-item')];
-    allDemoLinks.forEach(link => {
-      if (link && link.tagName === 'A') {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          showFriendlyMessage('✨ Fonctionnalité en construction — bientôt disponible dans le sprint étudiant !');
-        });
-      }
+  // historique des logs
+  let actionLogs = [
+    { time: new Date().toLocaleTimeString(), text: '📁 Dépôt initialisé avec branche "main" et commits existants.' }
+  ];
+
+  function addLog(text) {
+    const time = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    actionLogs.unshift({ time, text });
+    if(actionLogs.length > 12) actionLogs.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('historyLog');
+    container.innerHTML = actionLogs.map(log => `
+      <div class="log-entry">
+        <span class="log-time">${log.time}</span>
+        <span>${log.text}</span>
+      </div>
+    `).join('');
+  }
+
+  // Mise à jour de la visualisation graphique
+  function renderGraph() {
+    const container = document.getElementById('gitGraphContainer');
+    if(!container) return;
+    let html = '';
+    for(const [branchName, branchData] of Object.entries(branches)) {
+      const isCurrent = (branchName === currentBranch);
+      const commitsList = branchData.commits || [];
+      html += `
+        <div class="branch-row">
+          <div class="branch-name">
+            <i class="fas fa-code-branch"></i> ${branchName}
+            ${isCurrent ? '<span class="current-badge">HEAD</span>' : ''}
+          </div>
+          <div class="branch-commits">
+            ${commitsList.map(hash => `<div class="commit-node"><i class="fas fa-code-commit"></i> ${hash.substring(0,7)}</div>`).join('')}
+            ${commitsList.length === 0 ? '<span class="commit-hash" style="font-style:italic;">aucun commit</span>' : ''}
+          </div>
+        </div>
+      `;
+    }
+    // Information upstream simulée
+    const upstreamInfo = localStorage.getItem('upstream_sim') || 'Aucune liaison distante';
+    document.getElementById('activeBranchIndicator').innerHTML = `🔗 branche active : <strong>${currentBranch}</strong> &nbsp;|&nbsp; 📡 upstream: ${upstreamInfo === 'Aucune liaison distante' ? '❌ pas de remote upstream' : '✓ origin/'+upstreamInfo}`;
+    container.innerHTML = html;
+  }
+
+  // Rafraîchir l'état upstream simulé
+  function refreshUpstreamDisplay() {
+    const upstream = localStorage.getItem(`upstream_${currentBranch}`) || null;
+    if(upstream) {
+      localStorage.setItem('upstream_sim', upstream);
+    } else {
+      localStorage.setItem('upstream_sim', 'Aucune liaison distante');
+    }
+    renderGraph();
+  }
+
+  // Créer une branche
+  function createBranch(branchName) {
+    if(!branchName || branchName.trim() === '') {
+      showToast("⚠️ Nom de branche invalide", "warning");
+      return false;
+    }
+    branchName = branchName.trim();
+    if(branches[branchName]) {
+      showToast(`❌ La branche "${branchName}" existe déjà !`, "error");
+      return false;
+    }
+    // copie des commits de la branche courante
+    const currentCommits = [...(branches[currentBranch]?.commits || [])];
+    branches[branchName] = {
+      commits: currentCommits,
+      current: false
+    };
+    addLog(`🌱 Création de la branche "${branchName}" depuis "${currentBranch}" (${currentCommits.length} commits hérités)`);
+    showToast(`Branche "${branchName}" créée avec succès`, "success");
+    renderGraph();
+    return true;
+  }
+
+  // basculer
+  function switchBranch(branchName) {
+    if(!branchName || branchName.trim() === '') {
+      showToast("Indiquez un nom de branche valide", "warning");
+      return false;
+    }
+    branchName = branchName.trim();
+    if(!branches[branchName]) {
+      showToast(`La branche "${branchName}" n'existe pas. Créez-la d'abord.`, "error");
+      return false;
+    }
+    if(currentBranch === branchName) {
+      showToast(`Vous êtes déjà sur la branche "${branchName}"`, "info");
+      return true;
+    }
+    // mise à jour current flags
+    branches[currentBranch].current = false;
+    currentBranch = branchName;
+    branches[currentBranch].current = true;
+    addLog(`🔀 bascule vers la branche "${currentBranch}"`);
+    showToast(`HEAD est maintenant sur "${currentBranch}"`, "success");
+    refreshUpstreamDisplay();
+    renderGraph();
+    return true;
+  }
+
+  // faire un commit
+  function performCommit() {
+    const newHash = generateHash();
+    const currentBranchData = branches[currentBranch];
+    if(!currentBranchData) return;
+    // ajout du commit
+    currentBranchData.commits.push(newHash);
+    addLog(`📝 Commit "${newHash.substring(0,7)}" sur la branche "${currentBranch}" (fichier: interface améliorée)`);
+    showToast(`Commit ${newHash.substring(0,7)} créé sur ${currentBranch}`, "success");
+    renderGraph();
+  }
+
+  // simulation du push avec upstream tracking
+  function simulatePush() {
+    // Vérifier si la branche courante a un upstream configuré (simulation)
+    let upstreamBranch = localStorage.getItem(`upstream_${currentBranch}`);
+    if(!upstreamBranch) {
+      // premier push: on simule le --set-upstream origin BRANCH
+      upstreamBranch = currentBranch;
+      localStorage.setItem(`upstream_${currentBranch}`, upstreamBranch);
+      localStorage.setItem('upstream_sim', upstreamBranch);
+      addLog(`🚀 git push --set-upstream origin ${currentBranch} → liaison établie avec remote. Branche publiée sur GitHub (simulation).`);
+      showToast(`✅ Upstream configuré : origin/${currentBranch} , push effectué !`, "success");
+    } else {
+      addLog(`⬆️ git push origin ${currentBranch} → ${branches[currentBranch].commits.length} commits synchronisés avec le dépôt distant (GitHub simulé).`);
+      showToast(`Push réussi ! La branche ${currentBranch} est à jour sur GitHub.`, "success");
+    }
+    refreshUpstreamDisplay();
+    renderGraph();
+  }
+
+  // notification
+  let toastTimeout = null;
+  function showToast(message, type = "info") {
+    const toast = document.getElementById('toastMsg');
+    const textSpan = document.getElementById('toastText');
+    const icon = toast.querySelector('i');
+    if(type === "success") {
+      icon.className = "fas fa-check-circle";
+      icon.style.color = "var(--success)";
+    } else if(type === "error") {
+      icon.className = "fas fa-exclamation-triangle";
+      icon.style.color = "var(--danger)";
+    } else if(type === "warning") {
+      icon.className = "fas fa-exclamation-circle";
+      icon.style.color = "var(--warning)";
+    } else {
+      icon.className = "fas fa-info-circle";
+      icon.style.color = "var(--info)";
+    }
+    textSpan.innerText = message;
+    toast.classList.add('show');
+    if(toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  // thème global (persistant)
+  function initTheme() {
+    const stored = localStorage.getItem('git_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = stored === 'dark' || (!stored && prefersDark);
+    if(isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    const btn = document.getElementById('globalThemeToggle');
+    if(btn) {
+      btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> Clair' : '<i class="fas fa-moon"></i> Sombre';
+    }
+  }
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('git_theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('git_theme', 'dark');
+    }
+    initTheme();
+    showToast(isDark ? "Mode clair activé" : "Mode sombre activé", "info");
+  }
+
+  // initialisation des événements et chargement des données mockées supplémentaires
+  function bootstrap() {
+    initTheme();
+    document.getElementById('globalThemeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('createBranchBtn').addEventListener('click', () => {
+      const input = document.getElementById('newBranchName');
+      createBranch(input.value);
+      input.value = '';
     });
-    // rendre les repo-item un peu interactifs aussi
-    document.querySelectorAll('.repo-item').forEach(item => {
-      item.style.cursor = 'pointer';
-      item.addEventListener('click', () => {
-        showFriendlyMessage('📁 Aperçu du dépôt collaboratif — bientôt les détails complets.');
-      });
+    document.getElementById('switchBranchBtn').addEventListener('click', () => {
+      const input = document.getElementById('switchBranchName');
+      switchBranch(input.value);
+      input.value = '';
     });
+    document.getElementById('commitBtn').addEventListener('click', () => performCommit());
+    document.getElementById('pushBtn').addEventListener('click', () => simulatePush());
 
-    // ajout d'un petit effet de bienvenue subtil après chargement (moins robotique)
-    setTimeout(() => {
-      console.log('🎓 GitUniversitaire prêt — n’hésitez pas à explorer les cartes !');
-      // on peut afficher un petit tooltip personnalisé si désiré, mais on reste léger
-    }, 300);
-  })();
+    // Petite démo: on ajoute une branche "HUGO" exemple pour correspondre au contexte du user
+    if(!branches['HUGO']) {
+      // hérite des commits de main
+      branches['HUGO'] = {
+        commits: [...branches['main'].commits],
+        current: false
+      };
+      addLog(`🌿 Branche exemple "HUGO" préchargée (collaborateur).`);
+    }
+    // s'assurer que main est bien marquée current uniquement si c'est le cas
+    branches['main'].current = (currentBranch === 'main');
+    branches['HUGO'].current = false;
+    if(currentBranch !== 'main') branches[currentBranch].current = true;
+    renderGraph();
+    refreshUpstreamDisplay();
+    renderHistory();
+  }
+
+  // surcharge pour que les logs initiaux restent propres
+  bootstrap();
 </script>
 </body>
 </html>
