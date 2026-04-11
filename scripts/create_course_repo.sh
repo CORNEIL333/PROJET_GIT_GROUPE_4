@@ -1,11 +1,12 @@
 #!/bin/bash
-# Usage: bash create_course_repo.sh CODE_COURS "Nom du Cours"
+# Usage: bash create_course_repo.sh CODE_COURS "Nom du Cours" [BRANCHE]
 COURSE_CODE=$1
 COURSE_NAME=$2
+DEFAULT_BRANCH=${3:-main}
 REPO_DIR="/home/git/repos"
 
 if [ -z "$COURSE_CODE" ] || [ -z "$COURSE_NAME" ]; then
-    echo "❌ Usage: $0 CODE_COURS 'Nom du Cours'"
+    echo "❌ Usage: $0 CODE_COURS 'Nom du Cours' [BRANCHE]"
     exit 1
 fi
 
@@ -17,7 +18,7 @@ if [ -d "$REPO_PATH" ]; then
 fi
 
 echo "📁 Création du dépôt : $COURSE_NAME ($COURSE_CODE)"
-sudo -u git git init --bare "$REPO_PATH"
+sudo -u git git init --bare --initial-branch="$DEFAULT_BRANCH" "$REPO_PATH"
 echo "$COURSE_NAME" | sudo tee "$REPO_PATH/description" > /dev/null
 
 # Installation du hook par défaut
