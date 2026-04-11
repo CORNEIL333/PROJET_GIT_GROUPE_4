@@ -570,14 +570,10 @@ Voici une version améliorée de votre page, avec un design plus vivant, des ani
 <!-- petite interaction pour éviter le côté figé -->
 <script>
   (function() {
-    // Personnalisation des boutons avec feedback plus humain, moins "IA générique"
     const loginBtn = document.getElementById('loginBtn');
     const guideBtn = document.getElementById('guideBtn');
-    const cardsLinks = document.querySelectorAll('.card-link');
-    const navLinks = document.querySelectorAll('.nav-links a');
     
     function showFriendlyMessage(msg) {
-      // Création d'un toast discret mais vivant
       const toast = document.createElement('div');
       toast.innerText = msg;
       toast.style.position = 'fixed';
@@ -594,7 +590,7 @@ Voici une version améliorée de votre page, avec un design plus vivant, des ani
       toast.style.zIndex = '999';
       toast.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
       toast.style.borderLeft = '4px solid #e67e22';
-      toast.style.fontFamily = "'Inter', sans-serif";
+      toast.style.transition = 'opacity 0.4s';
       document.body.appendChild(toast);
       setTimeout(() => {
         toast.style.opacity = '0';
@@ -605,39 +601,61 @@ Voici une version améliorée de votre page, avec un design plus vivant, des ani
     if (loginBtn) {
       loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        showFriendlyMessage('🔐 Redirection vers le portail universitaire — connexion CAS (simulation)');
+        showFriendlyMessage('🔐 Redirection vers le portail universitaire...');
       });
     }
     if (guideBtn) {
       guideBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        showFriendlyMessage('📘 Téléchargement du “Kit Git étudiant” — guide visuel et cheat-sheet');
+        
+        // Exécuter une vraie tâche du serveur simulée (ex: sauvegarder via la route API)
+        fetch('/api/run-backup', { method: 'POST' })
+          .then(res => res.json())
+          .then(data => {
+            showFriendlyMessage('💾 Sauvegarde déclenchée via Bash (API): ' + (data.message || 'Succès'));
+          })
+          .catch(err => showFriendlyMessage('📘 Guide étudiant chargé.'));
       });
     }
 
-    // pour tous les liens cartes et navigation, message "en développement actif" mais avec personnalité
-    const allDemoLinks = [...cardsLinks, ...navLinks, ...document.querySelectorAll('.mock-link, .footer-col a, .repo-item')];
-    allDemoLinks.forEach(link => {
-      if (link && link.tagName === 'A') {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          showFriendlyMessage('✨ Fonctionnalité en construction — bientôt disponible dans le sprint étudiant !');
+    // Charger les dépôts dynamiquement
+    async function loadRepos() {
+      try {
+        const response = await fetch('/api/repos');
+        if (!response.ok) throw new Error('API injoignable');
+        const repos = await response.json();
+        
+        const listDiv = document.querySelector('.repo-list');
+        listDiv.innerHTML = ''; 
+        repos.forEach(repo => {
+          listDiv.innerHTML += `
+            <div class="repo-item" style="cursor: pointer;">
+              <i class="fas fa-${repo.icon}" style="color:${repo.color}"></i>
+              <div class="repo-info">
+                <strong>${repo.name}</strong>
+                <span>${repo.status}</span>
+              </div>
+            </div>`;
+        });
+        
+        document.querySelectorAll('.repo-item').forEach(item => {
+          item.addEventListener('click', () => {
+            showFriendlyMessage('📁 Aperçu du dépôt Git ouvert.');
+          });
+        });
+      } catch (err) {
+        console.warn('API non disponible, affichage local par défaut. (Lancez le serveur: node backend/server.js)');
+        document.querySelectorAll('.repo-item').forEach(item => {
+          item.style.cursor = 'pointer';
+          item.addEventListener('click', () => showFriendlyMessage('📁 Aperçu du dépôt (Hors Ligne).'));
         });
       }
-    });
-    // rendre les repo-item un peu interactifs aussi
-    document.querySelectorAll('.repo-item').forEach(item => {
-      item.style.cursor = 'pointer';
-      item.addEventListener('click', () => {
-        showFriendlyMessage('📁 Aperçu du dépôt collaboratif — bientôt les détails complets.');
-      });
-    });
+    }
 
-    // ajout d'un petit effet de bienvenue subtil après chargement (moins robotique)
     setTimeout(() => {
-      console.log('🎓 GitUniversitaire prêt — n’hésitez pas à explorer les cartes !');
-      // on peut afficher un petit tooltip personnalisé si désiré, mais on reste léger
-    }, 300);
+      console.log('🎓 API Sync en cours...');
+      loadRepos();
+    }, 400);
   })();
 </script>
 </body>
