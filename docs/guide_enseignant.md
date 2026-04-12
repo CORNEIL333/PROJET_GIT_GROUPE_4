@@ -1,4 +1,4 @@
-# 📗 Guide Enseignant – Git Universitaire
+ # 📗 Guide Enseignant – Git Universitaire
 
 ## Créer un dépôt de cours
 ```bash
@@ -19,4 +19,3 @@ git log --author="NomEtudiant" --oneline
 ```bash
 git checkout -b correction-tp1
 git push origin correction-tp1
-```
