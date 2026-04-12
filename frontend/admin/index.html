@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{--primary:#e67e22;--primary-dark:#cf711f;--primary-light:#fff1e6;--bg:#fef9f0;--text:#1e2a3e;--text-muted:#4a5b4e;--border:rgba(235,200,150,0.6);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(255,252,245,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;text-decoration:none;}
+    .logo i{color:#e67e22;-webkit-text-fill-color:#e67e22;}
+    .nav-right{display:flex;align-items:center;gap:1rem;}
+    .admin-badge{background:#2c3e2f;color:#a8e6a3;padding:0.35rem 0.9rem;border-radius:20px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:5px;}
+    .btn-logout{background:none;border:1px solid var(--border);color:var(--text-muted);padding:0.4rem 0.9rem;border-radius:20px;font-size:0.82rem;cursor:pointer;font-family:'Inter',sans-serif;transition:0.2s;}
+    .btn-logout:hover{border-color:#e74c3c;color:#e74c3c;}
+    .container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem;}
+    .page-header{margin-bottom:2rem;}
+    .page-header h1{font-size:1.7rem;font-weight:800;margin-bottom:0.3rem;}
+    .page-header p{color:var(--text-muted);font-size:0.9rem;}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2.5rem;}
+    .stat-card{background:white;border-radius:1.5rem;padding:1.2rem;text-align:center;border:1px solid var(--border);transition:0.2s;}
+    .stat-card:hover{border-color:#f7bc6b;transform:translateY(-3px);box-shadow:0 8px 16px rgba(0,0,0,0.06);}
+    .stat-n{font-size:2rem;font-weight:800;color:var(--primary);}
+    .stat-l{font-size:0.72rem;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;}
+    .section-title{font-size:1.05rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+    .section-block{margin-bottom:2.5rem;}
+    /* Code invite box */
+    .invite-box{background:white;border-radius:1.5rem;padding:1.5rem;border:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+    .invite-box-info{flex:1;min-width:200px;}
+    .invite-box-info h3{font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .invite-box-info p{font-size:0.83rem;color:var(--text-muted);}
+    .invite-result{background:var(--primary-light);border:2px dashed #f7bc6b;border-radius:12px;padding:0.8rem 1.4rem;font-size:1.4rem;font-weight:800;letter-spacing:4px;color:var(--primary);min-width:160px;text-align:center;display:none;}
+    .invite-result.show{display:block;}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:white;padding:0.7rem 1.4rem;border-radius:40px;font-weight:600;border:none;font-size:0.88rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+    .btn:hover{background:var(--primary-dark);transform:translateY(-2px);}
+    .btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+    .btn-copy{background:white;color:var(--primary);border:1.5px solid #ffcf9a;margin-left:0.5rem;}
+    .btn-copy:hover{background:var(--primary-light);}
+    /* Users table */
+    .users-list{display:flex;flex-direction:column;gap:0.7rem;}
+    .user-item{background:white;border-radius:1.2rem;padding:0.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);transition:0.2s;}
+    .user-item:hover{border-color:#f7bc6b;}
+    .avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.82rem;flex-shrink:0;}
+    .avatar.student{background:linear-gradient(135deg,#3498db,#5dade2);}
+    .avatar.teacher{background:linear-gradient(135deg,#27ae60,#52be80);}
+    .avatar.admin{background:linear-gradient(135deg,#e67e22,#f0a500);}
+    .user-name{font-weight:700;font-size:0.9rem;}
+    .user-email{font-size:0.77rem;color:var(--text-muted);}
+    .role-tag{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;}
+    .role-student{background:#e8f4fd;color:#2980b9;}
+    .role-teacher{background:#eafaf1;color:#27ae60;}
+    .role-admin{background:var(--primary-light);color:var(--primary);}
+    /* Codes table */
+    .codes-list{display:flex;flex-direction:column;gap:0.7rem;}
+    .code-item{background:white;border-radius:1.2rem;padding:0.9rem 1.2rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);}
+    .code-value{font-size:1rem;font-weight:800;letter-spacing:3px;color:var(--primary);background:var(--primary-light);padding:3px 12px;border-radius:10px;}
+    .code-status{margin-left:auto;font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:15px;}
+    .code-free{background:#eafaf1;color:#27ae60;}
+    .code-used{background:#f0f0f0;color:#999;}
+    /* Empty */
+    .empty-state{text-align:center;padding:2rem;background:white;border-radius:1.5rem;border:1px dashed var(--border);color:var(--text-muted);}
+    .empty-state i{font-size:2rem;margin-bottom:0.6rem;display:block;color:#f7bc6b;}
+    /* Toast */
+    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#2c2b26;color:#ffefcf;padding:12px 24px;border-radius:60px;font-size:0.88rem;font-weight:500;z-index:9999;border-left:4px solid var(--primary);box-shadow:0 10px 20px rgba(0,0,0,0.2);transition:transform 0.3s ease;}
+    .toast.show{transform:translateX(-50%) translateY(0);}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
+  <div class="nav-right">
+    <div class="admin-badge"><i class="fas fa-user-shield"></i> Admin</div>
+    <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>🛡️ Administration</h1>
+    <p>Gérez les utilisateurs, générez les codes enseignants et supervisez la plateforme.</p>
+  </div>
+
+  <!-- Stats globales -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n" id="statTotal">—</div><div class="stat-l">Utilisateurs</div></div>
+    <div class="stat-card"><div class="stat-n" id="statStudents">—</div><div class="stat-l">Étudiants</div></div>
+    <div class="stat-card"><div class="stat-n" id="statTeachers">—</div><div class="stat-l">Enseignants</div></div>
+    <div class="stat-card"><div class="stat-n" id="statCourses">—</div><div class="stat-l">Cours créés</div></div>
+  </div>
+
+  <!-- Générer code enseignant -->
+  <div class="section-block">
+    <div class="section-title"><i class="fas fa-key"></i> Générer un code d'invitation enseignant</div>
+    <div class="invite-box">
+      <div class="invite-box-info">
+        <h3>Code à usage unique</h3>
+        <p>Chaque code ne peut être utilisé qu'une seule fois. Transmettez-le à l'enseignant par email ou message sécurisé.</p>
+      </div>
+      <div>
+        <button class="btn" id="genCodeBtn"><i class="fas fa-plus"></i> Générer un code</button>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-top:1rem;">
+          <div class="invite-result" id="inviteResult">—</div>
+          <button class="btn btn-copy" id="copyCodeBtn" style="display:none;"><i class="fas fa-copy"></i> Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Codes générés -->
+  <div class="section-block">
+    <div class="section-title"><i class="fas fa-list"></i> Codes générés</div>
+    <div id="codesList"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div></div>
+  </div>
+
+  <!-- Utilisateurs -->
+  <div class="section-block">
+    <div class="section-title"><i class="fas fa-users"></i> Tous les utilisateurs</div>
+    <div id="usersList"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (!token || !user || user.role !== 'admin') window.location.href = '/';
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = '/';
+  });
+
+  const authHeaders = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/admin/stats', { headers: authHeaders });
+      const data = await res.json();
+      const s = data.stats;
+      document.getElementById('statTotal').textContent = s.totalUsers;
+      document.getElementById('statStudents').textContent = s.students;
+      document.getElementById('statTeachers').textContent = s.teachers;
+      document.getElementById('statCourses').textContent = s.courses;
+    } catch {}
+  }
+
+  async function loadUsers() {
+    try {
+      const res = await fetch('/api/admin/users', { headers: authHeaders });
+      const data = await res.json();
+      const users = data.users || [];
+      if (users.length === 0) {
+        document.getElementById('usersList').innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Aucun utilisateur.</p></div>';
+        return;
+      }
+      document.getElementById('usersList').innerHTML = '<div class="users-list">' + users.map(u => {
+        const initials = u.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+        const roleLabels = { student:'Étudiant', teacher:'Enseignant', admin:'Admin' };
+        const roleCss = { student:'role-student', teacher:'role-teacher', admin:'role-admin' };
+        return `<div class="user-item"><div class="avatar ${u.role}">${initials}</div><div><div class="user-name">${u.name}</div><div class="user-email">${u.email}</div></div><span class="role-tag ${roleCss[u.role]}">${roleLabels[u.role]}</span></div>`;
+      }).join('') + '</div>';
+    } catch {
+      document.getElementById('usersList').innerHTML = '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.</p></div>';
+    }
+  }
+
+  async function loadCodes() {
+    try {
+      const res = await fetch('/api/admin/invite-codes', { headers: authHeaders });
+      const data = await res.json();
+      const codes = data.codes || [];
+      if (codes.length === 0) {
+        document.getElementById('codesList').innerHTML = '<div class="empty-state"><i class="fas fa-key"></i><p>Aucun code généré pour le moment.</p></div>';
+        return;
+      }
+      document.getElementById('codesList').innerHTML = '<div class="codes-list">' + codes.map(c =>
+        `<div class="code-item"><div class="code-value">${c.code}</div><div style="font-size:0.78rem;color:var(--text-muted);">Créé le ${new Date(c.createdAt).toLocaleDateString('fr-FR')}</div><span class="code-status ${c.used ? 'code-used' : 'code-free'}">${c.used ? '✅ Utilisé' : '🟢 Disponible'}</span></div>`
+      ).join('') + '</div>';
+    } catch {}
+  }
+
+  // Générer un code
+  let lastCode = '';
+  document.getElementById('genCodeBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('genCodeBtn');
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/admin/invite-code', { method: 'POST', headers: authHeaders });
+      const data = await res.json();
+      if (!res.ok) { showToast('❌ Erreur : ' + data.error); return; }
+      lastCode = data.inviteCode;
+      const resultEl = document.getElementById('inviteResult');
+      resultEl.textContent = lastCode;
+      resultEl.classList.add('show');
+      document.getElementById('copyCodeBtn').style.display = 'inline-flex';
+      showToast('✅ Code généré : ' + lastCode);
+      loadCodes();
+    } catch { showToast('❌ Serveur non accessible.'); }
+    finally { btn.disabled = false; }
+  });
+
+  document.getElementById('copyCodeBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(lastCode).then(() => showToast('📋 Code copié : ' + lastCode));
+  });
+
+  loadStats();
+  loadUsers();
+  loadCodes();
+</script>
+</body>
+</html>

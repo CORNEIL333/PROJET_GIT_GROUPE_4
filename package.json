@@ -1,0 +1,35 @@
+{
+  "name": "uni-git-platform",
+  "version": "1.0.0",
+  "description": "Plateforme Git Universitaire - Gestion académique des dépôts",
+  "homepage": "https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4#readme",
+  "bugs": {
+    "url": "https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4.git"
+  },
+  "license": "ISC",
+  "author": "Université - Cameroun",
+  "type": "commonjs",
+  "main": "backend/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

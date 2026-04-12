@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Espace — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{--primary:#e67e22;--primary-dark:#cf711f;--primary-light:#fff1e6;--bg:#fef9f0;--text:#1e2a3e;--text-muted:#4a5b4e;--border:rgba(235,200,150,0.6);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(255,252,245,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;text-decoration:none;}
+    .logo i{color:#e67e22;-webkit-text-fill-color:#e67e22;}
+    .nav-right{display:flex;align-items:center;gap:1rem;}
+    .user-chip{display:flex;align-items:center;gap:8px;background:var(--primary-light);border:1px solid #ffcf9a;border-radius:30px;padding:0.4rem 1rem;font-size:0.85rem;font-weight:600;color:#c25d1a;}
+    .avatar-sm{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#e67e22,#f09b42);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.75rem;flex-shrink:0;}
+    .btn-logout{background:none;border:1px solid var(--border);color:var(--text-muted);padding:0.4rem 0.9rem;border-radius:20px;font-size:0.82rem;cursor:pointer;font-family:'Inter',sans-serif;transition:0.2s;}
+    .btn-logout:hover{border-color:#e74c3c;color:#e74c3c;}
+    .container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem;}
+    .page-header{margin-bottom:2rem;}
+    .page-header h1{font-size:1.7rem;font-weight:800;margin-bottom:0.3rem;}
+    .page-header p{color:var(--text-muted);font-size:0.9rem;}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2.5rem;}
+    .stat-card{background:white;border-radius:1.5rem;padding:1.2rem;text-align:center;border:1px solid var(--border);transition:0.2s;}
+    .stat-card:hover{border-color:#f7bc6b;transform:translateY(-3px);box-shadow:0 8px 16px rgba(0,0,0,0.06);}
+    .stat-n{font-size:2rem;font-weight:800;color:var(--primary);}
+    .stat-l{font-size:0.72rem;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;}
+    .section-title{font-size:1.05rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+    .section-block{margin-bottom:2.5rem;}
+    .repo-list{display:flex;flex-direction:column;gap:0.8rem;}
+    .repo-item{background:white;border-radius:1.3rem;padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
+    .repo-item:hover{border-color:#f7bc6b;transform:translateX(4px);box-shadow:0 4px 14px rgba(0,0,0,0.07);}
+    .repo-icon{width:40px;height:40px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1.1rem;flex-shrink:0;}
+    .repo-name{font-weight:700;font-size:0.92rem;}
+    .repo-desc{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
+    .repo-meta{margin-left:auto;text-align:right;font-size:0.75rem;color:var(--text-muted);}
+    .tag{background:var(--primary-light);color:var(--primary);padding:2px 9px;border-radius:10px;font-size:0.72rem;font-weight:600;}
+    .cours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
+    .cours-card{background:white;border-radius:1.3rem;padding:1.2rem;border:1px solid var(--border);transition:0.2s;cursor:pointer;}
+    .cours-card:hover{border-color:#f7bc6b;box-shadow:0 6px 16px rgba(230,126,34,0.1);transform:translateY(-3px);}
+    .cours-code{font-size:0.72rem;font-weight:700;color:var(--primary);background:var(--primary-light);display:inline-block;padding:2px 8px;border-radius:8px;margin-bottom:0.5rem;}
+    .cours-name{font-weight:700;font-size:0.95rem;margin-bottom:0.3rem;}
+    .cours-teacher{font-size:0.78rem;color:var(--text-muted);}
+    .empty-state{text-align:center;padding:2.5rem;background:white;border-radius:1.5rem;border:1px dashed var(--border);color:var(--text-muted);}
+    .empty-state i{font-size:2.5rem;margin-bottom:0.8rem;display:block;color:#f7bc6b;}
+    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#2c2b26;color:#ffefcf;padding:12px 24px;border-radius:60px;font-size:0.88rem;font-weight:500;z-index:9999;border-left:4px solid var(--primary);box-shadow:0 10px 20px rgba(0,0,0,0.2);transition:transform 0.3s ease;}
+    .toast.show{transform:translateX(-50%) translateY(0);}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
+  <div class="nav-right">
+    <div class="user-chip"><div class="avatar-sm" id="avatarInitials">?</div><span id="userName">...</span></div>
+    <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>👨‍🎓 Mon espace étudiant</h1>
+    <p>Bienvenue, <strong id="welcomeName">...</strong> · Matricule : <span id="userMatricule">—</span></p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Mes dépôts</div></div>
+    <div class="stat-card"><div class="stat-n" id="statCours">—</div><div class="stat-l">Cours disponibles</div></div>
+    <div class="stat-card"><div class="stat-n">48</div><div class="stat-l">Commits totaux</div></div>
+    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">TPs en attente</div></div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title"><i class="fas fa-database"></i> Mes dépôts récents</div>
+    <div class="repo-list">
+      <div class="repo-item"><div class="repo-icon"><i class="fas fa-code"></i></div><div><div class="repo-name">projet-S8-groupe4</div><div class="repo-desc">Projet de fin de semestre — Intelligence Artificielle</div></div><div class="repo-meta"><span class="tag">Python</span><div style="margin-top:4px;">12 commits</div></div></div>
+      <div class="repo-item"><div class="repo-icon"><i class="fas fa-database"></i></div><div><div class="repo-name">TP2-bases-de-donnees</div><div class="repo-desc">TP noté — Modélisation et requêtes SQL</div></div><div class="repo-meta"><span class="tag">SQL</span><div style="margin-top:4px;">8 commits</div></div></div>
+      <div class="repo-item"><div class="repo-icon"><i class="fas fa-globe"></i></div><div><div class="repo-name">site-web-perso</div><div class="repo-desc">Portfolio personnel étudiant</div></div><div class="repo-meta"><span class="tag">HTML/CSS</span><div style="margin-top:4px;">21 commits</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title"><i class="fas fa-book-open"></i> Cours disponibles</div>
+    <div id="coursList"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (!token || !user || user.role !== 'student') window.location.href = '/';
+
+  if (user) {
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('welcomeName').textContent = user.name;
+    document.getElementById('userMatricule').textContent = user.studentId || '—';
+    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('avatarInitials').textContent = initials;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = '/';
+  });
+
+  async function loadCours() {
+    try {
+      const res = await fetch('/api/student/all-courses', { headers: { 'Authorization': 'Bearer ' + token } });
+      const data = await res.json();
+      const courses = data.courses || [];
+      document.getElementById('statCours').textContent = courses.length;
+      if (courses.length === 0) {
+        document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>Aucun cours créé pour le moment.<br>Attends que ton enseignant en crée un.</p></div>';
+        return;
+      }
+      document.getElementById('coursList').innerHTML = '<div class="cours-grid">' + courses.map(c =>
+        `<div class="cours-card"><div class="cours-code">${c.code}</div><div class="cours-name">${c.name}</div><div class="cours-teacher"><i class="fas fa-chalkboard-teacher"></i> ${c.teacherName}</div>${c.description ? '<p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;">'+c.description+'</p>' : ''}</div>`
+      ).join('') + '</div>';
+    } catch {
+      document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.<br>Démarre Node.js avec <code>npm start</code>.</p></div>';
+    }
+  }
+  loadCours();
+</script>
+</body>
+</html>
