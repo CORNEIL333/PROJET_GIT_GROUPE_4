@@ -1,0 +1,38 @@
+/* ── Variables globales ── */
+:root {
+  --primary: #e67e22;
+  --primary-dark: #cf711f;
+  --primary-light: #fff1e6;
+  --bg: #fef9f0;
+  --text: #1e2a3e;
+  --text-muted: #4a5b4e;
+  --border: rgba(235,200,150,0.6);
+}
+
+/* ── Utilitaires ── */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.hidden { display: none; }
+
+/* ── Boutons supplémentaires ── */
+.btn-danger {
+  background: #e74c3c;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 48px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-success {
+  background: #27ae60;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 48px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
