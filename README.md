@@ -56,3 +56,21 @@ Les contributions sont les bienvenues !
 
 ## 📄 Licence
 Usage interne universitaire uniquement.
+## 🖥️ Interface Frontend
+Le frontend est une interface HTML/CSS/JS pure, sans framework.
+
+### Pages disponibles
+- `frontend/index.html` — Page d'accueil principale
+- `frontend/404.html` — Page d'erreur 404
+- `frontend/style.css` — Styles globaux
+- `frontend/app.js` — Logique JavaScript
+
+### Fonctionnalités de l'interface
+- Navbar sticky avec navigation fluide
+- Modal de connexion avec 3 rôles (étudiant, enseignant, admin)
+- Compteurs animés en temps réel
+- Design responsive (mobile et desktop)
+- Toasts de notification interactifs
+
+### Membre 3 — Interface Frontend
+Responsable de toute l'interface utilisateur du projet.
