@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Dépôts — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#fef9f0;color:#1e2a3e;padding:2rem;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+    .logo{font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;}
+    .back{color:#e67e22;text-decoration:none;font-weight:600;font-size:0.9rem;}
+    h1{font-size:1.8rem;font-weight:800;margin-bottom:1.5rem;}
+    .search{width:100%;max-width:400px;padding:0.75rem 1rem;border-radius:12px;border:1.5px solid #e0d5c8;font-family:'Inter',sans-serif;font-size:0.92rem;outline:none;margin-bottom:1.5rem;}
+    .search:focus{border-color:#e67e22;}
+    .repo-list{display:flex;flex-direction:column;gap:1rem;max-width:700px;}
+    .repo-item{background:white;border-radius:1.5rem;padding:1.2rem 1.5rem;border:1px solid rgba(235,200,150,0.6);display:flex;align-items:center;gap:1rem;transition:all 0.2s;cursor:pointer;}
+    .repo-item:hover{border-color:#f7bc6b;transform:translateX(4px);box-shadow:0 4px 14px rgba(0,0,0,0.07);}
+    .repo-icon{width:44px;height:44px;border-radius:12px;background:#fff1e6;display:flex;align-items:center;justify-content:center;color:#e67e22;font-size:1.3rem;flex-shrink:0;}
+    .repo-name{font-weight:700;font-size:0.95rem;}
+    .repo-desc{font-size:0.8rem;color:#4a5b4e;margin-top:2px;}
+    .repo-meta{margin-left:auto;text-align:right;font-size:0.75rem;color:#4a5b4e;}
+    .tag{background:#fff1e6;color:#e67e22;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🎓 GitUniversitaire</div>
+    <a href="index.html" class="back">← Accueil</a>
+  </div>
+  <h1>📁 Mes Dépôts</h1>
+  <input class="search" type="text" placeholder="🔍 Rechercher un dépôt...">
+  <div class="repo-list">
+    <div class="repo-item"><div class="repo-icon"><i class="fas fa-code"></i></div><div><div class="repo-name">projet-S8-groupe4</div><div class="repo-desc">Projet de fin de semestre — Intelligence Artificielle</div></div><div class="repo-meta"><span class="tag">Python</span><div style="margin-top:4px;">12 commits</div></div></div>
+    <div class="repo-item"><div class="repo-icon"><i class="fas fa-database"></i></div><div><div class="repo-name">TP2-bases-de-donnees</div><div class="repo-desc">TP noté — Modélisation et requêtes SQL</div></div><div class="repo-meta"><span class="tag">SQL</span><div style="margin-top:4px;">8 commits</div></div></div>
+    <div class="repo-item"><div class="repo-icon"><i class="fas fa-network-wired"></i></div><div><div class="repo-name">TP-reseaux-INFO301</div><div class="repo-desc">Configuration routeurs et protocoles réseau</div></div><div class="repo-meta"><span class="tag">Bash</span><div style="margin-top:4px;">5 commits</div></div></div>
+    <div class="repo-item"><div class="repo-icon"><i class="fas fa-globe"></i></div><div><div class="repo-name">site-web-perso</div><div class="repo-desc">Portfolio personnel étudiant</div></div><div class="repo-meta"><span class="tag">HTML/CSS</span><div style="margin-top:4px;">21 commits</div></div></div>
+  </div>
+</body>
+</html>
