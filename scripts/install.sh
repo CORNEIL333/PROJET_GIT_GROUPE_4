@@ -24,7 +24,13 @@ if ! command -v git &> /dev/null; then
     sudo apt update && sudo apt install -y git
 fi
 
+if ! id gitserver &>/dev/null; then
+    echo -e "${BLUE}👤 Création de l'utilisateur système 'git'...${NC}"
+    sudo useradd -m -s /bin/bash git || true
+fi
+
 mkdir -p /home/git/repos /home/git/backups /home/git/logs
+sudo chown -R git:git /home/git 2>/dev/null || true
 
 echo -e "${GREEN}📂 Structure de dossiers créée :${NC}"
 echo "  - /home/git/repos (Dépôts)"

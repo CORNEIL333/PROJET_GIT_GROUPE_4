@@ -28,3 +28,10 @@ echo "📊 Taille totale : $SIZE"
 echo "🧹 Nettoyage des anciennes sauvegardes (7j+)..."
 find "$BACKUP_DIR" -type d -mtime +7 -exec rm -rf {} +
 echo "✅ Nettoyage terminé."
+
+# Ajouter au cron s'il n'y est pas déjà
+SCRIPT_PATH=$(realpath "$0" 2>/dev/null || echo "$0")
+if ! crontab -l 2>/dev/null | grep -q "$SCRIPT_PATH"; then
+    echo "⏰ Ajout de la tâche cron pour une exécution journalière à 2h du matin..."
+    (crontab -l 2>/dev/null; echo "0 2 * * * /bin/bash $SCRIPT_PATH") | crontab -
+fi
