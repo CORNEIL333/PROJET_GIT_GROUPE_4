@@ -1,0 +1,144 @@
+[33mcommit 660b08f081497b2d99873651de0dacbb42cc5a41[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mINESS[m[33m, [m[1;31morigin/INESS[m[33m)[m
+Author: tatchumange10-code <tatchumange10@gmail.com>
+Date:   Sat Apr 11 14:12:13 2026 +0100
+
+    Ajout des modifications sur la branche INESS
+
+[33mcommit 18b30f21ce5cfc7391553c56daaf5354156ff8fe[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Sat Apr 11 13:53:09 2026 +0200
+
+    Update create_course_repo.sh
+
+[33mcommit e9773d0d3ff7d133a671f7b673638eb8bfbe922b[m
+Merge: af43287 eea3fcb
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Sat Apr 11 13:53:04 2026 +0200
+
+    Merge branch 'main' of https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4
+
+[33mcommit eea3fcbaa75de8bb7931a7c3baff17024304204f[m
+Author: overhall93-lab <overhall93@gmail.com>
+Date:   Sat Apr 11 02:16:01 2026 +0100
+
+    Update index.html
+
+[33mcommit af432874514f58a594b026813337d202bf60a3c5[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:24:15 2026 +0200
+
+    Add post-receive hook installation to create_course_repo.sh
+
+[33mcommit a3dcec660c5de4b382a24bce6c3c9464b32e7a50[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:21:35 2026 +0200
+
+    Add repo existence check to create_course_repo.sh
+
+[33mcommit 7f6ed47a32a68524ea16835e58c75d8568562d87[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:18:24 2026 +0200
+
+    Add empty file check to add_students.sh
+
+[33mcommit f3e0c00f284d31caf6fca75dcb7c43b588a7e19b[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:05:04 2026 +0200
+
+    Improve output formatting in add_students.sh
+
+[33mcommit 18b21d7dd2badf6cb8746e6ee773f62bd3faef8c[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:04:45 2026 +0200
+
+    Add dry-run mode to add_students.sh
+
+[33mcommit efdf1edee5ae68e33ba501ea1686116f11d5a106[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:04:19 2026 +0200
+
+    Add course code validation to add_students.sh
+
+[33mcommit 10ea780c36e63509b413dffa12f5a5d814a0914d[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:03:59 2026 +0200
+
+    Add size summary to backup.sh
+
+[33mcommit cea207709ec291c16c053d36498851a4d8ff5601[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:03:26 2026 +0200
+
+    Add backup retention policy to backup.sh
+
+[33mcommit aa0e1127d1657a30fa9a3f0474e74dfbb9b4e67c[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:02:29 2026 +0200
+
+    Add backup compression to backup.sh
+
+[33mcommit 6b1472749847c3130c83f15e58a43ce10165d268[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:01:59 2026 +0200
+
+    Add logging to backup.sh
+
+[33mcommit 1316e28542b2e55aabf25ccd4c2754f55dace455[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:00:45 2026 +0200
+
+    Add directory summary to install.sh
+
+[33mcommit 7e49ec8efec7886575c48dfacd6609a90dda5c34[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 16:00:10 2026 +0200
+
+    Add logging to install.sh
+
+[33mcommit 6c4c2e0b47f3a207b701e0d31ce887b987034bd4[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:59:52 2026 +0200
+
+    Add root check to install.sh
+
+[33mcommit b56520bb1cf739c064c8a6187e941585d01f3ca1[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:59:22 2026 +0200
+
+    Add color output to install.sh
+
+[33mcommit 119d30cd9f58e0909c1fe3f8ab4cecc859edbadc[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:59:01 2026 +0200
+
+    Update Team section in README
+
+[33mcommit 9c560853d995a55925616cf645f95c30c003f493[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:58:37 2026 +0200
+
+    Add Contribution section to README
+
+[33mcommit e6ef412c1a3349e187bab1db79951325f16131bf[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:57:41 2026 +0200
+
+    Expand scripts documentation in README
+
+[33mcommit 7302972ce56dc28d6eb54399f3dc9c7b81065b13[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:57:26 2026 +0200
+
+    Add Prerequisites section to README
+
+[33mcommit 41c79c7ae5fc714c389ca0dc2ddc65e5833fb19f[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:56:33 2026 +0200
+
+    Update repository URL in README
+
+[33mcommit a56da04c9ca5a1a867b8900972aee8b1a2124738[m
+Author: CORNEIL333 <miguelcorneil441@gmail.com>
+Date:   Fri Apr 10 15:17:05 2026 +0200
+
+    Initial commit: full project upload

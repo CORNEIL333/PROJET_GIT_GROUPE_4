@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Profil — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#fef9f0;color:#1e2a3e;padding:2rem;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+    .logo{font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;}
+    .back{color:#e67e22;text-decoration:none;font-weight:600;font-size:0.9rem;}
+    .profile-card{background:white;border-radius:2rem;padding:2rem;max-width:600px;margin:0 auto;box-shadow:0 8px 20px rgba(0,0,0,0.07);}
+    .avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#e67e22,#f09b42);display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;margin:0 auto 1rem;}
+    .name{text-align:center;font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;}
+    .role-badge{text-align:center;background:#fff1e6;color:#e67e22;padding:0.3rem 1rem;border-radius:20px;font-size:0.8rem;font-weight:600;display:inline-block;margin:0 auto 1.5rem;display:flex;justify-content:center;}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
+    .info-item{background:#fef9f0;border-radius:1rem;padding:1rem;}
+    .info-item label{font-size:0.75rem;color:#4a5b4e;font-weight:600;text-transform:uppercase;display:block;margin-bottom:4px;}
+    .info-item span{font-size:0.95rem;font-weight:700;}
+    .stats{display:flex;gap:1rem;margin-top:1.5rem;}
+    .stat{flex:1;text-align:center;background:#fff1e6;border-radius:1rem;padding:1rem;}
+    .stat-n{font-size:1.8rem;font-weight:800;color:#e67e22;}
+    .stat-l{font-size:0.75rem;color:#4a5b4e;}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🎓 GitUniversitaire</div>
+    <a href="index.html" class="back">← Accueil</a>
+  </div>
+  <div class="profile-card">
+    <div class="avatar">👨‍🎓</div>
+    <div class="name">Jean Dupont</div>
+    <div class="role-badge">Étudiant · L3 Informatique</div>
+    <div class="info-grid">
+      <div class="info-item"><label>Email</label><span>jean.dupont@univ.cm</span></div>
+      <div class="info-item"><label>Matricule</label><span>21UY1-0042</span></div>
+      <div class="info-item"><label>Département</label><span>Informatique</span></div>
+      <div class="info-item"><label>Année</label><span>Licence 3</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">12</div><div class="stat-l">Dépôts</div></div>
+      <div class="stat"><div class="stat-n">48</div><div class="stat-l">Commits</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">Projets</div></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -2,10 +2,564 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+    .user-item {
+      background: white; border-radius: 1.2rem; padding: 0.9rem 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+      border: 1px solid var(--border); transition: 0.2s;
+    }
+    .user-item:hover { border-color: #f7bc6b; }
+    .user-item.disabled { opacity: 0.55; }
+    .user-actions { margin-left: auto; display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+
+    .code-item {
+      background: white; border-radius: 1.2rem; padding: 0.9rem 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+      border: 1px solid var(--border);
+    }
+    .code-value {
+      font-size: 1rem; font-weight: 800; letter-spacing: 3px;
+      color: var(--primary); background: var(--primary-light);
+      padding: 3px 12px; border-radius: 10px;
+    }
+    .code-status { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 15px; }
+    .code-free { background: #eafaf1; color: var(--green); }
+    .code-used { background: #f0f0f0; color: #888; }
+
+    .invite-box {
+      background: white; border-radius: 1.5rem;
+      padding: 1.5rem; border: 1px solid var(--border);
+      display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .invite-result {
+      background: var(--primary-light); border: 2px dashed #f7bc6b;
+      border-radius: 12px; padding: 0.8rem 1.4rem;
+      font-size: 1.4rem; font-weight: 800; letter-spacing: 4px;
+      color: var(--primary); min-width: 160px; text-align: center; display: none;
+    }
+    .invite-result.show { display: block; }
+
+    .log-item {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.83rem;
+    }
+    .log-item:last-child { border-bottom: none; }
+    .log-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+    .log-icon.green { background: #eafaf1; color: var(--green); }
+    .log-icon.orange { background: var(--primary-light); color: var(--primary); }
+    .log-icon.blue { background: #dbeeff; color: var(--blue); }
+    .log-icon.red { background: #fde8e8; color: var(--red); }
+    .log-time { color: var(--text-muted); font-size: 0.75rem; margin-top: 2px; }
+
+    .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .filter-btn {
+      padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+      border: 1.5px solid var(--border); background: white; color: var(--text-muted);
+      cursor: pointer; font-family: 'Inter', sans-serif; transition: 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .param-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+    }
+    .param-row:last-child { border-bottom: none; }
+    .toggle {
+      width: 44px; height: 24px; border-radius: 12px;
+      background: #ddd; border: none; cursor: pointer;
+      position: relative; transition: 0.2s; flex-shrink: 0;
+    }
+    .toggle::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: white; transition: 0.2s;
+    }
+    .toggle.on { background: var(--primary); }
+    .toggle.on::after { left: 23px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
+  <div class="nav-right">
+    <div class="admin-badge"><i class="fas fa-user-shield"></i> Administrateur</div>
+    <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>🛡️ Administration</h1>
+    <p>Gérez les utilisateurs, les codes d'invitation, les cours et la configuration de la plateforme.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n" id="statTotal">—</div><div class="stat-l">Utilisateurs</div></div>
+    <div class="stat-card"><div class="stat-n" id="statStudents">—</div><div class="stat-l">Étudiants</div></div>
+    <div class="stat-card"><div class="stat-n" id="statTeachers">—</div><div class="stat-l">Enseignants</div></div>
+    <div class="stat-card"><div class="stat-n" id="statCourses">—</div><div class="stat-l">Cours actifs</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="utilisateurs"><i class="fas fa-users"></i> Utilisateurs</button>
+    <button class="tab-btn" data-tab="codes"><i class="fas fa-key"></i> Codes invitation</button>
+    <button class="tab-btn" data-tab="cours"><i class="fas fa-book-open"></i> Cours</button>
+    <button class="tab-btn" data-tab="logs"><i class="fas fa-history"></i> Activité</button>
+    <button class="tab-btn" data-tab="params"><i class="fas fa-cog"></i> Paramètres</button>
+  </div>
+
+  <!-- TAB : Utilisateurs -->
+  <div class="tab-pane active" id="tab-utilisateurs">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-users"></i> Tous les utilisateurs</div>
+        <span id="userCountLabel" class="text-muted"></span>
+      </div>
+      <!-- Filtres -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="student">Étudiants</button>
+        <button class="filter-btn" data-filter="teacher">Enseignants</button>
+        <button class="filter-btn" data-filter="admin">Admins</button>
+      </div>
+      <div id="usersList" style="display:flex;flex-direction:column;gap:0.7rem;">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Codes invitation -->
+  <div class="tab-pane" id="tab-codes">
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fas fa-key"></i> Générer un code enseignant</div></div>
+      <div class="invite-box">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-weight:700;font-size:1rem;margin-bottom:0.4rem;">Code à usage unique</div>
+          <p class="text-muted">Chaque code ne peut être utilisé qu'une seule fois. Transmettez-le à l'enseignant par email ou message sécurisé.</p>
+        </div>
+        <div>
+          <button class="btn" id="genCodeBtn"><i class="fas fa-plus"></i> Générer un code</button>
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-top:1rem;">
+            <div class="invite-result" id="inviteResult">—</div>
+            <button class="btn" id="copyCodeBtn" style="display:none;background:white;color:var(--primary);border:1.5px solid #ffcf9a;">
+              <i class="fas fa-copy"></i> Copier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fas fa-list"></i> Historique des codes</div></div>
+      <div id="codesList" style="display:flex;flex-direction:column;gap:0.7rem;">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Cours -->
+  <div class="tab-pane" id="tab-cours">
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fas fa-book-open"></i> Tous les cours</div></div>
+      <div id="allCoursesList" style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Logs d'activité -->
+  <div class="tab-pane" id="tab-logs">
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fas fa-history"></i> Journal d'activité récente</div></div>
+      <div class="card-white">
+        <div id="logsList">
+          <div class="log-item">
+            <div class="log-icon green"><i class="fas fa-user-plus"></i></div>
+            <div><div><strong>Jean Dupont</strong> a créé un compte étudiant</div><div class="log-time">Il y a 5 min</div></div>
+          </div>
+          <div class="log-item">
+            <div class="log-icon orange"><i class="fas fa-book"></i></div>
+            <div><div><strong>Prof. Nkomo</strong> a créé le cours <em>INFO201 — Réseaux</em></div><div class="log-time">Il y a 22 min</div></div>
+          </div>
+          <div class="log-item">
+            <div class="log-icon blue"><i class="fas fa-key"></i></div>
+            <div><div>Code d'invitation <strong>A3FX9K2B</strong> utilisé par Prof. Kamga</div><div class="log-time">Il y a 1h</div></div>
+          </div>
+          <div class="log-item">
+            <div class="log-icon green"><i class="fas fa-upload"></i></div>
+            <div><div><strong>Awa Mbeki</strong> a soumis TP2 — Bases de données</div><div class="log-time">Il y a 3h</div></div>
+          </div>
+          <div class="log-item">
+            <div class="log-icon orange"><i class="fas fa-user-plus"></i></div>
+            <div><div><strong>Sophie Nkomo</strong> a créé un compte étudiant</div><div class="log-time">Hier, 18:42</div></div>
+          </div>
+          <div class="log-item">
+            <div class="log-icon red"><i class="fas fa-sign-in-alt"></i></div>
+            <div><div>Tentative de connexion échouée — email inconnu</div><div class="log-time">Hier, 14:10</div></div>
+          </div>
+        </div>
+        <div class="text-muted" style="text-align:right;margin-top:0.8rem;font-size:0.75rem;">
+          <i class="fas fa-sync-alt"></i> Mis à jour en temps réel
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Paramètres -->
+  <div class="tab-pane" id="tab-params">
+    <div class="section-block">
+      <div class="card-white">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:1.2rem;">⚙️ Configuration de la plateforme</div>
+
+        <div class="param-row">
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;">Inscription étudiante ouverte</div>
+            <div class="text-muted">Permettre aux étudiants de créer un compte librement</div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on');showToast('Paramètre mis à jour')"></button>
+        </div>
+        <div class="param-row">
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;">Codes d'invitation actifs</div>
+            <div class="text-muted">Activer le système de codes pour les enseignants</div>
+          </div>
+          <button class="toggle on" onclick="this.classList.toggle('on');showToast('Paramètre mis à jour')"></button>
+        </div>
+        <div class="param-row">
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;">Notifications push</div>
+            <div class="text-muted">Envoyer des notifications lors de nouvelles soumissions</div>
+          </div>
+          <button class="toggle" onclick="this.classList.toggle('on');showToast('Paramètre mis à jour')"></button>
+        </div>
+        <div class="param-row">
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;">Mode maintenance</div>
+            <div class="text-muted">Bloquer l'accès à la plateforme (sauf admin)</div>
+          </div>
+          <button class="toggle" onclick="this.classList.toggle('on');showToast('⚠️ Mode maintenance activé')"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="card-white">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:1.2rem;">🔐 Changer le mot de passe admin</div>
+        <div class="form-group"><label>Ancien mot de passe</label><input type="password" id="oldPwd" placeholder="••••••••"></div>
+        <div class="form-group"><label>Nouveau mot de passe</label><input type="password" id="newPwd" placeholder="••••••••"></div>
+        <div class="form-group"><label>Confirmer</label><input type="password" id="confirmPwd" placeholder="••••••••"></div>
+        <button class="btn" onclick="changePwd()"><i class="fas fa-lock"></i> Mettre à jour</button>
+        <div class="msg msg-success mt-1" id="pwdSuccess"></div>
+        <div class="msg msg-error mt-1" id="pwdError"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal confirmation désactivation -->
+<div class="modal-overlay" id="disableModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('disableModal').classList.remove('open')"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-user-slash" style="color:var(--red);"></i> Désactiver l'utilisateur</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1rem;">Cet utilisateur ne pourra plus se connecter.</p>
+    <div id="disableUserName" style="font-weight:700;color:var(--primary);margin-bottom:1.5rem;"></div>
+    <div style="display:flex;gap:0.8rem;">
+      <button class="btn btn-danger" id="confirmDisableBtn"><i class="fas fa-user-slash"></i> Désactiver</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('disableModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Réinitialisation Mot de passe -->
+<div class="modal-overlay" id="resetPwdModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('resetPwdModal').classList.remove('open')"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-key" style="color:var(--primary);"></i> Réinitialiser le mot de passe</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1rem;">Définissez un nouveau mot de passe pour cet utilisateur.</p>
+    <div id="resetPwdUserName" style="font-weight:700;color:var(--primary);margin-bottom:1rem;"></div>
+    <div class="form-group">
+      <label>Nouveau mot de passe</label>
+      <input type="password" id="adminNewPwd" placeholder="Min. 6 caractères">
+    </div>
+    <div style="display:flex;gap:0.8rem;margin-top:1.5rem;">
+      <button class="btn" id="confirmResetBtn"><i class="fas fa-save"></i> Enregistrer</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('resetPwdModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (!token || !user || user.role !== 'admin') window.location.href = '/';
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.clear(); window.location.href = '/';
+  });
+
+  // ── Tabs ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  const authH = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+  let allUsers = [];
+  let currentFilter = 'all';
+  let toDisableId = null;
+
+  // ── Stats ──
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/admin/stats', { headers: authH });
+      const data = await res.json();
+      const s = data.stats;
+      document.getElementById('statTotal').textContent = s.totalUsers;
+      document.getElementById('statStudents').textContent = s.students;
+      document.getElementById('statTeachers').textContent = s.teachers;
+      document.getElementById('statCourses').textContent = s.courses;
+    } catch {}
+  }
+
+  // ── Utilisateurs ──
+  async function loadUsers() {
+    try {
+      const res = await fetch('/api/admin/users', { headers: authH });
+      const data = await res.json();
+      allUsers = data.users || [];
+      document.getElementById('userCountLabel').textContent = allUsers.length + ' utilisateur(s)';
+      renderUsers(currentFilter);
+    } catch {
+      document.getElementById('usersList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.</p></div>';
+    }
+  }
+
+  function renderUsers(filter) {
+    currentFilter = filter;
+    const filtered = filter === 'all' ? allUsers : allUsers.filter(u => u.role === filter);
+    if (filtered.length === 0) {
+      document.getElementById('usersList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-users"></i><p>Aucun utilisateur dans cette catégorie.</p></div>';
+      return;
+    }
+    const roleLabels = { student: 'Étudiant', teacher: 'Enseignant', admin: 'Admin' };
+    const roleCss = { student: 'badge-blue', teacher: 'badge-green', admin: 'badge-orange' };
+    const avatarCss = { student: 'blue', teacher: 'green', admin: 'orange' };
+    const disabled = JSON.parse(localStorage.getItem('disabledUsers') || '[]');
+
+    document.getElementById('usersList').innerHTML = filtered.map(u => {
+      const initials = u.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+      const isDisabled = disabled.includes(u.id);
+      return `<div class="user-item ${isDisabled ? 'disabled' : ''}" id="user-${u.id}">
+        <div class="avatar ${avatarCss[u.role]}">${initials}</div>
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:0.9rem;">${u.name} ${isDisabled ? '<span style="font-size:0.72rem;color:var(--red);">(désactivé)</span>' : ''}</div>
+          <div class="text-muted">${u.email}${u.studentId ? ' · ' + u.studentId : ''}</div>
+        </div>
+        <span class="badge ${roleCss[u.role]}">${roleLabels[u.role]}</span>
+        ${u.role !== 'admin' ? `<div class="user-actions">
+          ${isDisabled
+            ? `<button class="btn btn-sm" onclick="reactivateUser('${u.id}','${u.name}')"><i class="fas fa-user-check"></i> Réactiver</button>`
+            : `<button class="btn btn-sm btn-danger" onclick="askDisable('${u.id}','${u.name}')"><i class="fas fa-user-slash"></i> Désactiver</button>`}
+          <button class="btn btn-sm btn-secondary" onclick="askResetPwd('${u.id}','${u.name}')"><i class="fas fa-key"></i> Pass</button>
+        </div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  // Filtres
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderUsers(btn.dataset.filter);
+    });
+  });
+
+  function askDisable(id, name) {
+    toDisableId = id;
+    document.getElementById('disableUserName').textContent = name;
+    document.getElementById('disableModal').classList.add('open');
+  }
+  document.getElementById('confirmDisableBtn').addEventListener('click', () => {
+    const disabled = JSON.parse(localStorage.getItem('disabledUsers') || '[]');
+    disabled.push(toDisableId);
+    localStorage.setItem('disabledUsers', JSON.stringify(disabled));
+    document.getElementById('disableModal').classList.remove('open');
+    renderUsers(currentFilter);
+    showToast('🚫 Utilisateur désactivé.');
+  });
+  function reactivateUser(id, name) {
+    let disabled = JSON.parse(localStorage.getItem('disabledUsers') || '[]');
+    disabled = disabled.filter(x => x !== id);
+    localStorage.setItem('disabledUsers', JSON.stringify(disabled));
+    renderUsers(currentFilter);
+    showToast('✅ ' + name + ' réactivé.');
+  }
+
+  let toResetId = null;
+  function askResetPwd(id, name) {
+    toResetId = id;
+    document.getElementById('resetPwdUserName').textContent = name;
+    document.getElementById('adminNewPwd').value = '';
+    document.getElementById('resetPwdModal').classList.add('open');
+  }
+
+  document.getElementById('confirmResetBtn').addEventListener('click', async () => {
+    const newPassword = document.getElementById('adminNewPwd').value;
+    if (newPassword.length < 6) {
+      showToast('❌ Le mot de passe doit faire au moins 6 caractères.');
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/reset-password', {
+        method: 'POST',
+        headers: authH,
+        body: JSON.stringify({ userId: toResetId, newPassword })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast('✅ Mot de passe mis à jour !');
+        document.getElementById('resetPwdModal').classList.remove('open');
+      } else {
+        showToast('❌ ' + data.error);
+      }
+    } catch {
+      showToast('❌ Erreur de communication avec le serveur.');
+    }
+  });
+
+  // ── Codes ──
+  let lastCode = '';
+  document.getElementById('genCodeBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('genCodeBtn');
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/admin/invite-code', { method: 'POST', headers: authH });
+      const data = await res.json();
+      if (!res.ok) { showToast('❌ ' + data.error); return; }
+      lastCode = data.inviteCode;
+      const el = document.getElementById('inviteResult');
+      el.textContent = lastCode;
+      el.classList.add('show');
+      document.getElementById('copyCodeBtn').style.display = 'inline-flex';
+      showToast('✅ Code généré : ' + lastCode);
+      loadCodes();
+    } catch { showToast('❌ Serveur non accessible.'); }
+    finally { btn.disabled = false; }
+  });
+  document.getElementById('copyCodeBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(lastCode).then(() => showToast('📋 Code copié !'));
+  });
+
+  async function loadCodes() {
+    try {
+      const res = await fetch('/api/admin/invite-codes', { headers: authH });
+      const data = await res.json();
+      const codes = data.codes || [];
+      if (codes.length === 0) {
+        document.getElementById('codesList').innerHTML =
+          '<div class="empty-state"><i class="fas fa-key"></i><p>Aucun code généré.</p></div>';
+        return;
+      }
+      document.getElementById('codesList').innerHTML = codes.map(c => `
+        <div class="code-item">
+          <div class="code-value">${c.code}</div>
+          <div class="text-muted">Créé le ${new Date(c.createdAt).toLocaleDateString('fr-FR')}</div>
+          <span class="code-status ${c.used ? 'code-used' : 'code-free'} ml-auto">
+            ${c.used ? '✅ Utilisé' : '🟢 Disponible'}
+          </span>
+          ${!c.used ? `<button class="btn btn-sm" onclick="copyCode('${c.code}')"><i class="fas fa-copy"></i></button>` : ''}
+        </div>
+      `).join('');
+    } catch {}
+  }
+  function copyCode(code) {
+    navigator.clipboard.writeText(code).then(() => showToast('📋 Code copié : ' + code));
+  }
+
+  // ── Tous les cours ──
+  async function loadAllCourses() {
+    try {
+      const res = await fetch('/api/admin/courses', { headers: authH });
+      const data = await res.json();
+      const courses = data.courses || [];
+      if (courses.length === 0) {
+        document.getElementById('allCoursesList').innerHTML =
+          '<div class="empty-state"><i class="fas fa-book"></i><p>Aucun cours créé sur la plateforme.</p></div>';
+        return;
+      }
+      document.getElementById('allCoursesList').innerHTML = courses.map(c => `
+        <div style="background:white;border-radius:1.3rem;padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);">
+          <div style="background:var(--primary-light);color:var(--primary);font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;">${c.code}</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.92rem;">${c.name}</div>
+            <div class="text-muted"><i class="fas fa-chalkboard-teacher"></i> ${c.teacherName} · Créé le ${new Date(c.createdAt).toLocaleDateString('fr-FR')}</div>
+          </div>
+          <span class="badge badge-green">Actif</span>
+        </div>
+      `).join('');
+    } catch {
+      document.getElementById('allCoursesList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.</p></div>';
+    }
+  }
+
+  // ── Mot de passe ──
+  function changePwd() {
+    const old = document.getElementById('oldPwd').value;
+    const nw = document.getElementById('newPwd').value;
+    const conf = document.getElementById('confirmPwd').value;
+    const err = document.getElementById('pwdError');
+    const suc = document.getElementById('pwdSuccess');
+    err.classList.remove('show'); suc.classList.remove('show');
+    if (!old || !nw || !conf) { err.textContent = '⚠️ Remplis tous les champs.'; err.classList.add('show'); return; }
+    if (nw !== conf) { err.textContent = '❌ Les nouveaux mots de passe ne correspondent pas.'; err.classList.add('show'); return; }
+    if (nw.length < 6) { err.textContent = '❌ Le mot de passe doit faire au moins 6 caractères.'; err.classList.add('show'); return; }
+    // Simulation (le vrai changement nécessite une route API dédiée)
+    suc.textContent = '✅ Mot de passe mis à jour (simulation). Reconnectez-vous.';
+    suc.classList.add('show');
+    document.getElementById('oldPwd').value = '';
+    document.getElementById('newPwd').value = '';
+    document.getElementById('confirmPwd').value = '';
+    showToast('✅ Mot de passe mis à jour !');
+  }
+
+  loadStats();
+  loadUsers();
+  loadCodes();
+  loadAllCourses();
+</script>
+=======
   <title>Dashboard - admin</title>
 </head>
 <body>
   <h1>Dashboard admin - À construire</h1>
   <p>Cette page sera développée dans la prochaine étape.</p>
+>>>>>>> origin/main
 </body>
 </html>

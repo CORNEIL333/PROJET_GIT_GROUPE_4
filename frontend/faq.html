@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#fef9f0;color:#1e2a3e;padding:2rem;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+    .logo{font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;}
+    .back{color:#e67e22;text-decoration:none;font-weight:600;font-size:0.9rem;}
+    h1{font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;}
+    .subtitle{color:#4a5b4e;margin-bottom:2rem;}
+    .faq-list{max-width:700px;display:flex;flex-direction:column;gap:1rem;}
+    .faq-item{background:white;border-radius:1.2rem;border:1px solid rgba(235,200,150,0.6);overflow:hidden;}
+    .faq-question{padding:1.1rem 1.3rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s;}
+    .faq-question:hover{background:#fff1e6;}
+    .faq-answer{padding:0 1.3rem 1.1rem;color:#4a5b4e;font-size:0.9rem;line-height:1.6;display:none;}
+    .faq-answer.open{display:block;}
+    .icon{color:#e67e22;font-size:1.1rem;transition:transform 0.2s;}
+    .icon.rotated{transform:rotate(45deg);}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🎓 GitUniversitaire</div>
+    <a href="index.html" class="back">← Accueil</a>
+  </div>
+  <h1>❓ Questions fréquentes</h1>
+  <p class="subtitle">Tout ce que tu dois savoir sur la plateforme.</p>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-question" onclick="toggle(this)">Comment créer mon premier dépôt ? <span class="icon">+</span></div><div class="faq-answer">Connecte-toi, va dans "Mes Dépôts" et clique sur "Nouveau dépôt". Donne-lui un nom et une description, puis clique sur "Créer".</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggle(this)">J'ai oublié mon mot de passe, que faire ? <span class="icon">+</span></div><div class="faq-answer">Contacte ton administrateur universitaire avec ton email et ton matricule. Il pourra réinitialiser ton mot de passe.</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggle(this)">Comment soumettre un TP ? <span class="icon">+</span></div><div class="faq-answer">Fais git add, git commit et git push sur ta branche, puis ouvre une Pull Request vers la branche principale du dépôt cours.</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggle(this)">Quelle est la différence entre commit et push ? <span class="icon">+</span></div><div class="faq-answer">Un commit sauvegarde tes changements localement sur ton ordinateur. Un push envoie ces commits vers GitHub pour que tout le monde puisse les voir.</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggle(this)">Comment rejoindre le dépôt de mon groupe ? <span class="icon">+</span></div><div class="faq-answer">Demande à ton chef de groupe ou à l'enseignant de t'ajouter comme collaborateur. Tu recevras un email d'invitation à accepter.</div></div>
+  </div>
+  <script>
+    function toggle(el) {
+      const answer = el.nextElementSibling;
+      const icon = el.querySelector('.icon');
+      answer.classList.toggle('open');
+      icon.classList.toggle('rotated');
+    }
+  </script>
+</body>
+</html>

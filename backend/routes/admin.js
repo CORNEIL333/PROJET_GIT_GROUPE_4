@@ -10,6 +10,10 @@ const {
   createInviteCode,
   getAllInviteCodes,
   getAllCourses,
+<<<<<<< HEAD
+  updateUserPassword,
+=======
+>>>>>>> origin/main
 } = require('../models/database');
 
 // Toutes les routes admin nécessitent d'être connecté ET d'être admin
@@ -50,6 +54,26 @@ router.get('/courses', (req, res) => {
   res.json({ courses: getAllCourses() });
 });
 
+<<<<<<< HEAD
+// POST /api/admin/reset-password — Réinitialise le mot de passe d'un utilisateur
+router.post('/reset-password', async (req, res) => {
+  const { userId, newPassword } = req.body;
+  if (!userId || !newPassword) {
+    return res.status(400).json({ error: 'ID utilisateur et nouveau mot de passe requis.' });
+  }
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'Le mot de passe doit faire au moins 6 caractères.' });
+  }
+  const success = await updateUserPassword(userId, newPassword);
+  if (success) {
+    res.json({ message: '✅ Mot de passe mis à jour avec succès.' });
+  } else {
+    res.status(404).json({ error: 'Utilisateur non trouvé.' });
+  }
+});
+
+=======
+>>>>>>> origin/main
 // GET /api/admin/stats — Statistiques globales
 router.get('/stats', (req, res) => {
   const users = getAllUsers();
