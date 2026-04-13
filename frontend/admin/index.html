@@ -279,6 +279,24 @@
   </div>
 </div>
 
+<!-- Modal Réinitialisation Mot de passe -->
+<div class="modal-overlay" id="resetPwdModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('resetPwdModal').classList.remove('open')"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-key" style="color:var(--primary);"></i> Réinitialiser le mot de passe</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1rem;">Définissez un nouveau mot de passe pour cet utilisateur.</p>
+    <div id="resetPwdUserName" style="font-weight:700;color:var(--primary);margin-bottom:1rem;"></div>
+    <div class="form-group">
+      <label>Nouveau mot de passe</label>
+      <input type="password" id="adminNewPwd" placeholder="Min. 6 caractères">
+    </div>
+    <div style="display:flex;gap:0.8rem;margin-top:1.5rem;">
+      <button class="btn" id="confirmResetBtn"><i class="fas fa-save"></i> Enregistrer</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('resetPwdModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -366,6 +384,7 @@
           ${isDisabled
             ? `<button class="btn btn-sm" onclick="reactivateUser('${u.id}','${u.name}')"><i class="fas fa-user-check"></i> Réactiver</button>`
             : `<button class="btn btn-sm btn-danger" onclick="askDisable('${u.id}','${u.name}')"><i class="fas fa-user-slash"></i> Désactiver</button>`}
+          <button class="btn btn-sm btn-secondary" onclick="askResetPwd('${u.id}','${u.name}')"><i class="fas fa-key"></i> Pass</button>
         </div>` : ''}
       </div>`;
     }).join('');
@@ -400,6 +419,38 @@
     renderUsers(currentFilter);
     showToast('✅ ' + name + ' réactivé.');
   }
+
+  let toResetId = null;
+  function askResetPwd(id, name) {
+    toResetId = id;
+    document.getElementById('resetPwdUserName').textContent = name;
+    document.getElementById('adminNewPwd').value = '';
+    document.getElementById('resetPwdModal').classList.add('open');
+  }
+
+  document.getElementById('confirmResetBtn').addEventListener('click', async () => {
+    const newPassword = document.getElementById('adminNewPwd').value;
+    if (newPassword.length < 6) {
+      showToast('❌ Le mot de passe doit faire au moins 6 caractères.');
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/reset-password', {
+        method: 'POST',
+        headers: authH,
+        body: JSON.stringify({ userId: toResetId, newPassword })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast('✅ Mot de passe mis à jour !');
+        document.getElementById('resetPwdModal').classList.remove('open');
+      } else {
+        showToast('❌ ' + data.error);
+      }
+    } catch {
+      showToast('❌ Erreur de communication avec le serveur.');
+    }
+  });
 
   // ── Codes ──
   let lastCode = '';

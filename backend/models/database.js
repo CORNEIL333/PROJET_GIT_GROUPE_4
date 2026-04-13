@@ -102,6 +102,16 @@ function getCoursesByStudent(studentId) {
   return db.courses.filter(c => c.students.includes(studentId));
 }
 
+async function updateUserPassword(userId, newPassword) {
+  const user = db.users.find(u => u.id === userId);
+  if (user) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   initDB,
   findUserByEmail,
@@ -117,4 +127,5 @@ module.exports = {
   getAllCourses,
   getCoursesByTeacher,
   getCoursesByStudent,
+  updateUserPassword,
 };
