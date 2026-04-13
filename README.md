@@ -2,6 +2,7 @@
 
 Plateforme de gestion académique des dépôts Git, avec 3 interfaces distinctes selon le rôle.
 
+<<<<<<< HEAD
 ## 👥 3 Rôles — 3 Interfaces
 
 | Rôle | Accès | Inscription |
@@ -9,6 +10,17 @@ Plateforme de gestion académique des dépôts Git, avec 3 interfaces distinctes
 | **Étudiant** | `/student` | Libre (email + matricule) |
 | **Enseignant** | `/teacher` | Code d'invitation requis (fourni par l'admin) |
 | **Admin** | `/admin` | Compte unique créé au démarrage |
+=======
+## 🚀 Fonctionnalités
+- Gestion des dépôts par étudiant / groupe
+- Interface d'administration pour les enseignants
+- Scripts d'automatisation (création de comptes, dépôts, backups)
+  - `install.sh` : Configure l'environnement serveur
+  - `backup.sh` : Sauvegarde périodique des dépôts
+  - `add_students.sh` : Importation massive d'étudiants
+  - `create_course_repo.sh` : Création rapide de dépôts de cours
+- Documentation complète
+>>>>>>> origin/HUGO
 
 ## 📁 Structure du projet
 
@@ -38,11 +50,26 @@ uni-git-project/
 └── package.json
 ```
 
+<<<<<<< HEAD
 ## ⚙️ Installation
 
 ```bash
 # 1. Installer les dépendances
 npm install
+=======
+## 📋 Prérequis
+Avant de commencer, assurez-vous d'avoir :
+- Un serveur Linux (Ubuntu 22.04+ recommandé)
+- Accès `sudo` ou utilisateur `root`
+- Git installé (si absent, le script d'installation le fera)
+- Bash 4.0+
+
+## ⚙️ Installation rapide
+```bash
+# Cloner le projet
+git clone https://github.com/CORNEIL333/PROJET_GIT_GROUPE_4.git
+cd PROJET_GIT_GROUPE_4
+>>>>>>> origin/HUGO
 
 # 2. Démarrer le serveur
 npm start
@@ -51,7 +78,23 @@ npm start
 npm run dev
 ```
 
+<<<<<<< HEAD
 ## 🌐 Accès
+=======
+## 👥 Équipe (Groupe 4)
+- **Chef de projet** : Coordination et architecture
+- **Développeurs Backend** : Scripts Bash et configuration serveur
+- **Développeur Frontend** : Interface web et UX
+- **Responsable Documentation** : Guides et manuels d'utilisation
+
+## 🤝 Contribution
+Les contributions sont les bienvenues !
+1. Forkez le projet
+2. Créez votre branche (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Pushez sur la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+>>>>>>> origin/HUGO
 
 - Accueil / Login : http://localhost:3000
 - Interface étudiant : http://localhost:3000/student

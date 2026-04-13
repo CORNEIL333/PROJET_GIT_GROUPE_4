@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GitUniversitaire 🎓 — Plateforme collaborative</title>
   <link
@@ -21,12 +22,22 @@
       --border: rgba(235, 200, 150, 0.6);
     }
 
+=======
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>Git Universitaire — Gestion de Branches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+>>>>>>> origin/HUGO
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+<<<<<<< HEAD
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(145deg, var(--bg) 0%, #fff7eb 100%);
@@ -59,12 +70,64 @@
       filter: blur(80px);
       z-index: -2;
       pointer-events: none;
+=======
+    :root {
+      --bg-gradient: radial-gradient(circle at 10% 20%, rgba(230, 126, 34, 0.05) 0%, rgba(37, 99, 235, 0.03) 90%);
+      --bg-color: #f8fafc;
+      --surface: rgba(255, 255, 255, 0.8);
+      --surface-solid: #ffffff;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent: #e67e22;
+      --accent-glow: rgba(230, 126, 34, 0.15);
+      --accent-hover: #cf711f;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --card-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+      --blur-amount: 16px;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --surface: rgba(30, 41, 59, 0.75);
+      --surface-solid: #1e293b;
+      --border: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.2);
+      --card-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      background-image: var(--bg-gradient);
+      color: var(--text-primary);
+      line-height: 1.5;
+      transition: all 0.3s ease;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .glass-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(1rem, 5vw, 2rem);
+      width: 100%;
+>>>>>>> origin/HUGO
     }
 
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+<<<<<<< HEAD
       flex-wrap: wrap;
       padding: 1.1rem 2.5rem;
       background: rgba(255, 252, 245, 0.9);
@@ -74,6 +137,17 @@
       top: 0;
       z-index: 100;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+=======
+      padding: clamp(0.8rem, 3vw, 1rem) clamp(1rem, 4vw, 2rem);
+      background: var(--surface);
+      backdrop-filter: blur(var(--blur-amount));
+      border-radius: clamp(1rem, 4vw, 2rem);
+      border: 1px solid var(--border);
+      margin-bottom: clamp(1.5rem, 5vw, 2.5rem);
+      box-shadow: var(--card-shadow);
+      flex-wrap: wrap;
+      gap: 1rem;
+>>>>>>> origin/HUGO
     }
 
     .logo {
@@ -81,6 +155,7 @@
       align-items: center;
       gap: 10px;
       font-weight: 800;
+<<<<<<< HEAD
       font-size: 1.5rem;
       letter-spacing: -0.02em;
       background: linear-gradient(135deg, #c4450c, #f09b42);
@@ -239,10 +314,71 @@
       font-size: 0.75rem;
       color: #bc6f2c;
       font-weight: 500;
+=======
+      font-size: clamp(1.3rem, 5vw, 1.6rem);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .logo i {
+      font-size: clamp(1.5rem, 5vw, 1.8rem);
+      background: linear-gradient(135deg, var(--accent), #f4a261);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .repo-selector {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .repo-selector select {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .theme-toggle {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: 3rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      color: var(--text-primary);
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--accent), var(--info));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      color: var(--text-muted);
+>>>>>>> origin/HUGO
     }
 
     .stats-bar {
       display: flex;
+<<<<<<< HEAD
       justify-content: center;
       flex-wrap: wrap;
       background: var(--bg2);
@@ -842,11 +978,279 @@
       .hero-visual {
         display: none
       }
+=======
+      gap: clamp(0.8rem, 3vw, 1.5rem);
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.2rem);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex: 1;
+      min-width: 120px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .stat-card i {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+    }
+
+    .stat-value {
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      font-weight: 700;
+    }
+
+    .branch-controls {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-solid);
+      border-radius: 60px;
+      padding: 0.2rem 0.2rem 0.2rem 1rem;
+      border: 1px solid var(--border);
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .input-group input {
+      background: transparent;
+      border: none;
+      padding: 0.6rem 0;
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+      outline: none;
+      color: var(--text-primary);
+      width: 100%;
+      min-width: 0;
+    }
+
+    .input-group button, .btn-outline, .btn-push {
+      background: var(--accent);
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem clamp(0.8rem, 3vw, 1.2rem);
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .btn-push {
+      background: var(--info);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .branch-visual {
+      background: var(--surface-solid);
+      border-radius: 1.2rem;
+      padding: clamp(1rem, 3vw, 1.5rem);
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    .git-graph {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      min-width: 100%;
+    }
+
+    .branch-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      border-bottom: 1px dashed var(--border);
+      padding: 0.8rem 0;
+    }
+
+    .branch-name {
+      font-weight: 700;
+      font-family: monospace;
+      min-width: 120px;
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .branch-commits {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex: 1;
+    }
+
+    .commit-node {
+      background: var(--surface);
+      border-radius: 40px;
+      padding: 0.2rem 0.7rem;
+      font-size: clamp(0.65rem, 2.5vw, 0.75rem);
+      font-family: monospace;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .branch-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+
+    .current-badge {
+      background: var(--accent);
+      color: white;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.6rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .history-log {
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .log-entry {
+      font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+      padding: 0.4rem 0.6rem;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .log-time {
+      min-width: 70px;
+      font-size: clamp(0.65rem, 2vw, 0.75rem);
+      color: var(--text-muted);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .toast-notify {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface-solid);
+      backdrop-filter: blur(12px);
+      border-left: 4px solid var(--accent);
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .toast-notify.show {
+      transform: translateX(0);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--surface-solid);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: calc(100% - 2rem);
+      max-width: 400px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .navbar { flex-direction: column; }
+      .branch-controls { flex-direction: column; }
+      .input-group { width: 100%; }
+      .stats-bar { flex-direction: column; }
+      .btn-outline, .btn-push, .input-group button { width: 100%; justify-content: center; }
+>>>>>>> origin/HUGO
     }
   </style>
 </head>
 
 <body>
+<<<<<<< HEAD
   <div class="bg-blob"></div>
   <div class="bg-blob-2"></div>
 
@@ -1236,4 +1640,415 @@
   </script>
 </body>
 
+=======
+<div class="glass-container">
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-code-branch"></i>
+      <span>GitUniversitaire</span>
+    </div>
+    <div class="repo-selector">
+      <i class="fas fa-folder-open"></i>
+      <select id="repoSelect">
+        <option value="">Chargement...</option>
+      </select>
+    </div>
+    <button class="theme-toggle" id="globalThemeToggle"><i class="fas fa-moon"></i> Thème</button>
+  </nav>
+
+  <div class="page-header">
+    <h1><i class="fas fa-git-alt"></i> Gestion de branches · Git réel</h1>
+    <p>Créez, basculez, poussez vos branches directement sur le dépôt distant.</p>
+    <div class="stats-bar">
+      <div class="stat-card" id="branchStat">
+        <i class="fas fa-code-branch"></i>
+        <div class="stat-info">
+          <span class="stat-label">Branches</span>
+          <span class="stat-value" id="branchCount">-</span>
+        </div>
+      </div>
+      <div class="stat-card" id="commitStat">
+        <i class="fas fa-code-commit"></i>
+        <div class="stat-info">
+          <span class="stat-label">Commits</span>
+          <span class="stat-value" id="commitCount">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="git-simulator">
+    <div class="card-panel">
+      <div class="flex-row">
+        <h3><i class="fas fa-terminal"></i> Commandes Git</h3>
+        <div class="branch-controls">
+          <div class="input-group">
+            <i class="fas fa-plus-circle" style="color: var(--accent);"></i>
+            <input type="text" id="newBranchName" placeholder="nouvelle-branche">
+            <button id="createBranchBtn">Créer branche</button>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-code-branch"></i>
+            <input type="text" id="switchBranchName" placeholder="branche existante">
+            <button id="switchBranchBtn">Basculer</button>
+          </div>
+          <button id="refreshBtn" class="btn-outline"><i class="fas fa-sync-alt"></i> Rafraîchir</button>
+        </div>
+      </div>
+      <div class="branch-visual">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <strong><i class="fas fa-diagram-project"></i> Branches du dépôt</strong>
+          <span class="commit-hash" id="activeBranchIndicator"></span>
+        </div>
+        <div id="gitGraphContainer" class="git-graph">
+          <div class="loading"><div class="spinner"></div> Chargement des branches...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-panel">
+      <h3><i class="fas fa-history"></i> Historique des actions</h3>
+      <div id="historyLog" class="history-log">
+        <div class="log-entry"><span class="log-time">●</span> Sélectionnez un dépôt pour commencer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toastMsg" class="toast-notify">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastText">Action réussie</span>
+</div>
+
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;"></i>
+    <h3>Confirmation</h3>
+    <p id="modalMessage">Êtes-vous sûr de vouloir supprimer cette branche ?</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+      <button id="modalConfirmBtn" class="btn-push" style="background: var(--danger);">Confirmer</button>
+      <button id="modalCancelBtn" class="btn-outline">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Configuration API - À adapter selon votre backend
+  const API_BASE = window.location.origin + '/api/git';
+  // const API_BASE = 'http://localhost:3000/api/git'; // Pour développement local
+  
+  let currentRepo = null;
+  let branches = [];
+  let currentBranch = null;
+  let commitsCache = {};
+  let actionLogs = [];
+  let toastTimeout = null;
+  let pendingDeleteBranch = null;
+
+  function addLog(text, type = 'info') {
+    const time = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    actionLogs.unshift({ time, text, type });
+    if(actionLogs.length > 30) actionLogs.pop();
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('historyLog');
+    if (!container) return;
+    container.innerHTML = actionLogs.map(log => `
+      <div class="log-entry">
+        <span class="log-time">${log.time}</span>
+        <span>${log.text}</span>
+      </div>
+    `).join('');
+  }
+
+  function showToast(message, type = "info") {
+    const toast = document.getElementById('toastMsg');
+    const textSpan = document.getElementById('toastText');
+    const icon = toast.querySelector('i');
+    
+    const icons = { success: "fa-check-circle", error: "fa-exclamation-triangle", warning: "fa-exclamation-circle", info: "fa-info-circle" };
+    const colors = { success: "var(--success)", error: "var(--danger)", warning: "var(--warning)", info: "var(--info)" };
+    
+    icon.className = `fas ${icons[type] || icons.info}`;
+    icon.style.color = colors[type] || colors.info;
+    textSpan.innerText = message;
+    toast.classList.add('show');
+    
+    if(toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  async function apiCall(endpoint, method = 'GET', body = null) {
+    const options = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body) options.body = JSON.stringify(body);
+    
+    const response = await fetch(`${API_BASE}${endpoint}`, options);
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error || `Erreur HTTP ${response.status}`);
+    }
+    return response.json();
+  }
+
+  async function loadRepositories() {
+    try {
+      const repos = await apiCall('/repos');
+      const select = document.getElementById('repoSelect');
+      select.innerHTML = '<option value="">Sélectionnez un dépôt</option>';
+      repos.forEach(repo => {
+        const option = document.createElement('option');
+        option.value = repo.name;
+        option.textContent = repo.name;
+        select.appendChild(option);
+      });
+      addLog(`📁 ${repos.length} dépôt(s) chargé(s)`);
+    } catch (error) {
+      console.error('Erreur chargement dépôts:', error);
+      document.getElementById('repoSelect').innerHTML = '<option value="">Erreur de chargement</option>';
+      showToast('Impossible de charger les dépôts', 'error');
+    }
+  }
+
+  async function loadBranches(repoName) {
+    if (!repoName) return;
+    
+    document.getElementById('gitGraphContainer').innerHTML = '<div class="loading"><div class="spinner"></div> Chargement des branches...</div>';
+    
+    try {
+      const data = await apiCall(`/branches/${repoName}`);
+      branches = data.branches;
+      currentBranch = data.current_branch;
+      
+      // Charger les commits pour chaque branche
+      for (let branch of branches) {
+        try {
+          const commitsData = await apiCall(`/commits/${repoName}/${branch.name}?limit=5`);
+          branch.commits = commitsData.commits || [];
+        } catch (e) {
+          branch.commits = [];
+        }
+      }
+      
+      renderGraph();
+      updateStats();
+      addLog(`🔄 Branches chargées pour ${repoName} (${branches.length} branches, HEAD: ${currentBranch})`);
+      showToast(`Dépôt ${repoName} chargé avec succès`, 'success');
+    } catch (error) {
+      console.error('Erreur chargement branches:', error);
+      document.getElementById('gitGraphContainer').innerHTML = `<div class="loading">❌ Erreur: ${error.message}</div>`;
+      showToast(`Erreur: ${error.message}`, 'error');
+    }
+  }
+
+  async function createBranch(repoName, branchName) {
+    if (!branchName || branchName.trim() === '') {
+      showToast("Nom de branche invalide", "warning");
+      return false;
+    }
+    
+    try {
+      await apiCall(`/branches/${repoName}`, 'POST', { name: branchName, from_branch: currentBranch });
+      addLog(`🌱 Branche "${branchName}" créée depuis "${currentBranch}"`);
+      showToast(`Branche "${branchName}" créée avec succès`, 'success');
+      await loadBranches(repoName);
+      return true;
+    } catch (error) {
+      showToast(`Erreur: ${error.message}`, 'error');
+      return false;
+    }
+  }
+
+  async function switchBranch(repoName, branchName) {
+    if (!branchName || branchName.trim() === '') {
+      showToast("Nom de branche invalide", "warning");
+      return false;
+    }
+    
+    try {
+      await apiCall(`/checkout/${repoName}`, 'POST', { branch: branchName });
+      addLog(`🔀 Bascule vers la branche "${branchName}"`);
+      showToast(`HEAD est maintenant sur "${branchName}"`, 'success');
+      await loadBranches(repoName);
+      return true;
+    } catch (error) {
+      showToast(`Erreur: ${error.message}`, 'error');
+      return false;
+    }
+  }
+
+  async function deleteBranch(repoName, branchName) {
+    if (branchName === 'main' || branchName === 'master') {
+      showToast("Impossible de supprimer la branche principale", "error");
+      return false;
+    }
+    if (branchName === currentBranch) {
+      showToast("Impossible de supprimer la branche courante", "error");
+      return false;
+    }
+    
+    try {
+      await apiCall(`/branches/${repoName}`, 'DELETE', { name: branchName });
+      addLog(`🗑️ Branche "${branchName}" supprimée`);
+      showToast(`Branche "${branchName}" supprimée avec succès`, 'success');
+      await loadBranches(repoName);
+      return true;
+    } catch (error) {
+      showToast(`Erreur: ${error.message}`, 'error');
+      return false;
+    }
+  }
+
+  function updateStats() {
+    document.getElementById('branchCount').textContent = branches.length;
+    const totalCommits = branches.reduce((sum, b) => sum + (b.commits?.length || 0), 0);
+    document.getElementById('commitCount').textContent = totalCommits;
+  }
+
+  function renderGraph() {
+    const container = document.getElementById('gitGraphContainer');
+    if (!container) return;
+    
+    if (!branches.length) {
+      container.innerHTML = '<div class="loading">Aucune branche trouvée</div>';
+      return;
+    }
+    
+    let html = '';
+    for (const branch of branches) {
+      const isCurrent = (branch.name === currentBranch);
+      const commitsList = branch.commits || [];
+      
+      html += `
+        <div class="branch-row">
+          <div class="branch-name">
+            <i class="fas fa-code-branch"></i> ${branch.name}
+            ${isCurrent ? '<span class="current-badge">HEAD</span>' : ''}
+          </div>
+          <div class="branch-commits">
+            ${commitsList.map(c => `<div class="commit-node" data-commit="${c.hash}"><i class="fas fa-code-commit"></i> ${c.hash.substring(0,7)}</div>`).join('')}
+            ${commitsList.length === 0 ? '<span class="commit-hash" style="font-style:italic;">aucun commit</span>' : ''}
+          </div>
+          <div class="branch-actions">
+            ${!isCurrent && branch.name !== 'main' && branch.name !== 'master' ? 
+              `<button class="branch-action-btn" data-branch="${branch.name}" title="Supprimer la branche"><i class="fas fa-trash"></i> Suppr.</button>` : ''}
+          </div>
+        </div>
+      `;
+    }
+    
+    document.getElementById('activeBranchIndicator').innerHTML = `🔗 active : <strong>${currentBranch || '-'}</strong>`;
+    container.innerHTML = html;
+    updateStats();
+    
+    document.querySelectorAll('.branch-action-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const branchToDelete = btn.getAttribute('data-branch');
+        pendingDeleteBranch = branchToDelete;
+        document.getElementById('modalMessage').textContent = `Supprimer la branche "${branchToDelete}" ? Cette action est irréversible.`;
+        document.getElementById('confirmModal').classList.add('active');
+      });
+    });
+    
+    document.querySelectorAll('.commit-node').forEach(commit => {
+      commit.addEventListener('click', () => {
+        showToast(`Commit ${commit.getAttribute('data-commit')}`, "info");
+      });
+    });
+  }
+
+  function initTheme() {
+    const stored = localStorage.getItem('git_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = stored === 'dark' || (!stored && prefersDark);
+    if(isDark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    
+    const btn = document.getElementById('globalThemeToggle');
+    if(btn) btn.innerHTML = isDark ? '<i class="fas fa-sun"></i> Clair' : '<i class="fas fa-moon"></i> Sombre';
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('git_theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('git_theme', 'dark');
+    }
+    initTheme();
+    showToast(isDark ? "Mode clair activé" : "Mode sombre activé", "info");
+  }
+
+  async function bootstrap() {
+    initTheme();
+    await loadRepositories();
+    
+    const repoSelect = document.getElementById('repoSelect');
+    const createBtn = document.getElementById('createBranchBtn');
+    const switchBtn = document.getElementById('switchBranchBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const modalConfirm = document.getElementById('modalConfirmBtn');
+    const modalCancel = document.getElementById('modalCancelBtn');
+    
+    repoSelect.addEventListener('change', async () => {
+      currentRepo = repoSelect.value;
+      if (currentRepo) {
+        await loadBranches(currentRepo);
+      } else {
+        branches = [];
+        renderGraph();
+      }
+    });
+    
+    createBtn.addEventListener('click', async () => {
+      const input = document.getElementById('newBranchName');
+      if (currentRepo) {
+        await createBranch(currentRepo, input.value);
+        input.value = '';
+      } else {
+        showToast('Sélectionnez un dépôt d\'abord', 'warning');
+      }
+    });
+    
+    switchBtn.addEventListener('click', async () => {
+      const input = document.getElementById('switchBranchName');
+      if (currentRepo) {
+        await switchBranch(currentRepo, input.value);
+        input.value = '';
+      } else {
+        showToast('Sélectionnez un dépôt d\'abord', 'warning');
+      }
+    });
+    
+    refreshBtn.addEventListener('click', async () => {
+      if (currentRepo) {
+        await loadBranches(currentRepo);
+      } else {
+        await loadRepositories();
+      }
+    });
+    
+    modalConfirm.addEventListener('click', async () => {
+      if (pendingDeleteBranch && currentRepo) {
+        await deleteBranch(currentRepo, pendingDeleteBranch);
+      }
+      document.getElementById('confirmModal').classList.remove('active');
+      pendingDeleteBranch = null;
+    });
+    
+    modalCancel.addEventListener('click', () => {
+      document.getElementById('confirmModal').classList.remove('active');
+      pendingDeleteBranch = null;
+    });
+    
+    document.getElementById('globalThemeToggle').addEventListener('click', toggleTheme);
+  }
+  
+  bootstrap();
+</script>
+</body>
+>>>>>>> origin/HUGO
 </html>
