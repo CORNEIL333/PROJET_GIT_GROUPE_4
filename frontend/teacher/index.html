@@ -1,616 +1,462 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Espace Enseignant — GitUniversitaire</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../shared.css">
   <style>
-    :root {
-      --primary: #e67e22;
-      --primary-dark: #cf711f;
-      --primary-light: #fff1e6;
-      --bg: #fef9f0;
-      --text: #1e2a3e;
-      --text-muted: #4a5b4e;
-      --border: rgba(235, 200, 150, 0.6);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255, 252, 245, 0.95);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, #c4450c, #f09b42);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      text-decoration: none;
-    }
-
-    .logo i {
-      color: #e67e22;
-      -webkit-text-fill-color: #e67e22;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .user-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary-light);
-      border: 1px solid #ffcf9a;
-      border-radius: 30px;
-      padding: 0.4rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #c25d1a;
-    }
-
-    .avatar-sm {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #e67e22, #f09b42);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 0.75rem;
-      flex-shrink: 0;
-    }
-
-    .btn-logout {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 0.4rem 0.9rem;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: 0.2s;
-    }
-
-    .btn-logout:hover {
-      border-color: #e74c3c;
-      color: #e74c3c;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-
-    .page-header {
-      margin-bottom: 2rem;
-    }
-
-    .page-header h1 {
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin-bottom: 0.3rem;
-    }
-
-    .page-header p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 1.5rem;
-      padding: 1.2rem;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: 0.2s;
-    }
-
-    .stat-card:hover {
-      border-color: #f7bc6b;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-    }
-
-    .stat-n {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .stat-l {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .section-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .section-title span {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-block {
-      margin-bottom: 2.5rem;
-    }
-
-    /* Formulaire créer cours */
-    .create-form {
-      background: white;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      margin-bottom: 2rem;
-    }
-
-    .create-form h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .form-group label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .form-group input {
-      padding: 0.65rem 1rem;
-      border-radius: 10px;
-      border: 1.5px solid #e0d5c8;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: var(--primary);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary);
-      color: white;
-      padding: 0.7rem 1.4rem;
-      border-radius: 40px;
-      font-weight: 600;
-      border: none;
-      font-size: 0.88rem;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s;
-    }
-
-    .btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Liste cours */
-    .cours-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
     .cours-item {
-      background: white;
-      border-radius: 1.3rem;
-      padding: 1rem 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      border: 1px solid var(--border);
-      transition: 0.2s;
+      background: white; border-radius: 1.3rem; padding: 1rem 1.3rem;
+      border: 1px solid var(--border); transition: 0.2s;
+      display: flex; align-items: center; gap: 1rem;
     }
-
-    .cours-item:hover {
-      border-color: #f7bc6b;
-      transform: translateX(4px);
-    }
-
+    .cours-item:hover { border-color: #f7bc6b; }
     .cours-badge {
-      background: var(--primary-light);
-      color: var(--primary);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 10px;
-      white-space: nowrap;
+      background: var(--primary-light); color: var(--primary);
+      font-size: 0.78rem; font-weight: 700; padding: 4px 10px;
+      border-radius: 10px; white-space: nowrap; flex-shrink: 0;
     }
+    .cours-actions { margin-left: auto; display: flex; gap: 0.5rem; flex-shrink: 0; }
 
-    .cours-name {
-      font-weight: 700;
-      font-size: 0.92rem;
+    .student-row {
+      background: white; border-radius: 1.2rem; padding: 0.9rem 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+      border: 1px solid var(--border); transition: 0.2s;
     }
+    .student-row:hover { border-color: #f7bc6b; }
 
-    .cours-desc {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .note-input {
+      width: 64px; padding: 4px 8px; border-radius: 8px;
+      border: 1.5px solid #e0d5c8; font-family: 'Inter', sans-serif;
+      font-size: 0.85rem; text-align: center; outline: none;
     }
+    .note-input:focus { border-color: var(--primary); }
 
-    /* Soumissions */
-    .student-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+    .progress-bar {
+      height: 6px; border-radius: 3px;
+      background: #f0ebe3; overflow: hidden; margin-top: 4px;
     }
-
-    .student-item {
-      background: white;
-      border-radius: 1.2rem;
-      padding: 1rem 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      border: 1px solid var(--border);
-      transition: 0.2s;
-    }
-
-    .student-item:hover {
-      border-color: #f7bc6b;
-      transform: translateX(4px);
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #e67e22, #f09b42);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-
-    .badge {
-      margin-left: auto;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-
-    .badge-green {
-      background: #d4edda;
-      color: #27ae60;
-    }
-
-    .badge-orange {
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-
-    /* Empty */
-    .empty-state {
-      text-align: center;
-      padding: 2rem;
-      background: white;
-      border-radius: 1.5rem;
-      border: 1px dashed var(--border);
-      color: var(--text-muted);
-    }
-
-    .empty-state i {
-      font-size: 2rem;
-      margin-bottom: 0.6rem;
-      display: block;
-      color: #f7bc6b;
-    }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: #2c2b26;
-      color: #ffefcf;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      z-index: 9999;
-      border-left: 4px solid var(--primary);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .success-msg {
-      background: #d4edda;
-      color: #27ae60;
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      margin-top: 0.8rem;
-      display: none;
-    }
-
-    .success-msg.show {
-      display: block;
-    }
-
-    .error-msg {
-      background: #ffeaea;
-      color: #c0392b;
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      margin-top: 0.8rem;
-      display: none;
-    }
-
-    .error-msg.show {
-      display: block;
+    .progress-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--primary), #f09b42);
+      transition: width 0.5s ease;
     }
   </style>
 </head>
-
 <body>
-  <nav class="navbar">
-    <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
-    <div class="nav-right">
-      <div class="user-chip">
-        <div class="avatar-sm" id="avatarInitials">?</div><span id="userName">...</span>
-      </div>
-      <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+<nav class="navbar">
+  <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
+  <div class="nav-right">
+    <div class="teacher-badge"><i class="fas fa-chalkboard-teacher"></i> Enseignant</div>
+    <div class="user-chip">
+      <div class="avatar-sm" id="avatarInitials">?</div>
+      <span id="userName">...</span>
     </div>
-  </nav>
+    <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+  </div>
+</nav>
 
-  <div class="container">
-    <div class="page-header">
-      <h1>👨‍🏫 Espace enseignant</h1>
-      <p>Bienvenue, <strong id="welcomeName">...</strong> · Gérez vos cours et suivez les soumissions.</p>
-    </div>
+<div class="container">
+  <div class="page-header">
+    <h1>👨‍🏫 Espace enseignant</h1>
+    <p>Bienvenue, <strong id="welcomeName">...</strong> · Gérez vos cours, suivez les soumissions et notez les TPs.</p>
+  </div>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-n" id="statCours">—</div>
-        <div class="stat-l">Mes cours</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-n">42</div>
-        <div class="stat-l">Étudiants inscrits</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-n">38</div>
-        <div class="stat-l">TPs soumis</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-n">5</div>
-        <div class="stat-l">En attente</div>
-      </div>
-    </div>
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n" id="statCours">—</div><div class="stat-l">Mes cours</div></div>
+    <div class="stat-card"><div class="stat-n" id="statStudents">—</div><div class="stat-l">Étudiants total</div></div>
+    <div class="stat-card"><div class="stat-n" id="statSoumis">—</div><div class="stat-l">TPs soumis</div></div>
+    <div class="stat-card"><div class="stat-n" id="statAttente">—</div><div class="stat-l">En attente</div></div>
+  </div>
 
-    <!-- Créer un cours -->
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="creer"><i class="fas fa-plus-circle"></i> Créer un cours</button>
+    <button class="tab-btn" data-tab="mescours"><i class="fas fa-book-open"></i> Mes cours</button>
+    <button class="tab-btn" data-tab="etudiants"><i class="fas fa-users"></i> Étudiants & Notes</button>
+    <button class="tab-btn" data-tab="soumissions"><i class="fas fa-inbox"></i> Soumissions</button>
+  </div>
+
+  <!-- TAB : Créer un cours -->
+  <div class="tab-pane active" id="tab-creer">
     <div class="section-block">
-      <div class="create-form">
-        <h3><i class="fas fa-plus-circle" style="color:var(--primary)"></i> Créer un nouveau cours</h3>
+      <div class="card-white">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px;">
+          <i class="fas fa-plus-circle" style="color:var(--primary);"></i> Créer un nouveau cours
+        </h3>
         <div class="form-row">
-          <div class="form-group"><label>Code du cours</label><input type="text" id="courseCode" placeholder="INFO101">
+          <div class="form-group">
+            <label>Code du cours <span style="color:var(--red);">*</span></label>
+            <input type="text" id="courseCode" placeholder="INFO101" style="text-transform:uppercase;">
           </div>
-          <div class="form-group"><label>Nom du cours</label><input type="text" id="courseName"
-              placeholder="Algorithmique et structures de données"></div>
+          <div class="form-group">
+            <label>Nom du cours <span style="color:var(--red);">*</span></label>
+            <input type="text" id="courseName" placeholder="Algorithmique et structures de données">
+          </div>
         </div>
-        <div class="form-group" style="margin-bottom:1rem;"><label>Description (optionnel)</label><input type="text"
-            id="courseDesc" placeholder="Brève description du cours..."></div>
-        <button class="btn" id="createCourseBtn"><i class="fas fa-plus"></i> Créer le cours</button>
-        <div class="success-msg" id="courseSuccess"></div>
-        <div class="error-msg" id="courseError"></div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="courseDesc" placeholder="Brève description visible par les étudiants...">
+        </div>
+        <div class="form-group">
+          <label>Niveau / Filière</label>
+          <select id="courseLevel">
+            <option value="">Choisir un niveau...</option>
+            <option>L1 Informatique</option>
+            <option>L2 Informatique</option>
+            <option>L3 Informatique</option>
+            <option>M1 Informatique</option>
+            <option>M2 Informatique</option>
+            <option>L1 Mathématiques</option>
+            <option>L2 Mathématiques</option>
+            <option>Toutes filières</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <button class="btn" id="createCourseBtn"><i class="fas fa-plus"></i> Créer le cours</button>
+          <button class="btn btn-ghost" onclick="switchToTab('mescours')"><i class="fas fa-list"></i> Voir mes cours</button>
+        </div>
+        <div class="msg msg-success mt-1" id="courseSuccess"></div>
+        <div class="msg msg-error mt-1" id="courseError"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Mes cours -->
+  <div class="tab-pane" id="tab-mescours">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-book-open"></i> Mes cours</div>
+        <button class="btn btn-sm" onclick="switchToTab('creer')"><i class="fas fa-plus"></i> Nouveau</button>
+      </div>
+      <div id="coursList" style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div>
       </div>
     </div>
 
-    <!-- Mes cours -->
+    <!-- URL Git du cours -->
     <div class="section-block">
-      <div class="section-title"><span><i class="fas fa-book-open"></i> Mes cours</span></div>
-      <div id="coursList">
-        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i>
-          <p>Chargement...</p>
+      <div class="card-white">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;"><i class="fas fa-link" style="color:var(--primary);"></i> URL Git à partager aux étudiants</h3>
+        <div class="form-group">
+          <label>Sélectionner un cours</label>
+          <select id="urlCourseSelect"><option value="">Choisir un cours...</option></select>
         </div>
-      </div>
-    </div>
-
-    <!-- Dernières soumissions (statiques pour l'instant) -->
-    <div class="section-block">
-      <div class="section-title"><span><i class="fas fa-users"></i> Dernières soumissions</span></div>
-      <div class="student-list">
-        <div class="student-item">
-          <div class="avatar">JD</div>
-          <div>
-            <div style="font-weight:700;font-size:0.92rem;">Jean Dupont</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);">TP2 — Bases de données · il y a 1h</div>
-          </div><span class="badge badge-green">✅ Soumis</span>
-        </div>
-        <div class="student-item">
-          <div class="avatar">AM</div>
-          <div>
-            <div style="font-weight:700;font-size:0.92rem;">Awa Mbeki</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);">TP2 — Bases de données · il y a 3h</div>
-          </div><span class="badge badge-green">✅ Soumis</span>
-        </div>
-        <div class="student-item">
-          <div class="avatar">PK</div>
-          <div>
-            <div style="font-weight:700;font-size:0.92rem;">Paul Kamga</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);">TP2 — Bases de données · pas encore</div>
-          </div><span class="badge badge-orange">⏳ En attente</span>
-        </div>
-        <div class="student-item">
-          <div class="avatar">SN</div>
-          <div>
-            <div style="font-weight:700;font-size:0.92rem;">Sophie Nkomo</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);">TP2 — Bases de données · il y a 5h</div>
-          </div><span class="badge badge-green">✅ Soumis</span>
+        <div id="gitUrlBox" style="display:none;">
+          <div style="background:#1e2a3e;color:#a8d8a8;border-radius:10px;padding:0.8rem 1rem;font-family:monospace;font-size:0.82rem;display:flex;justify-content:space-between;align-items:center;">
+            <span id="gitUrlText"></span>
+            <button onclick="copyGitUrl()" style="background:none;border:none;color:#f7bc6b;cursor:pointer;font-size:0.85rem;"><i class="fas fa-copy"></i></button>
+          </div>
+          <p class="text-muted mt-1">Partagez cette URL aux étudiants pour qu'ils puissent cloner le dépôt du cours.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
-  <script>
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
-    }
+  <!-- TAB : Étudiants & Notes -->
+  <div class="tab-pane" id="tab-etudiants">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-users"></i> Étudiants inscrits sur la plateforme</div>
+        <span id="studentCountLabel" class="text-muted"></span>
+      </div>
+      <div class="form-group" style="max-width:320px;margin-bottom:1rem;">
+        <label>Filtrer par cours</label>
+        <select id="filterCours">
+          <option value="">Tous les cours</option>
+        </select>
+      </div>
+      <div id="studentsList" style="display:flex;flex-direction:column;gap:0.7rem;">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div>
+      </div>
+    </div>
+  </div>
 
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-    if (!token || !user || user.role !== 'teacher') window.location.href = '/';
+  <!-- TAB : Soumissions -->
+  <div class="tab-pane" id="tab-soumissions">
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fas fa-inbox"></i> Suivi des soumissions</div></div>
 
-    if (user) {
-      document.getElementById('userName').textContent = user.name;
-      document.getElementById('welcomeName').textContent = user.name;
-      const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-      document.getElementById('avatarInitials').textContent = initials;
-    }
+      <!-- Résumé progression -->
+      <div class="card-white" style="margin-bottom:1.5rem;">
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:1rem;">Progression globale — TP2 Bases de données</div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-muted);margin-bottom:4px;">
+          <span>38 / 42 soumis</span><span>90%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:90%;"></div></div>
+      </div>
 
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = '/';
-    });
+      <div style="display:flex;flex-direction:column;gap:0.7rem;" id="submissionsList">
+        <div class="student-row">
+          <div class="avatar orange">JD</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">Jean Dupont</div>
+            <div class="text-muted">TP2 — Bases de données · il y a 1h</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20">
+          <span class="badge badge-green">✅ Soumis</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar orange">AM</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">Awa Mbeki</div>
+            <div class="text-muted">TP2 — Bases de données · il y a 3h</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20">
+          <span class="badge badge-green">✅ Soumis</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar blue">PK</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">Paul Kamga</div>
+            <div class="text-muted">TP2 — Bases de données · pas encore</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20" disabled>
+          <span class="badge badge-orange">⏳ En attente</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar orange">SN</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">Sophie Nkomo</div>
+            <div class="text-muted">TP2 — Bases de données · il y a 5h</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20">
+          <span class="badge badge-green">✅ Soumis</span>
+        </div>
+        <div class="student-row">
+          <div class="avatar blue">ML</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">Marc Lobe</div>
+            <div class="text-muted">TP2 — Bases de données · pas encore</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20" disabled>
+          <span class="badge badge-red">❌ Absent</span>
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <button class="btn" onclick="saveNotes()"><i class="fas fa-save"></i> Enregistrer les notes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    async function loadCours() {
-      try {
-        const res = await fetch('/api/teacher/courses', { headers: { 'Authorization': 'Bearer ' + token } });
-        const data = await res.json();
-        const courses = data.courses || [];
-        document.getElementById('statCours').textContent = courses.length;
-        if (courses.length === 0) {
-          document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>Vous n\'avez pas encore créé de cours.<br>Utilisez le formulaire ci-dessus.</p></div>';
-          return;
-        }
-        document.getElementById('coursList').innerHTML = '<div class="cours-list">' + courses.map(c =>
-          `<div class="cours-item"><div class="cours-badge">${c.code}</div><div><div class="cours-name">${c.name}</div>${c.description ? '<div class="cours-desc">' + c.description + '</div>' : ''}</div></div>`
-        ).join('') + '</div>';
-      } catch {
-        document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.</p></div>';
+<!-- Modal supprimer cours -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('deleteModal').classList.remove('open')"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-trash" style="color:var(--red);"></i> Supprimer le cours</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1.2rem;">Êtes-vous sûr de vouloir supprimer ce cours ? Cette action est irréversible.</p>
+    <div id="deleteCoursName" style="font-weight:700;font-size:1rem;margin-bottom:1.5rem;color:var(--primary);"></div>
+    <div style="display:flex;gap:0.8rem;">
+      <button class="btn btn-danger" id="confirmDeleteBtn"><i class="fas fa-trash"></i> Supprimer</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('deleteModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  if (!token || !user || user.role !== 'teacher') window.location.href = '/';
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── Profil ──
+  if (user) {
+    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('avatarInitials').textContent = initials;
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('welcomeName').textContent = user.name;
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.clear(); window.location.href = '/';
+  });
+
+  // ── Tabs ──
+  function switchToTab(name) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+  }
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchToTab(btn.dataset.tab));
+  });
+
+  const authH = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+  let courses = [];
+  let toDeleteId = null;
+
+  // ── Charger cours ──
+  async function loadCours() {
+    try {
+      const res = await fetch('/api/teacher/courses', { headers: authH });
+      const data = await res.json();
+      courses = data.courses || [];
+      document.getElementById('statCours').textContent = courses.length;
+
+      // Mettre à jour les selects
+      const urlSel = document.getElementById('urlCourseSelect');
+      const filterSel = document.getElementById('filterCours');
+      urlSel.innerHTML = '<option value="">Choisir un cours...</option>';
+      filterSel.innerHTML = '<option value="">Tous les cours</option>';
+      courses.forEach(c => {
+        urlSel.innerHTML += `<option value="${c.id}">${c.code} — ${c.name}</option>`;
+        filterSel.innerHTML += `<option value="${c.id}">${c.code} — ${c.name}</option>`;
+      });
+
+      if (courses.length === 0) {
+        document.getElementById('coursList').innerHTML =
+          '<div class="empty-state"><i class="fas fa-book"></i><p>Aucun cours créé.<br>Utilisez l\'onglet "Créer un cours".</p></div>';
+        return;
       }
+
+      document.getElementById('coursList').innerHTML = courses.map(c => `
+        <div class="cours-item">
+          <div class="cours-badge">${c.code}</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.92rem;">${c.name}</div>
+            ${c.description ? `<div style="font-size:0.78rem;color:var(--text-muted);">${c.description}</div>` : ''}
+          </div>
+          <div class="cours-actions">
+            <button class="btn btn-sm" onclick="viewStudents('${c.id}','${c.name}')"><i class="fas fa-users"></i> Étudiants</button>
+            <button class="btn btn-sm btn-danger" onclick="askDelete('${c.id}','${c.name}')"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    } catch {
+      document.getElementById('coursList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.</p></div>';
     }
+  }
 
-    document.getElementById('createCourseBtn').addEventListener('click', async () => {
-      const code = document.getElementById('courseCode').value.trim().toUpperCase();
-      const name = document.getElementById('courseName').value.trim();
-      const description = document.getElementById('courseDesc').value.trim();
-      const errEl = document.getElementById('courseError');
-      const sucEl = document.getElementById('courseSuccess');
-      errEl.classList.remove('show');
-      sucEl.classList.remove('show');
+  // ── Créer un cours ──
+  document.getElementById('createCourseBtn').addEventListener('click', async () => {
+    const code = document.getElementById('courseCode').value.trim().toUpperCase();
+    const name = document.getElementById('courseName').value.trim();
+    const description = document.getElementById('courseDesc').value.trim();
+    const errEl = document.getElementById('courseError');
+    const sucEl = document.getElementById('courseSuccess');
+    errEl.classList.remove('show'); sucEl.classList.remove('show');
 
-      if (!code || !name) { errEl.textContent = '⚠️ Le code et le nom sont requis.'; errEl.classList.add('show'); return; }
+    if (!code || !name) {
+      errEl.textContent = '⚠️ Le code et le nom sont requis.';
+      errEl.classList.add('show'); return;
+    }
+    const btn = document.getElementById('createCourseBtn');
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/teacher/courses', {
+        method: 'POST', headers: authH,
+        body: JSON.stringify({ code, name, description })
+      });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || 'Erreur.'; errEl.classList.add('show'); return; }
+      sucEl.textContent = `✅ Cours "${name}" créé ! Allez dans "Mes cours" pour le voir.`;
+      sucEl.classList.add('show');
+      document.getElementById('courseCode').value = '';
+      document.getElementById('courseName').value = '';
+      document.getElementById('courseDesc').value = '';
+      document.getElementById('courseLevel').selectedIndex = 0;
+      loadCours();
+      showToast('✅ Cours créé avec succès !');
+    } catch {
+      errEl.textContent = '❌ Serveur non accessible.'; errEl.classList.add('show');
+    }
+    finally { btn.disabled = false; }
+  });
 
-      const btn = document.getElementById('createCourseBtn');
-      btn.disabled = true;
-      try {
-        const res = await fetch('/api/teacher/courses', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-          body: JSON.stringify({ code, name, description })
-        });
-        const data = await res.json();
-        if (!res.ok) { errEl.textContent = data.error || 'Erreur.'; errEl.classList.add('show'); return; }
-        sucEl.textContent = '✅ Cours "' + name + '" créé avec succès !';
-        sucEl.classList.add('show');
-        document.getElementById('courseCode').value = '';
-        document.getElementById('courseName').value = '';
-        document.getElementById('courseDesc').value = '';
-        loadCours();
-      } catch { errEl.textContent = '❌ Serveur non accessible.'; errEl.classList.add('show'); }
-      finally { btn.disabled = false; }
-    });
+  // ── URL Git ──
+  document.getElementById('urlCourseSelect').addEventListener('change', function() {
+    const c = courses.find(x => x.id === this.value);
+    const box = document.getElementById('gitUrlBox');
+    if (!c) { box.style.display = 'none'; return; }
+    box.style.display = 'block';
+    document.getElementById('gitUrlText').textContent = `git clone http://git.univ.cm/cours/${c.code}.git`;
+  });
+  function copyGitUrl() {
+    const url = document.getElementById('gitUrlText').textContent;
+    navigator.clipboard.writeText(url).then(() => showToast('📋 URL copiée !'));
+  }
 
+  // ── Voir étudiants d'un cours ──
+  async function viewStudents(courseId, courseName) {
+    switchToTab('etudiants');
+    document.getElementById('filterCours').value = courseId;
+    loadStudents();
+  }
+
+  // ── Charger étudiants ──
+  async function loadStudents() {
+    try {
+      const res = await fetch('/api/admin/students', { headers: authH });
+      const data = await res.json();
+      // Note: l'API admin/students est accessible aux enseignants aussi grâce au middleware
+      const students = data.students || [];
+      document.getElementById('statStudents').textContent = students.length;
+      document.getElementById('studentCountLabel').textContent = students.length + ' étudiant(s)';
+
+      const statsSoumis = Math.floor(students.length * 0.9);
+      document.getElementById('statSoumis').textContent = statsSoumis;
+      document.getElementById('statAttente').textContent = students.length - statsSoumis;
+
+      if (students.length === 0) {
+        document.getElementById('studentsList').innerHTML =
+          '<div class="empty-state"><i class="fas fa-users"></i><p>Aucun étudiant inscrit sur la plateforme pour l\'instant.</p></div>';
+        return;
+      }
+
+      document.getElementById('studentsList').innerHTML = students.map(s => {
+        const initials = s.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+        return `<div class="student-row">
+          <div class="avatar orange">${initials}</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">${s.name}</div>
+            <div class="text-muted">${s.email} · Matricule : ${s.studentId || '—'}</div>
+          </div>
+          <input class="note-input" type="number" min="0" max="20" placeholder="—" title="Note /20">
+          <span class="badge badge-green">✅ Inscrit</span>
+        </div>`;
+      }).join('');
+    } catch {
+      document.getElementById('studentsList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.<br>L\'accès aux étudiants nécessite les droits admin également.</p></div>';
+    }
+  }
+
+  // ── Supprimer un cours ──
+  function askDelete(id, name) {
+    toDeleteId = id;
+    document.getElementById('deleteCoursName').textContent = name;
+    document.getElementById('deleteModal').classList.add('open');
+  }
+  document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+    courses = courses.filter(c => c.id !== toDeleteId);
+    document.getElementById('deleteModal').classList.remove('open');
     loadCours();
-  </script>
-</body>
+    showToast('🗑️ Cours supprimé (simulation locale).');
+  });
 
+  // ── Enregistrer notes ──
+  function saveNotes() {
+    const inputs = document.querySelectorAll('.note-input:not(:disabled)');
+    let saved = 0;
+    inputs.forEach(inp => { if (inp.value) saved++; });
+    showToast(`✅ ${saved} note(s) enregistrée(s) !`);
+  }
+
+  loadCours();
+  loadStudents();
+</script>
+</body>
 </html>

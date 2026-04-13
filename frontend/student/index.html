@@ -6,122 +6,500 @@
   <title>Mon Espace — GitUniversitaire</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../shared.css">
   <style>
-    :root{--primary:#e67e22;--primary-dark:#cf711f;--primary-light:#fff1e6;--bg:#fef9f0;--text:#1e2a3e;--text-muted:#4a5b4e;--border:rgba(235,200,150,0.6);}
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-    .navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(255,252,245,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
-    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;text-decoration:none;}
-    .logo i{color:#e67e22;-webkit-text-fill-color:#e67e22;}
-    .nav-right{display:flex;align-items:center;gap:1rem;}
-    .user-chip{display:flex;align-items:center;gap:8px;background:var(--primary-light);border:1px solid #ffcf9a;border-radius:30px;padding:0.4rem 1rem;font-size:0.85rem;font-weight:600;color:#c25d1a;}
-    .avatar-sm{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#e67e22,#f09b42);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.75rem;flex-shrink:0;}
-    .btn-logout{background:none;border:1px solid var(--border);color:var(--text-muted);padding:0.4rem 0.9rem;border-radius:20px;font-size:0.82rem;cursor:pointer;font-family:'Inter',sans-serif;transition:0.2s;}
-    .btn-logout:hover{border-color:#e74c3c;color:#e74c3c;}
-    .container{max-width:1100px;margin:0 auto;padding:2rem 1.5rem;}
-    .page-header{margin-bottom:2rem;}
-    .page-header h1{font-size:1.7rem;font-weight:800;margin-bottom:0.3rem;}
-    .page-header p{color:var(--text-muted);font-size:0.9rem;}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2.5rem;}
-    .stat-card{background:white;border-radius:1.5rem;padding:1.2rem;text-align:center;border:1px solid var(--border);transition:0.2s;}
-    .stat-card:hover{border-color:#f7bc6b;transform:translateY(-3px);box-shadow:0 8px 16px rgba(0,0,0,0.06);}
-    .stat-n{font-size:2rem;font-weight:800;color:var(--primary);}
-    .stat-l{font-size:0.72rem;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;}
-    .section-title{font-size:1.05rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
-    .section-block{margin-bottom:2.5rem;}
-    .repo-list{display:flex;flex-direction:column;gap:0.8rem;}
-    .repo-item{background:white;border-radius:1.3rem;padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
-    .repo-item:hover{border-color:#f7bc6b;transform:translateX(4px);box-shadow:0 4px 14px rgba(0,0,0,0.07);}
-    .repo-icon{width:40px;height:40px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1.1rem;flex-shrink:0;}
-    .repo-name{font-weight:700;font-size:0.92rem;}
-    .repo-desc{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
-    .repo-meta{margin-left:auto;text-align:right;font-size:0.75rem;color:var(--text-muted);}
-    .tag{background:var(--primary-light);color:var(--primary);padding:2px 9px;border-radius:10px;font-size:0.72rem;font-weight:600;}
-    .cours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
-    .cours-card{background:white;border-radius:1.3rem;padding:1.2rem;border:1px solid var(--border);transition:0.2s;cursor:pointer;}
-    .cours-card:hover{border-color:#f7bc6b;box-shadow:0 6px 16px rgba(230,126,34,0.1);transform:translateY(-3px);}
-    .cours-code{font-size:0.72rem;font-weight:700;color:var(--primary);background:var(--primary-light);display:inline-block;padding:2px 8px;border-radius:8px;margin-bottom:0.5rem;}
-    .cours-name{font-weight:700;font-size:0.95rem;margin-bottom:0.3rem;}
-    .cours-teacher{font-size:0.78rem;color:var(--text-muted);}
-    .empty-state{text-align:center;padding:2.5rem;background:white;border-radius:1.5rem;border:1px dashed var(--border);color:var(--text-muted);}
-    .empty-state i{font-size:2.5rem;margin-bottom:0.8rem;display:block;color:#f7bc6b;}
-    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#2c2b26;color:#ffefcf;padding:12px 24px;border-radius:60px;font-size:0.88rem;font-weight:500;z-index:9999;border-left:4px solid var(--primary);box-shadow:0 10px 20px rgba(0,0,0,0.2);transition:transform 0.3s ease;}
-    .toast.show{transform:translateX(-50%) translateY(0);}
+    .profile-banner {
+      background: linear-gradient(135deg, #c4450c 0%, #f09b42 100%);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 800;
+      border: 3px solid rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+    .profile-info h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; }
+    .profile-info p { font-size: 0.85rem; opacity: 0.85; }
+    .profile-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .profile-tag { background: rgba(255,255,255,0.2); border-radius: 15px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; }
+
+    .search-bar {
+      width: 100%; padding: 0.75rem 1rem 0.75rem 2.8rem;
+      border-radius: 12px; border: 1.5px solid #e0d5c8;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: 0.2s; background: white;
+    }
+    .search-bar:focus { border-color: var(--primary); }
+    .search-wrap { position: relative; margin-bottom: 1rem; }
+    .search-wrap i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+    .tp-item {
+      background: white; border-radius: 1.3rem; padding: 1rem 1.3rem;
+      border: 1px solid var(--border); display: flex;
+      align-items: center; gap: 1rem; transition: 0.2s;
+    }
+    .tp-item:hover { border-color: #f7bc6b; }
+    .tp-status-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-green { background: var(--green); }
+    .dot-orange { background: var(--primary); }
+    .dot-red { background: var(--red); }
+
+    .cours-enroll-btn {
+      margin-left: auto; flex-shrink: 0;
+      padding: 4px 12px; border-radius: 15px;
+      font-size: 0.75rem; font-weight: 600;
+      border: 1.5px solid var(--primary);
+      color: var(--primary); background: none;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: 0.2s;
+    }
+    .cours-enroll-btn:hover, .cours-enroll-btn.enrolled {
+      background: var(--primary); color: white;
+    }
+
+    .git-cmd {
+      background: #1e2a3e; color: #a8d8a8;
+      border-radius: 10px; padding: 0.7rem 1rem;
+      font-family: monospace; font-size: 0.82rem;
+      margin-top: 0.5rem; display: flex;
+      align-items: center; justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .git-cmd button {
+      background: none; border: none; color: #f7bc6b;
+      cursor: pointer; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .git-cmd button:hover { color: white; }
   </style>
 </head>
 <body>
 <nav class="navbar">
   <a class="logo" href="/"><i class="fas fa-code-branch"></i> GitUniversitaire</a>
   <div class="nav-right">
-    <div class="user-chip"><div class="avatar-sm" id="avatarInitials">?</div><span id="userName">...</span></div>
+    <div class="user-chip">
+      <div class="avatar-sm" id="avatarInitials">?</div>
+      <span id="userName">...</span>
+    </div>
     <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
   </div>
 </nav>
 
 <div class="container">
-  <div class="page-header">
-    <h1>👨‍🎓 Mon espace étudiant</h1>
-    <p>Bienvenue, <strong id="welcomeName">...</strong> · Matricule : <span id="userMatricule">—</span></p>
-  </div>
 
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Mes dépôts</div></div>
-    <div class="stat-card"><div class="stat-n" id="statCours">—</div><div class="stat-l">Cours disponibles</div></div>
-    <div class="stat-card"><div class="stat-n">48</div><div class="stat-l">Commits totaux</div></div>
-    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">TPs en attente</div></div>
-  </div>
-
-  <div class="section-block">
-    <div class="section-title"><i class="fas fa-database"></i> Mes dépôts récents</div>
-    <div class="repo-list">
-      <div class="repo-item"><div class="repo-icon"><i class="fas fa-code"></i></div><div><div class="repo-name">projet-S8-groupe4</div><div class="repo-desc">Projet de fin de semestre — Intelligence Artificielle</div></div><div class="repo-meta"><span class="tag">Python</span><div style="margin-top:4px;">12 commits</div></div></div>
-      <div class="repo-item"><div class="repo-icon"><i class="fas fa-database"></i></div><div><div class="repo-name">TP2-bases-de-donnees</div><div class="repo-desc">TP noté — Modélisation et requêtes SQL</div></div><div class="repo-meta"><span class="tag">SQL</span><div style="margin-top:4px;">8 commits</div></div></div>
-      <div class="repo-item"><div class="repo-icon"><i class="fas fa-globe"></i></div><div><div class="repo-name">site-web-perso</div><div class="repo-desc">Portfolio personnel étudiant</div></div><div class="repo-meta"><span class="tag">HTML/CSS</span><div style="margin-top:4px;">21 commits</div></div></div>
+  <!-- Bannière profil -->
+  <div class="profile-banner">
+    <div class="profile-avatar" id="bannerAvatar">?</div>
+    <div class="profile-info">
+      <h2 id="bannerName">Chargement...</h2>
+      <p id="bannerEmail">...</p>
+      <div class="profile-tags">
+        <span class="profile-tag"><i class="fas fa-id-card"></i> <span id="bannerMatricule">—</span></span>
+        <span class="profile-tag"><i class="fas fa-user-graduate"></i> Étudiant</span>
+      </div>
     </div>
   </div>
 
-  <div class="section-block">
-    <div class="section-title"><i class="fas fa-book-open"></i> Cours disponibles</div>
-    <div id="coursList"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></div></div>
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n" id="statDepots">3</div><div class="stat-l">Mes dépôts</div></div>
+    <div class="stat-card"><div class="stat-n" id="statCours">—</div><div class="stat-l">Cours disponibles</div></div>
+    <div class="stat-card"><div class="stat-n" id="statTP">2</div><div class="stat-l">TPs soumis</div></div>
+    <div class="stat-card"><div class="stat-n" id="statAttente">1</div><div class="stat-l">En attente</div></div>
+  </div>
+
+  <!-- Tabs navigation -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="depots"><i class="fas fa-database"></i> Mes dépôts</button>
+    <button class="tab-btn" data-tab="cours"><i class="fas fa-book-open"></i> Cours</button>
+    <button class="tab-btn" data-tab="tp"><i class="fas fa-tasks"></i> Mes TPs</button>
+    <button class="tab-btn" data-tab="git"><i class="fab fa-git-alt"></i> Aide Git</button>
+  </div>
+
+  <!-- TAB : Mes dépôts -->
+  <div class="tab-pane active" id="tab-depots">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-database"></i> Mes dépôts</div>
+        <button class="btn btn-sm" id="newRepoBtn"><i class="fas fa-plus"></i> Nouveau dépôt</button>
+      </div>
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input class="search-bar" type="text" id="repoSearch" placeholder="Rechercher un dépôt...">
+      </div>
+      <div id="repoList" style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div class="repo-item">
+          <div class="repo-icon"><i class="fas fa-code"></i></div>
+          <div>
+            <div class="repo-name">projet-S8-groupe4</div>
+            <div class="repo-desc">Projet de fin de semestre — Intelligence Artificielle</div>
+          </div>
+          <div class="repo-meta">
+            <span class="tag">Python</span>
+            <div style="margin-top:4px;">12 commits · <span style="color:var(--green);">↑ actif</span></div>
+          </div>
+        </div>
+        <div class="repo-item">
+          <div class="repo-icon"><i class="fas fa-database"></i></div>
+          <div>
+            <div class="repo-name">TP2-bases-de-donnees</div>
+            <div class="repo-desc">TP noté — Modélisation et requêtes SQL</div>
+          </div>
+          <div class="repo-meta">
+            <span class="tag">SQL</span>
+            <div style="margin-top:4px;">8 commits</div>
+          </div>
+        </div>
+        <div class="repo-item">
+          <div class="repo-icon"><i class="fas fa-globe"></i></div>
+          <div>
+            <div class="repo-name">site-web-perso</div>
+            <div class="repo-desc">Portfolio personnel étudiant</div>
+          </div>
+          <div class="repo-meta">
+            <span class="tag">HTML/CSS</span>
+            <div style="margin-top:4px;">21 commits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Cours -->
+  <div class="tab-pane" id="tab-cours">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-book-open"></i> Cours disponibles</div>
+        <span id="coursCount" class="text-muted"></span>
+      </div>
+      <div id="coursList">
+        <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement des cours...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : TPs -->
+  <div class="tab-pane" id="tab-tp">
+    <div class="section-block">
+      <div class="section-title">
+        <div class="section-title-left"><i class="fas fa-tasks"></i> Mes travaux pratiques</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;" id="tpList">
+        <div class="tp-item">
+          <div class="tp-status-dot dot-green"></div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">TP1 — Algorithmes de tri</div>
+            <div class="text-muted">INFO101 · Soumis il y a 3 jours</div>
+          </div>
+          <span class="badge badge-green">✅ Soumis</span>
+        </div>
+        <div class="tp-item">
+          <div class="tp-status-dot dot-green"></div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">TP2 — Bases de données SQL</div>
+            <div class="text-muted">INFO201 · Soumis il y a 1 jour</div>
+          </div>
+          <span class="badge badge-green">✅ Soumis</span>
+        </div>
+        <div class="tp-item">
+          <div class="tp-status-dot dot-orange"></div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:0.9rem;">TP3 — Réseaux TCP/IP</div>
+            <div class="text-muted">INFO301 · Date limite : dans 2 jours</div>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:0.6rem;">
+            <span class="badge badge-orange">⏳ En cours</span>
+            <button class="btn btn-sm" onclick="showToast('📤 Soumettre : git push origin main')"><i class="fas fa-upload"></i> Soumettre</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simuler une soumission -->
+    <div class="section-block">
+      <div class="card-white">
+        <h3 style="font-weight:700;font-size:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><i class="fas fa-upload" style="color:var(--primary);"></i> Soumettre un travail</h3>
+        <div class="form-group">
+          <label>Cours concerné</label>
+          <select id="submitCours">
+            <option value="">Choisir un cours...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Intitulé du TP</label>
+          <input type="text" id="submitTitle" placeholder="ex: TP3 — Réseaux TCP/IP">
+        </div>
+        <div class="form-group">
+          <label>Message de commit</label>
+          <input type="text" id="submitMsg" placeholder="ex: Finalisation TP3 - algorithme de routage">
+        </div>
+        <button class="btn" id="submitTPBtn"><i class="fas fa-paper-plane"></i> Marquer comme soumis</button>
+        <div class="msg msg-success mt-1" id="submitSuccess"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB : Aide Git -->
+  <div class="tab-pane" id="tab-git">
+    <div class="section-block">
+      <div class="section-title"><div class="section-title-left"><i class="fab fa-git-alt"></i> Commandes Git essentielles</div></div>
+      <div style="display:flex;flex-direction:column;gap:1.2rem;">
+        <div class="card-white">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;color:var(--primary);">🔽 Récupérer un dépôt</div>
+          <div class="git-cmd"><span>git clone http://git.univ.cm/cours/INFO101.git</span><button onclick="copyCmd(this)" title="Copier"><i class="fas fa-copy"></i></button></div>
+        </div>
+        <div class="card-white">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;color:var(--primary);">💾 Sauvegarder son travail</div>
+          <div class="git-cmd"><span>git add .</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+          <div class="git-cmd" style="margin-top:0.4rem;"><span>git commit -m "TP1 - Algorithmes de tri"</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+        </div>
+        <div class="card-white">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;color:var(--primary);">📤 Soumettre son travail</div>
+          <div class="git-cmd"><span>git push origin main</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+        </div>
+        <div class="card-white">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;color:var(--primary);">🌿 Travailler sur une branche</div>
+          <div class="git-cmd"><span>git checkout -b ma-fonctionnalite</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+          <div class="git-cmd" style="margin-top:0.4rem;"><span>git push origin ma-fonctionnalite</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+        </div>
+        <div class="card-white">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.5rem;color:var(--primary);">🔍 Vérifier l'état</div>
+          <div class="git-cmd"><span>git status</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+          <div class="git-cmd" style="margin-top:0.4rem;"><span>git log --oneline --graph</span><button onclick="copyCmd(this)"><i class="fas fa-copy"></i></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Modal nouveau dépôt -->
+<div class="modal-overlay" id="newRepoModal">
+  <div class="modal">
+    <button class="modal-close" id="closeRepoModal"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-plus-circle" style="color:var(--primary);"></i> Nouveau dépôt</h3>
+    <div class="form-group">
+      <label>Nom du dépôt</label>
+      <input type="text" id="newRepoName" placeholder="ex: mon-projet-ia">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" id="newRepoDesc" placeholder="Brève description...">
+    </div>
+    <div class="form-group">
+      <label>Langage principal</label>
+      <select id="newRepoLang">
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Java">Java</option>
+        <option value="C/C++">C/C++</option>
+        <option value="SQL">SQL</option>
+        <option value="HTML/CSS">HTML/CSS</option>
+        <option value="Bash">Bash</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </div>
+    <div class="msg msg-error" id="repoError"></div>
+    <button class="btn" style="width:100%;justify-content:center;" id="createRepoBtn"><i class="fas fa-plus"></i> Créer le dépôt</button>
+    <div class="msg msg-info mt-1" id="repoCloneCmd" style="font-family:monospace;font-size:0.8rem;"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
+
 <script>
+  // ── Auth ──
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   if (!token || !user || user.role !== 'student') window.location.href = '/';
 
-  if (user) {
-    document.getElementById('userName').textContent = user.name;
-    document.getElementById('welcomeName').textContent = user.name;
-    document.getElementById('userMatricule').textContent = user.studentId || '—';
-    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
-    document.getElementById('avatarInitials').textContent = initials;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
   }
 
+  // ── Profil ──
+  if (user) {
+    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('avatarInitials').textContent = initials;
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('bannerAvatar').textContent = initials;
+    document.getElementById('bannerName').textContent = user.name;
+    document.getElementById('bannerEmail').textContent = user.email;
+    document.getElementById('bannerMatricule').textContent = user.studentId || '—';
+  }
+
+  // ── Déconnexion ──
   document.getElementById('logoutBtn').addEventListener('click', () => {
     localStorage.clear();
     window.location.href = '/';
   });
 
+  // ── Tabs ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Recherche dépôts ──
+  document.getElementById('repoSearch').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#repoList .repo-item').forEach(item => {
+      const name = item.querySelector('.repo-name').textContent.toLowerCase();
+      item.style.display = name.includes(q) ? 'flex' : 'none';
+    });
+  });
+
+  // ── Charger les cours depuis l'API ──
   async function loadCours() {
     try {
-      const res = await fetch('/api/student/all-courses', { headers: { 'Authorization': 'Bearer ' + token } });
+      const res = await fetch('/api/student/all-courses', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
       const data = await res.json();
       const courses = data.courses || [];
       document.getElementById('statCours').textContent = courses.length;
+      document.getElementById('coursCount').textContent = courses.length + ' cours';
+
+      // Remplir aussi le select de soumission
+      const sel = document.getElementById('submitCours');
+      courses.forEach(c => {
+        sel.innerHTML += `<option value="${c.id}">${c.code} — ${c.name}</option>`;
+      });
+
       if (courses.length === 0) {
-        document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>Aucun cours créé pour le moment.<br>Attends que ton enseignant en crée un.</p></div>';
+        document.getElementById('coursList').innerHTML =
+          '<div class="empty-state"><i class="fas fa-book"></i><p>Aucun cours disponible.<br>Attend qu\'un enseignant en crée un.</p></div>';
         return;
       }
-      document.getElementById('coursList').innerHTML = '<div class="cours-grid">' + courses.map(c =>
-        `<div class="cours-card"><div class="cours-code">${c.code}</div><div class="cours-name">${c.name}</div><div class="cours-teacher"><i class="fas fa-chalkboard-teacher"></i> ${c.teacherName}</div>${c.description ? '<p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;">'+c.description+'</p>' : ''}</div>`
-      ).join('') + '</div>';
+
+      const enrolled = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+
+      document.getElementById('coursList').innerHTML = '<div class="cours-grid">' + courses.map(c => {
+        const isEnrolled = enrolled.includes(c.id);
+        return `<div class="cours-card">
+          <div class="cours-code">${c.code}</div>
+          <div class="cours-name">${c.name}</div>
+          <div class="cours-teacher"><i class="fas fa-chalkboard-teacher"></i> ${c.teacherName}</div>
+          ${c.description ? `<div class="cours-desc">${c.description}</div>` : ''}
+          <button class="cours-enroll-btn ${isEnrolled ? 'enrolled' : ''}"
+            data-id="${c.id}" onclick="toggleEnroll(this, '${c.id}', '${c.name}')">
+            ${isEnrolled ? '✅ Inscrit' : '+ S\'inscrire'}
+          </button>
+        </div>`;
+      }).join('') + '</div>';
     } catch {
-      document.getElementById('coursList').innerHTML = '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.<br>Démarre Node.js avec <code>npm start</code>.</p></div>';
+      document.getElementById('coursList').innerHTML =
+        '<div class="empty-state"><i class="fas fa-wifi"></i><p>Serveur non accessible.<br>Lance <code>npm start</code>.</p></div>';
     }
   }
+
+  function toggleEnroll(btn, courseId, courseName) {
+    let enrolled = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+    if (enrolled.includes(courseId)) {
+      enrolled = enrolled.filter(id => id !== courseId);
+      btn.textContent = '+ S\'inscrire';
+      btn.classList.remove('enrolled');
+      showToast('❌ Désinscrit de ' + courseName);
+    } else {
+      enrolled.push(courseId);
+      btn.textContent = '✅ Inscrit';
+      btn.classList.add('enrolled');
+      showToast('✅ Inscrit à ' + courseName);
+    }
+    localStorage.setItem('enrolledCourses', JSON.stringify(enrolled));
+  }
+
+  // ── Soumettre un TP ──
+  document.getElementById('submitTPBtn').addEventListener('click', () => {
+    const cours = document.getElementById('submitCours').value;
+    const title = document.getElementById('submitTitle').value.trim();
+    const msg = document.getElementById('submitMsg').value.trim();
+    const sucEl = document.getElementById('submitSuccess');
+    sucEl.classList.remove('show');
+    if (!cours || !title || !msg) { showToast('⚠️ Remplis tous les champs.'); return; }
+
+    // Simuler une soumission
+    setTimeout(() => {
+      sucEl.textContent = '✅ TP "' + title + '" marqué comme soumis ! Pense à faire git push.';
+      sucEl.classList.add('show');
+      document.getElementById('submitTitle').value = '';
+      document.getElementById('submitMsg').value = '';
+      document.getElementById('submitCours').selectedIndex = 0;
+      const n = parseInt(document.getElementById('statTP').textContent) + 1;
+      document.getElementById('statTP').textContent = n;
+      showToast('📤 Soumission enregistrée !');
+    }, 400);
+  });
+
+  // ── Nouveau dépôt ──
+  document.getElementById('newRepoBtn').addEventListener('click', () => {
+    document.getElementById('newRepoModal').classList.add('open');
+  });
+  document.getElementById('closeRepoModal').addEventListener('click', () => {
+    document.getElementById('newRepoModal').classList.remove('open');
+  });
+  document.getElementById('newRepoModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('newRepoModal'))
+      document.getElementById('newRepoModal').classList.remove('open');
+  });
+
+  document.getElementById('createRepoBtn').addEventListener('click', () => {
+    const name = document.getElementById('newRepoName').value.trim().toLowerCase().replace(/\s+/g, '-');
+    const desc = document.getElementById('newRepoDesc').value.trim();
+    const lang = document.getElementById('newRepoLang').value;
+    const errEl = document.getElementById('repoError');
+    errEl.classList.remove('show');
+    if (!name) { errEl.textContent = '⚠️ Le nom du dépôt est requis.'; errEl.classList.add('show'); return; }
+
+    // Ajouter à la liste localement
+    const list = document.getElementById('repoList');
+    const icons = { Python:'fa-python', JavaScript:'fa-js', Java:'fa-java', Bash:'fa-terminal',
+      'HTML/CSS':'fa-globe', SQL:'fa-database', 'C/C++':'fa-code', Autre:'fa-file-code' };
+    const icon = icons[lang] || 'fa-file-code';
+    const newItem = document.createElement('div');
+    newItem.className = 'repo-item';
+    newItem.innerHTML = `<div class="repo-icon"><i class="fab ${icon} fas fa-file-code"></i></div>
+      <div><div class="repo-name">${name}</div><div class="repo-desc">${desc || 'Nouveau dépôt'}</div></div>
+      <div class="repo-meta"><span class="tag">${lang}</span><div style="margin-top:4px;">0 commits</div></div>`;
+    list.prepend(newItem);
+
+    const cloneUrl = `git clone http://git.univ.cm/${user.studentId}/${name}.git`;
+    const cmdEl = document.getElementById('repoCloneCmd');
+    cmdEl.textContent = '➡️ ' + cloneUrl;
+    cmdEl.classList.add('show');
+
+    const n = parseInt(document.getElementById('statDepots').textContent) + 1;
+    document.getElementById('statDepots').textContent = n;
+
+    showToast('✅ Dépôt "' + name + '" créé !');
+    document.getElementById('newRepoName').value = '';
+    document.getElementById('newRepoDesc').value = '';
+  });
+
+  // ── Copier commandes Git ──
+  function copyCmd(btn) {
+    const cmd = btn.parentElement.querySelector('span').textContent;
+    navigator.clipboard.writeText(cmd).then(() => showToast('📋 Copié : ' + cmd.slice(0,40) + '…'));
+  }
+
   loadCours();
 </script>
 </body>

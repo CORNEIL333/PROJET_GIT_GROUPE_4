@@ -1216,6 +1216,23 @@
         animateCounter('cnt-cours', 43, 1000);
       }
     }, { threshold: 0.3 }).observe(document.querySelector('.stats-bar'));
+
+  // Charger stats réelles depuis l'API Node.js
+  async function loadRealStats() {
+    try {
+      const res = await fetch('/api/admin/stats');
+      if (!res.ok) return;
+      const data = await res.json();
+      const s = data.stats || {};
+      if (s.students > 0) {
+        document.getElementById('cnt-etudiants').textContent = s.students;
+      }
+      if (s.courses > 0) {
+        document.getElementById('cnt-cours').textContent = s.courses;
+      }
+    } catch {}
+  }
+  loadRealStats();
   </script>
 </body>
 
