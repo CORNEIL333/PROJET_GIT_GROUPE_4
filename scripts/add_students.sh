@@ -105,6 +105,7 @@ if [[ -n "$GITHUB_TOKEN" ]]; then
     fi
 fi
 
+<<<<<<< HEAD
 print_header "Traitement du cours: $COURSE_CODE"
 
 STUDENTS=()
@@ -221,3 +222,22 @@ else
     print_warning "$ERROR_COUNT erreur(s) rencontrée(s) - Consultez le log pour plus de détails"
     exit 1
 fi
+=======
+COUNT=0
+echo "👥 Ajout des étudiants au cours $COURSE_CODE..."
+while IFS= read -r student; do
+    # Nettoyer les espaces et sauts de ligne
+    student=$(echo "$student" | tr -d '\r')
+    [ -z "$student" ] && continue
+    ((COUNT++))
+    if $DRY_RUN; then
+        echo "  [$COUNT] [SIMUL] ➕ $student"
+    else
+        echo "  [$COUNT] ➕ $student"
+        # Ajout réel (Simulation de gestion des droits système / htpasswd)
+        sudo -u git mkdir -p "/home/git/repos/$COURSE_CODE.git" 2>/dev/null || mkdir -p "/home/git/repos/$COURSE_CODE.git" 2>/dev/null
+        echo "$student" >> "/home/git/repos/$COURSE_CODE.git/authorized_students.txt" 2>/dev/null || true
+    fi
+done < "$STUDENT_FILE"
+echo "✅ $COUNT étudiants traités et inscrits au cours $COURSE_CODE."
+>>>>>>> origin/INESS

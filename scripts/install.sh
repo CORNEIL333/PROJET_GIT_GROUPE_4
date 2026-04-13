@@ -36,9 +36,19 @@ HTTPS_PORT=443
 GIT_USER="git"
 GIT_HOME="/home/git"
 
+<<<<<<< HEAD
 # URLs de téléchargement
 NODE_VERSION="18.19.0"
 DOCKER_COMPOSE_VERSION="2.24.0"
+=======
+if ! id gitserver &>/dev/null; then
+    echo -e "${BLUE}👤 Création de l'utilisateur système 'git'...${NC}"
+    sudo useradd -m -s /bin/bash git || true
+fi
+
+mkdir -p /home/git/repos /home/git/backups /home/git/logs
+sudo chown -R git:git /home/git 2>/dev/null || true
+>>>>>>> origin/INESS
 
 # ============================================================================
 # Couleurs et fonctions utilitaires
