@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginBtn) {
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            showFriendlyMessage('🔐 Redirection vers le portail de connexion...');
+            showFriendlyMessage(' Redirection vers le portail de connexion...');
         });
     }
 
