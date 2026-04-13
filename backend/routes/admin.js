@@ -10,7 +10,10 @@ const {
   createInviteCode,
   getAllInviteCodes,
   getAllCourses,
+<<<<<<< HEAD
   updateUserPassword,
+=======
+>>>>>>> origin/main
 } = require('../models/database');
 
 // Toutes les routes admin nécessitent d'être connecté ET d'être admin
@@ -51,6 +54,7 @@ router.get('/courses', (req, res) => {
   res.json({ courses: getAllCourses() });
 });
 
+<<<<<<< HEAD
 // POST /api/admin/reset-password — Réinitialise le mot de passe d'un utilisateur
 router.post('/reset-password', async (req, res) => {
   const { userId, newPassword } = req.body;
@@ -68,6 +72,8 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
+=======
+>>>>>>> origin/main
 // GET /api/admin/stats — Statistiques globales
 router.get('/stats', (req, res) => {
   const users = getAllUsers();

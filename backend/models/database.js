@@ -102,6 +102,7 @@ function getCoursesByStudent(studentId) {
   return db.courses.filter(c => c.students.includes(studentId));
 }
 
+<<<<<<< HEAD
 async function updateUserPassword(userId, newPassword) {
   const user = db.users.find(u => u.id === userId);
   if (user) {
@@ -112,6 +113,8 @@ async function updateUserPassword(userId, newPassword) {
   return false;
 }
 
+=======
+>>>>>>> origin/main
 module.exports = {
   initDB,
   findUserByEmail,
@@ -127,5 +130,8 @@ module.exports = {
   getAllCourses,
   getCoursesByTeacher,
   getCoursesByStudent,
+<<<<<<< HEAD
   updateUserPassword,
+=======
+>>>>>>> origin/main
 };
