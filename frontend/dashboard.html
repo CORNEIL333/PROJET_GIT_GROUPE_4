@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — GitUniversitaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#fef9f0;color:#1e2a3e;padding:2rem;}
+    .navbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+    .logo{font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#c4450c,#f09b42);background-clip:text;-webkit-background-clip:text;color:transparent;}
+    .back{color:#e67e22;text-decoration:none;font-weight:600;font-size:0.9rem;}
+    h1{font-size:1.8rem;font-weight:800;margin-bottom:1.5rem;}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem;}
+    .stat-card{background:white;border-radius:1.5rem;padding:1.2rem;text-align:center;border:1px solid rgba(235,200,150,0.6);}
+    .stat-n{font-size:2rem;font-weight:800;color:#e67e22;}
+    .stat-l{font-size:0.75rem;color:#4a5b4e;margin-top:4px;}
+    .section-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+    .student-list{display:flex;flex-direction:column;gap:0.8rem;max-width:700px;}
+    .student-item{background:white;border-radius:1.2rem;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;border:1px solid rgba(235,200,150,0.6);transition:all 0.2s;}
+    .student-item:hover{border-color:#f7bc6b;transform:translateX(4px);}
+    .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#e67e22,#f09b42);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;}
+    .student-name{font-weight:700;font-size:0.92rem;}
+    .student-meta{font-size:0.78rem;color:#4a5b4e;}
+    .badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;}
+    .badge-green{background:#d4edda;color:#27ae60;}
+    .badge-orange{background:#fff1e6;color:#e67e22;}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🎓 GitUniversitaire</div>
+    <a href="index.html" class="back">← Accueil</a>
+  </div>
+  <h1>📊 Dashboard Enseignant</h1>
+  <div class="stats">
+    <div class="stat-card"><div class="stat-n">42</div><div class="stat-l">Étudiants inscrits</div></div>
+    <div class="stat-card"><div class="stat-n">38</div><div class="stat-l">TPs soumis</div></div>
+    <div class="stat-card"><div class="stat-n">5</div><div class="stat-l">En attente</div></div>
+    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Cours actifs</div></div>
+  </div>
+  <div class="section-title"><i class="fas fa-users"></i> Dernières soumissions</div>
+  <div class="student-list">
+    <div class="student-item"><div class="avatar">JD</div><div><div class="student-name">Jean Dupont</div><div class="student-meta">TP2 — Bases de données · il y a 1h</div></div><span class="badge badge-green">✅ Soumis</span></div>
+    <div class="student-item"><div class="avatar">AM</div><div><div class="student-name">Awa Mbeki</div><div class="student-meta">TP2 — Bases de données · il y a 3h</div></div><span class="badge badge-green">✅ Soumis</span></div>
+    <div class="student-item"><div class="avatar">PK</div><div><div class="student-name">Paul Kamga</div><div class="student-meta">TP2 — Bases de données · pas encore</div></div><span class="badge badge-orange">⏳ En attente</span></div>
+    <div class="student-item"><div class="avatar">SN</div><div><div class="student-name">Sophie Nkomo</div><div class="student-meta">TP2 — Bases de données · il y a 5h</div></div><span class="badge badge-green">✅ Soumis</span></div>
+  </div>
+</body>
+</html>
